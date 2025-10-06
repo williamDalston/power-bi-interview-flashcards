@@ -1175,18 +1175,24 @@
             }
         }
 
-        // Event listeners
-        document.getElementById('show-answer').addEventListener('click', flipCard);
-        document.getElementById('flip-back').addEventListener('click', flipCard);
-        document.getElementById('btn-mastered').addEventListener('click', markMastered);
-        document.getElementById('btn-review').addEventListener('click', markReviewLater);
-        document.getElementById('prev').addEventListener('click', previousCard);
-        document.getElementById('next').addEventListener('click', nextCard);
-        document.getElementById('filter-all').addEventListener('click', () => changeFilter('all'));
-        document.getElementById('filter-tech').addEventListener('click', () => changeFilter('tech'));
-        document.getElementById('filter-beh').addEventListener('click', () => changeFilter('beh'));
-        document.getElementById('filter-review').addEventListener('click', () => changeFilter('review'));
-        document.getElementById('category-select').addEventListener('change', changeCategory);
+        // Event listeners - wait for DOM to be ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🔗 Setting up event listeners...');
+            
+            document.getElementById('show-answer').addEventListener('click', flipCard);
+            document.getElementById('flip-back').addEventListener('click', flipCard);
+            document.getElementById('btn-mastered').addEventListener('click', markMastered);
+            document.getElementById('btn-review').addEventListener('click', markReviewLater);
+            document.getElementById('prev').addEventListener('click', previousCard);
+            document.getElementById('next').addEventListener('click', nextCard);
+            document.getElementById('filter-all').addEventListener('click', () => changeFilter('all'));
+            document.getElementById('filter-tech').addEventListener('click', () => changeFilter('tech'));
+            document.getElementById('filter-beh').addEventListener('click', () => changeFilter('beh'));
+            document.getElementById('filter-review').addEventListener('click', () => changeFilter('review'));
+            document.getElementById('category-select').addEventListener('change', changeCategory);
+            
+            console.log('✅ Event listeners set up successfully');
+        });
 
         // Keyboard shortcuts
         document.addEventListener('keydown', (e) => {
@@ -1225,8 +1231,11 @@
         });
 
         // Initialize app
-        loadState();
-        loadQuestions(); // Load questions from JSON file
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 Initializing app...');
+            loadState();
+            loadQuestions(); // Load questions from JSON file
+        });
     </script>
 </body>
 </html>
