@@ -1044,16 +1044,29 @@
 
         // Show answer
         function flipCard() {
+            console.log('🎴 Flipping card...');
             const cardInner = document.getElementById('card-flip-inner');
             const showAnswerBtn = document.getElementById('show-answer');
             
+            if (!cardInner) {
+                console.error('❌ Card flip inner element not found!');
+                return;
+            }
+            
+            if (!showAnswerBtn) {
+                console.error('❌ Show answer button not found!');
+                return;
+            }
+            
             if (cardInner.classList.contains('flipped')) {
                 // Flip back to question
+                console.log('🔄 Flipping back to question');
                 cardInner.classList.remove('flipped');
                 showAnswerBtn.textContent = 'Show Answer';
                 showAnswerBtn.style.display = 'inline-block';
             } else {
                 // Flip to answer
+                console.log('🔄 Flipping to answer');
                 cardInner.classList.add('flipped');
                 showAnswerBtn.textContent = 'Show Question';
                 showAnswerBtn.style.display = 'none';
@@ -1142,11 +1155,18 @@
         }
 
         function populateCategoryDropdown() {
+            console.log('🔄 Populating category dropdown...');
             const categorySelect = document.getElementById('category-select');
+            
+            if (!categorySelect) {
+                console.error('❌ Category select element not found!');
+                return;
+            }
             
             // Get unique categories from cards
             const categories = [...new Set(cards.map(card => card.category).filter(Boolean))];
             categories.sort();
+            console.log('📋 Found categories:', categories);
             
             // Clear existing options except "All Categories"
             categorySelect.innerHTML = '<option value="all">All Categories</option>';
@@ -1158,6 +1178,8 @@
                 option.textContent = category;
                 categorySelect.appendChild(option);
             });
+            
+            console.log('✅ Category dropdown populated with', categories.length, 'categories');
         }
 
         // Reset progress
