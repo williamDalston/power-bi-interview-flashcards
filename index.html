@@ -828,8 +828,10 @@
                 // Populate category dropdown
                 populateCategoryDropdown();
                 
+                console.log('🎯 About to display first card...');
                 displayCard(); // Display first card after loading
                 updateStats(); // Update the stats display
+                console.log('✅ Initial display complete');
                 
             } catch (error) {
                 console.error('❌ CRITICAL ERROR loading questions from JSON:', error);
@@ -959,7 +961,9 @@
 
         // Display current card
         function displayCard() {
+            console.log('📄 Displaying card...');
             const filteredIndices = getFilteredIndices();
+            console.log('🔍 Filtered indices:', filteredIndices.length);
             
             if (filteredIndices.length === 0) {
                 document.getElementById('flashcard-content').style.display = 'none';
