@@ -377,7 +377,7 @@
         async function loadQuestions() {
             console.log('🚀 Loading questions from JSON...');
             try {
-                const response = await fetch('questions.json');
+                const response = await fetch('questions.json?' + Date.now());
                 console.log('📡 Response status:', response.status);
                 
                 if (!response.ok) {
