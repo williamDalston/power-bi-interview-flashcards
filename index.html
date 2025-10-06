@@ -931,11 +931,8 @@
         function updateStats() {
             const total = cards.length;
             const masteredCount = mastered.size;
-            const remaining = total - masteredCount;
             
-            document.getElementById('total-questions').textContent = `Total: ${total}`;
-            document.getElementById('mastered-count').textContent = `Mastered: ${masteredCount}`;
-            document.getElementById('remaining-count').textContent = `Remaining: ${remaining}`;
+            document.getElementById('mastered-count').textContent = `✓ ${masteredCount} mastered`;
         }
 
         // Display current card
@@ -959,8 +956,6 @@
             const card = cards[cardIndex];
 
             // Update UI elements
-            document.getElementById('category-badge').textContent = card.type === 'tech' ? 'Technical' : 'Behavioral';
-            document.getElementById('category-badge').className = `category-badge category-${card.type}`;
             document.getElementById('question').textContent = card.q;
             document.getElementById('answer').textContent = card.a;
             document.getElementById('answer').classList.remove('show');
@@ -1056,14 +1051,13 @@
 
         // Event listeners
         document.getElementById('show-answer').addEventListener('click', showAnswer);
-        document.getElementById('btn-mastered').addEventListener('click', markMastered);
-        document.getElementById('btn-review').addEventListener('click', markReviewLater);
+        document.getElementById('mark-mastered').addEventListener('click', markMastered);
+        document.getElementById('mark-review').addEventListener('click', markReviewLater);
         document.getElementById('prev').addEventListener('click', previousCard);
         document.getElementById('next').addEventListener('click', nextCard);
-        document.getElementById('filter-all').addEventListener('click', () => changeFilter('all'));
-        document.getElementById('filter-tech').addEventListener('click', () => changeFilter('tech'));
-        document.getElementById('filter-beh').addEventListener('click', () => changeFilter('beh'));
-        document.getElementById('reset-progress').addEventListener('click', resetProgress);
+        document.getElementById('filter-all').addEventListener('click', () => setFilter('all'));
+        document.getElementById('filter-tech').addEventListener('click', () => setFilter('tech'));
+        document.getElementById('filter-beh').addEventListener('click', () => setFilter('beh'));
 
         // Keyboard shortcuts
         document.addEventListener('keydown', (e) => {
