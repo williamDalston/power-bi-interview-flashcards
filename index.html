@@ -377,14 +377,20 @@
         async function loadQuestions() {
             try {
                 const response = await fetch('questions.json');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
                 const data = await response.json();
                 cards = data.questions;
-                console.log(`Loaded ${cards.length} questions from questions.json`);
+                console.log(`✅ Loaded ${cards.length} questions from questions.json`);
                 displayCard(); // Display first card after loading
             } catch (error) {
-                console.error('Error loading questions from JSON, using embedded questions:', error);
+                console.error('❌ Error loading questions from JSON, using embedded questions:', error);
                 // Use embedded questions as fallback
                 cards = embeddedQuestions;
+                console.log(`🔄 Using embedded fallback with ${cards.length} questions`);
                 displayCard();
             }
         }
