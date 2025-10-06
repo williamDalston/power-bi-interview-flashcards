@@ -1,0 +1,494 @@
+{
+  "questions": [
+    {
+      "q": "Tell me about yourself / walk me through your background",
+      "type": "beh",
+      "a": "I'm a Power BI developer with 6+ years of experience in business intelligence and data analytics. I started my career with a bachelor's degree in economics, which gave me a strong foundation in data analysis and business understanding.\n\nOver the years, I've specialized in the Microsoft Power Platform ecosystem, particularly Power BI, Power Query, and DAX. I've led several major projects including:\n• Converting legacy Tableau dashboards to Power BI, improving performance by 30%\n• Building enterprise-scale data models serving 500+ users\n• Implementing automated ETL processes using Power Query and SQL\n• Creating self-service analytics solutions that reduced manual reporting by 60%\n\nI'm particularly drawn to this role because it combines my technical skills in Power BI with the opportunity to work on meaningful government transformation projects. I enjoy the challenge of turning complex data into actionable insights that drive real business decisions."
+    },
+    {
+      "q": "Why do you want to work at AGR (or for this company)?",
+      "type": "beh",
+      "a": "I'm excited about AGR's mission of digital transformation in the public sector. What particularly draws me to AGR is your approach of being a transformation partner rather than just a technology vendor - you focus on solving real business problems, not just implementing technology for its own sake.\n\nI'm particularly interested in government and federal work because:\n• The structured requirements and compliance considerations push me to build robust, maintainable systems\n• The scale and impact of public sector projects means my work directly benefits citizens and government operations\n• The complexity of legacy systems and data integration challenges align perfectly with my Power BI and data modeling expertise\n\nThis role specifically matches my strengths - converting legacy dashboards, using Power Platform tools, and working full-stack. I believe I can contribute immediately while growing into more leadership responsibilities within these high-stakes, high-impact engagements."
+    },
+    {
+      "q": "Describe a challenging Power BI / BI project you did. What was the problem, how you solved it, results?",
+      "type": "beh",
+      "a": "SITUATION: At my previous organization, different business units were using independent dashboards built in Excel and Tableau, resulting in inconsistent metrics, outdated data, and high manual effort in reconciling numbers. This created confusion during executive meetings when different departments presented conflicting data.\n\nTASK: I was given ownership to consolidate and migrate all departmental dashboards into a unified Power BI platform while ensuring data accuracy, performance, and stakeholder buy-in.\n\nACTION:\n• Conducted discovery sessions with each unit to understand KPIs, definitions, and data sources\n• Designed a canonical data model using star schema in SQL to unify the backend structure\n• Built ETL pipelines using Power Query with error handling and staging layers\n• Implemented parameter-driven filtering and optimized DAX measures using variables to reduce scan costs\n• Set up incremental refresh with monthly partitions to reduce load times\n• Rolled out dashboards gradually with feedback cycles and user training\n\nRESULT:\n• All units migrated to Power BI within 3 months\n• Refresh failures dropped by 60% and report load times improved by 30%\n• Stakeholders appreciated the consistency and self-service capabilities\n• Reduced manual reporting time by 40% across all departments"
+    },
+    {
+      "q": "What is Power BI? Describe its main components.",
+      "type": "tech",
+      "a": "Power BI is Microsoft's comprehensive business analytics service for visualizing data and sharing insights across organizations. The main components include:\n\n• POWER BI DESKTOP: The authoring tool where you build reports locally. Features include:\n  - Connect to various data sources (SQL Server, Excel, APIs, etc.)\n  - Transform data using Power Query (M language)\n  - Build data models and create relationships\n  - Write DAX measures and calculated columns\n  - Design interactive visuals and reports\n\n• POWER BI SERVICE (PowerBI.com): The cloud platform for:\n  - Publishing and sharing reports and dashboards\n  - Scheduling data refreshes\n  - Managing workspaces and app distribution\n  - Setting up row-level security (RLS)\n  - Collaboration and commenting\n\n• POWER BI GATEWAY: Enables secure connection between on-premises data sources and Power BI Service, handling live and scheduled refreshes.\n\n• POWER BI DATAFLOWS: Reusable ETL pipelines in the service that standardize data preparation and enable data reuse across multiple reports.\n\n• DATASETS, REPORTS, DASHBOARDS: The core artifacts where datasets provide the data model, reports contain multi-page visuals, and dashboards pin key visuals for executive views."
+    },
+    {
+      "q": "What's the difference between a measure and a calculated column?",
+      "type": "tech",
+      "a": "CALCULATED COLUMNS:\n• Computed row by row when the model is processed/refreshed\n• Values are stored physically in the model (increases model size)\n• Use row context - can reference other columns in the same row\n• Best for: concatenation, flags, lookups, row-level calculations\n• Example: FullName = [FirstName] & \" \" & [LastName]\n\nMEASURES:\n• Evaluated at query time when placed in visuals\n• Not stored - calculated dynamically based on filter context\n• Use filter context - respond to slicers, filters, and visual context\n• Best for: aggregations, KPIs, dynamic calculations\n• Example: Total Sales = SUM(Sales[Amount])\n\nKEY DIFFERENCES:\n• Performance: Measures are more efficient for aggregations\n• Storage: Calculated columns increase model size\n• Context: Columns use row context, measures use filter context\n• Flexibility: Measures adapt to different filter contexts automatically\n\nBEST PRACTICE: Use measures whenever possible, calculated columns only when you need row-level values that don't depend on filters."
+    },
+    {
+      "q": "How do you manage relationships in data models? Cardinality, direction, filtering?",
+      "type": "tech",
+      "a": "One-to-many, many-to-many, inactive relationships, bidirectional, filter propagation"
+    },
+    {
+      "q": "What is the CALCULATE function? Give an example.",
+      "type": "tech",
+      "a": "Change filter context; e.g. `CALCULATE(SUM(Sales[Amount]), Sales[Region] = \"East\")`"
+    },
+    {
+      "q": "Describe a time you had to work with stakeholders, get feedback, and iterate.",
+      "type": "beh",
+      "a": "Emphasize listening, communication, demo cycles, balancing scope & feedback"
+    },
+    {
+      "q": "How do you prioritize multiple tasks or requests?",
+      "type": "beh",
+      "a": "Methods (e.g. MoSCoW, urgency/impact, stakeholder alignment)"
+    },
+    {
+      "q": "What is a slowly changing dimension (SCD)? How to manage it in BI / ETL?",
+      "type": "tech",
+      "a": "SCD types 1,2,3; versioning, history preserving, archiving"
+    },
+    {
+      "q": "How would you design a sales dashboard for leadership? What metrics, visuals, layout?",
+      "type": "tech",
+      "a": "KPIs (revenue, growth, margin), trends, filters, geospatial, drilldowns"
+    },
+    {
+      "q": "Describe a time you found a data issue / bug after deployment. What did you do?",
+      "type": "beh",
+      "a": "Root cause analysis, rollback if needed, communicate, fix & validate, post-mortem"
+    },
+    {
+      "q": "How do you stay current in Power BI / data / analytics technologies?",
+      "type": "beh",
+      "a": "Blogs, MS docs, community, new features, webinars, side projects"
+    },
+    {
+      "q": "What challenges do you anticipate in this role, given the description?",
+      "type": "beh",
+      "a": "Complexity, stakeholder alignment, performance, legacy systems, scope creep"
+    },
+    {
+      "q": "What is incremental refresh? How do you implement it?",
+      "type": "tech",
+      "a": "Refresh only new/changed data, reduce refresh time, implement range parameters, configure refresh policy"
+    },
+    {
+      "q": "Explain star schema vs snowflake schema. When would you use each?",
+      "type": "tech",
+      "a": "Star: single fact table, denormalized dimensions; Snowflake: normalized dimensions, more complex queries, better storage efficiency"
+    },
+    {
+      "q": "What is Query Folding? Why is it important?",
+      "type": "tech",
+      "a": "Push operations to data source, improve performance, reduce data transfer, works with SQL sources"
+    },
+    {
+      "q": "How do you handle data quality issues in Power BI?",
+      "type": "tech",
+      "a": "Data profiling, validation rules, error handling in Power Query, data lineage, monitoring, stakeholder communication"
+    },
+    {
+      "q": "Describe your experience with Power BI Premium features.",
+      "type": "tech",
+      "a": "Paginated reports, AI features, advanced dataflows, large datasets, enhanced refresh, deployment pipelines"
+    },
+    {
+      "q": "How do you ensure data security and compliance in Power BI?",
+      "type": "tech",
+      "a": "RLS, sensitivity labels, encryption, audit logs, data classification, compliance frameworks"
+    },
+    {
+      "q": "What is your approach to testing Power BI reports before deployment?",
+      "type": "tech",
+      "a": "Data validation, performance testing, user acceptance testing, cross-browser testing, mobile compatibility"
+    },
+    {
+      "q": "How do you handle large datasets in Power BI?",
+      "type": "tech",
+      "a": "Aggregations, composite models, DirectQuery, incremental refresh, data compression, partitioning"
+    },
+    {
+      "q": "Describe a time you had to learn a new technology quickly for a project.",
+      "type": "beh",
+      "a": "Learning strategy, time management, resource utilization, practical application, results achieved"
+    },
+    {
+      "q": "How do you handle conflicting requirements from different stakeholders?",
+      "type": "beh",
+      "a": "Communication, prioritization, compromise, escalation, documentation, stakeholder management"
+    },
+    {
+      "q": "What are the components of a Power BI architecture?",
+      "type": "tech",
+      "a": "Power BI Desktop, Power BI Service, Power BI Gateway, Dataflows; Datasets, Reports, Dashboards; On-premises data sources + gateways, refresh pipelines; Shared datasets, deployment pipelines"
+    },
+    {
+      "q": "What is Query Folding? When does it matter?",
+      "type": "tech",
+      "a": "A transformation being pushed back to the data source (SQL) rather than done locally; Improves performance / reduces data transfer; Happens when transformations are 'foldable' (filter, merge, grouping); Once you do a non-foldable operation, further steps might break folding"
+    },
+    {
+      "q": "Explain incremental refresh in Power BI.",
+      "type": "tech",
+      "a": "Partition data by time (e.g. months, days); Refresh only the recent partitions instead of full dataset; Requires parameters (RangeStart, RangeEnd); Benefits: faster refresh, lower resource usage; Considerations: schema changes, late arriving data"
+    },
+    {
+      "q": "What is a star schema vs snowflake schema? Which do you prefer in Power BI and why?",
+      "type": "tech",
+      "a": "Star: fact table + dimension tables (flat); Snowflake: dimensions normalized into multiple related tables; Star is usually preferred for simplicity, performance, readability; But snowflake may reduce redundancy in complex domains"
+    },
+    {
+      "q": "How do you handle many-to-many relationships in Power BI?",
+      "type": "tech",
+      "a": "Use bridge / junction table; Use the composite model / bidirectional filtering carefully; Use the TREATAS DAX function; Avoid overuse of bidirectional relationships (performance & ambiguity)"
+    },
+    {
+      "q": "What is 'context' in DAX (row context, filter context)?",
+      "type": "tech",
+      "a": "Row context: iterating row by row (like in calculated columns); Filter context: filters applied from visuals / slicers / CALCULATE; Transition from row → filter context using functions like CALCULATE; Be mindful when combining contexts (e.g. nested functions)"
+    },
+    {
+      "q": "Give an example of a complex measure you wrote and how you handled performance.",
+      "type": "tech",
+      "a": "Use VAR variables to avoid repeated calculation; Break logic into smaller parts; Avoid nested iterators where possible; Use summary tables / pre-aggregation when possible; Avoid full scans by using filters or summarization"
+    },
+    {
+      "q": "How would you implement audit tracking or data lineage in a BI environment?",
+      "type": "tech",
+      "a": "Maintain 'Last Updated / Created By / Timestamp' columns; Use ETL logs / tables to record data flows / transformations; Use metadata tables that capture source → destination mapping; Document lineage, use tools or annotations"
+    },
+    {
+      "q": "What is the difference between Azure Analysis Services / Tabular model and Power BI datasets?",
+      "type": "tech",
+      "a": "Similar underlying engine (VertiPaq); AAS often used for enterprise semantic model, supports more scale; Power BI datasets are more integrated with report layer; Deployment pipelines, security, connectivity differences"
+    },
+    {
+      "q": "What are common transformations in ETL?",
+      "type": "tech",
+      "a": "Filtering, deduplication, joins / merges, aggregation; Data type conversions, lookups, pivot/unpivot; Derived columns, data cleansing, validation; Sorting, window functions"
+    },
+    {
+      "q": "What is a staging area in ETL and why is it needed?",
+      "type": "tech",
+      "a": "Temporary storage / landing zone between source and target; Allows safe transformations, error handling, data validation; Keeps raw data intact, enables rollback or reprocessing"
+    },
+    {
+      "q": "How would you design and apply incremental loads / delta loads?",
+      "type": "tech",
+      "a": "Use timestamp / last modified column or version number; Identify new / changed / deleted records; Merge logic (UPSERT) vs full reload; Handle schema changes, late arriving data, backfills"
+    },
+    {
+      "q": "Explain how you would write efficient ETL SQL queries.",
+      "type": "tech",
+      "a": "Use set-based operations, avoid row-by-row (cursor); Indexes on join/filter columns; Avoid unnecessary columns, filter early; Use window functions, partitioning, proper joins; Use proper transactions and batch sizing"
+    },
+    {
+      "q": "What are SCD (Slowly Changing Dimensions) types and how do you implement them?",
+      "type": "tech",
+      "a": "Type 1: overwrite; Type 2: maintain history with new row (versioning); Type 3: partially preserve history (e.g. 'previous value' field); Implementation: surrogate keys, effective dates, marking current flag"
+    },
+    {
+      "q": "How do you handle errors / exceptions in ETL pipelines?",
+      "type": "tech",
+      "a": "Use error logging tables, dead-letter queues; Retry logic, notifications / alerts; Skip records or quarantine bad rows; Validation rules and checks before loading"
+    },
+    {
+      "q": "What is data reconciliation and how do you verify data between source and target?",
+      "type": "tech",
+      "a": "Row counts, checksums, sums of numeric fields; Spot checks, sample data comparison; Use audit columns or checksum columns; Use automated scripts for reconciliation"
+    },
+    {
+      "q": "What is partitioning in data warehousing and why is it useful?",
+      "type": "tech",
+      "a": "Splitting large tables into smaller manageable segments (by date, region, etc.); Improves query performance, manageability, maintenance; Helps with incremental loads, archiving"
+    },
+    {
+      "q": "Tell me a time when you had to learn a new tool or technology quickly for a project.",
+      "type": "beh",
+      "a": "Describe context, how you approached learning; How you applied it in project, challenges, results; Emphasize adaptability, self-learning"
+    },
+    {
+      "q": "Describe a conflict with a stakeholder / team member and how you resolved it.",
+      "type": "beh",
+      "a": "Use STAR (Situation, Task, Action, Result); Show listening, compromise, communication; Emphasize outcome and lessons learned"
+    },
+    {
+      "q": "How do you manage tight deadlines / multiple stakeholders?",
+      "type": "beh",
+      "a": "Prioritize based on impact, risk, dependencies; Communicate tradeoffs and negotiate scope; Use time-blocking, buffer time, clear deliverables"
+    },
+    {
+      "q": "What is your biggest weakness and how are you improving it?",
+      "type": "beh",
+      "a": "One weakness I've identified is that I sometimes over-optimize early in projects. I tend to spend extra time thinking through edge cases and performance concerns before I have a working solution, which can slow down initial delivery.\n\nWHY THIS HAPPENS:\n• I want to build robust, scalable solutions from the start\n• I enjoy the technical challenge of optimization\n• I want to avoid rework later\n\nHOW I'M IMPROVING:\n• Adopted the \"design first, optimize later\" approach\n• Set time limits for initial solution design\n• Focus on getting a working prototype first, then iterate\n• Use code reviews and peer feedback to validate design decisions\n• Implement performance monitoring to identify real bottlenecks\n\nTANGIBLE STEPS:\n• Completed a course on agile development practices\n• Started using time-boxing techniques for design phases\n• Implemented regular check-ins with stakeholders during development\n• Created a \"technical debt\" backlog for optimization tasks\n\nRESULT: I've become more comfortable shipping incremental improvements rather than chasing perfect solutions upfront, while still maintaining high quality standards. This has improved my delivery speed without sacrificing the robustness of my solutions."
+    },
+    {
+      "q": "Where do you see yourself in 3–5 years?",
+      "type": "beh",
+      "a": "Show ambition but alignment with their domain (e.g. leadership, architect role, specialized data roles); Emphasize continual learning, growth, contributing"
+    },
+    {
+      "q": "Explain a time when your solution failed or had to be reworked. What did you do?",
+      "type": "beh",
+      "a": "Be honest, show accountability; Describe what you changed, how you communicated, recovery; Lessons learned and how future you prevents it"
+    },
+    {
+      "q": "How do you ensure the solutions you build are maintainable, scalable, and well documented?",
+      "type": "beh",
+      "a": "Use modular design, naming conventions, standards; Document code, data models, transformations; Use version control, code reviews, unit testing; Engage with handover & knowledge transfer sessions"
+    },
+    {
+      "q": "What motivates you in your work / why analytics / BI?",
+      "type": "beh",
+      "a": "What motivates me most is the transformational power of data — how insight can change how people make decisions. I love turning chaos (scattered data, multiple sources, inconsistencies) into clarity (clean models, interactive dashboards). That mix of technical problem solving + business impact really drives me.\n\nI also love continuous learning — new features in Power BI, DAX, Power Platform keep evolving, and I enjoy staying on the cutting edge and applying new techniques.\n\nFinally, I enjoy working closely with stakeholders, hearing their challenges, and building tools that genuinely help them. Knowing that my analytics work can save hours, reduce errors, or guide strategy is deeply satisfying."
+    },
+    {
+      "q": "What are the key principles of effective data visualization?",
+      "type": "tech",
+      "a": "Effective data visualization follows several key principles:\n\nCLARITY & SIMPLICITY:\n• Choose the right chart type for your data story\n• Remove unnecessary elements (chartjunk)\n• Use consistent colors and fonts\n• Ensure readability at different sizes\n\nDATA INTEGRITY:\n• Start with clean, accurate data\n• Use appropriate scales (avoid misleading axes)\n• Include data labels and context\n• Show uncertainty when appropriate\n\nAUDIENCE FOCUS:\n• Design for your specific audience\n• Use familiar terminology and concepts\n• Provide appropriate level of detail\n• Consider cultural and accessibility needs\n\nINTERACTION & ENGAGEMENT:\n• Enable drill-down and filtering\n• Use tooltips for additional context\n• Implement responsive design\n• Provide clear navigation\n\nCOLOR & DESIGN:\n• Use color purposefully (not just for decoration)\n• Ensure color accessibility (colorblind-friendly)\n• Maintain brand consistency\n• Use white space effectively\n\nSTORYTELLING:\n• Lead viewers through a logical flow\n• Highlight key insights and trends\n• Use annotations to guide attention\n• Provide clear titles and descriptions"
+    },
+    {
+      "q": "How do you choose the right chart type for different data scenarios?",
+      "type": "tech",
+      "a": "Chart selection depends on the data type, relationship, and story you want to tell:\n\nCOMPARISON CHARTS:\n• Bar Charts: Compare categories (sales by region)\n• Column Charts: Time series comparisons (monthly sales)\n• Line Charts: Trends over time (revenue growth)\n• Area Charts: Part-to-whole over time (market share)\n\nRELATIONSHIP CHARTS:\n• Scatter Plots: Correlation between two variables\n• Bubble Charts: Three variables (x, y, size)\n• Heat Maps: Two categorical variables with intensity\n\nDISTRIBUTION CHARTS:\n• Histograms: Distribution of single variable\n• Box Plots: Statistical distribution with outliers\n• Violin Plots: Distribution shape and density\n\nCOMPOSITION CHARTS:\n• Pie Charts: Parts of whole (use sparingly, <5 categories)\n• Donut Charts: Parts of whole with center space\n• Stacked Bar/Column: Parts of whole across categories\n• Treemaps: Hierarchical data with size encoding\n\nFLOW CHARTS:\n• Sankey Diagrams: Flow between categories\n• Funnel Charts: Process stages with drop-off\n• Waterfall Charts: Cumulative effect of changes\n\nGEOGRAPHIC CHARTS:\n• Map Charts: Geographic data visualization\n• Choropleth Maps: Color-coded regions\n• Symbol Maps: Sized symbols on geographic locations\n\nDECISION FRAMEWORK:\n1. What's the data type? (categorical, numerical, time series)\n2. What's the relationship? (comparison, distribution, composition)\n3. What's the story? (trend, pattern, outlier, ranking)\n4. Who's the audience? (executive, analyst, public)"
+    },
+    {
+      "q": "What is Power Apps and how does it integrate with Power BI?",
+      "type": "tech",
+      "a": "Power Apps is Microsoft's low-code platform for building custom business applications that can integrate seamlessly with Power BI and other Microsoft services.\n\nPOWER APPS CAPABILITIES:\n• Canvas Apps: Drag-and-drop interface for custom apps\n• Model-driven Apps: Data-centric apps with forms and views\n• Mobile Apps: Native mobile experience\n• Custom Connectors: Connect to external data sources\n• AI Builder: Add AI capabilities without coding\n\nINTEGRATION WITH POWER BI:\n\n1. EMBEDDED ANALYTICS:\n• Embed Power BI reports directly in Power Apps\n• Pass context and filters from app to report\n• Create interactive dashboards within apps\n• Use Power BI tiles as app components\n\n2. DATA SHARING:\n• Power Apps can read from Power BI datasets\n• Share data models between platforms\n• Use Common Data Service (CDS) as shared data layer\n• Real-time data synchronization\n\n3. WORKFLOW INTEGRATION:\n• Trigger Power Automate flows from Power Apps\n• Send data to Power BI for analysis\n• Create approval workflows with embedded reports\n• Generate reports from app data\n\n4. USER EXPERIENCE:\n• Single sign-on across platforms\n• Consistent Microsoft 365 experience\n• Mobile-optimized interfaces\n• Role-based access control\n\nCOMMON USE CASES:\n• Executive dashboards with data entry capabilities\n• Field data collection with real-time analytics\n• Approval workflows with embedded reports\n• Customer portals with personalized analytics\n• Operational apps with performance monitoring\n\nBEST PRACTICES:\n• Design for mobile-first experience\n• Use consistent data models across platforms\n• Implement proper security and governance\n• Test performance with realistic data volumes\n• Plan for user training and adoption"
+    },
+    {
+      "q": "Describe a complex Power Platform project you've worked on.",
+      "type": "beh",
+      "a": "SITUATION: A manufacturing company needed to digitize their quality control process and provide real-time analytics to management. They were using paper forms and Excel spreadsheets, leading to delays in identifying quality issues and poor visibility into production metrics.\n\nTASK: Design and implement a complete Power Platform solution that would digitize data collection, automate workflows, and provide real-time dashboards for quality management.\n\nACTION:\n• POWER APPS: Built a mobile app for quality inspectors to input data directly on the production floor\n  - Custom forms for different inspection types\n  - Photo capture for defects and issues\n  - Offline capability for areas with poor connectivity\n  - Barcode scanning for product identification\n\n• POWER AUTOMATE: Created automated workflows\n  - Email alerts when quality thresholds are exceeded\n  - Approval workflows for non-conforming products\n  - Integration with existing ERP system\n  - Automated report generation and distribution\n\n• POWER BI: Developed comprehensive dashboards\n  - Real-time quality metrics and trends\n  - Drill-down capabilities to specific products/lines\n  - Predictive analytics for quality forecasting\n  - Mobile-optimized views for managers\n\n• DATA INTEGRATION:\n  - Connected to existing SQL Server databases\n  - Used Power Query for data transformation\n  - Implemented incremental refresh for performance\n  - Set up data validation and error handling\n\nRESULT:\n• Reduced quality data collection time by 75%\n• Improved quality issue detection from days to hours\n• Increased management visibility into production quality\n• Reduced paper usage by 90%\n• Achieved 95% user adoption within 3 months\n\nKEY LEARNINGS: The integration between Power Apps, Power Automate, and Power BI created a powerful end-to-end solution that transformed their quality management process."
+    },
+    {
+      "q": "How do you design a dashboard for different user personas?",
+      "type": "tech",
+      "a": "Dashboard design must be tailored to specific user personas and their unique needs:\n\nEXECUTIVE DASHBOARDS:\n• High-level KPIs and trends\n• Visual hierarchy with clear callouts\n• Exception-based reporting (what needs attention)\n• Mobile-optimized for on-the-go access\n• Drill-down capabilities for deeper analysis\n• Color coding for quick status assessment\n\nOPERATIONAL MANAGERS:\n• Detailed metrics and performance indicators\n• Real-time or near real-time data\n• Actionable insights and recommendations\n• Comparative analysis (vs. targets, previous periods)\n• Filtering and slicing capabilities\n• Export functionality for further analysis\n\nANALYSTS:\n• Detailed data tables and raw metrics\n• Advanced filtering and search capabilities\n• Data export and integration options\n• Custom calculations and derived metrics\n• Historical trend analysis\n• Statistical summaries and distributions\n\nFIELD WORKERS:\n• Simple, clear metrics\n• Mobile-first design\n• Offline capability when possible\n• Quick action buttons\n• Visual indicators and alerts\n• Minimal text, maximum visual impact\n\nDESIGN PROCESS:\n1. USER RESEARCH: Interview stakeholders to understand needs\n2. PERSONA MAPPING: Create detailed user personas\n3. REQUIREMENTS GATHERING: Define specific metrics and interactions\n4. WIREFRAMING: Create low-fidelity mockups\n5. PROTOTYPING: Build interactive prototypes\n6. TESTING: Validate with actual users\n7. ITERATION: Refine based on feedback\n\nCOMMON MISTAKES TO AVOID:\n• One-size-fits-all approach\n• Too much information on single page\n• Ignoring mobile experience\n• Poor color choices and accessibility\n• Lack of context and explanations\n• No clear call-to-action"
+    },
+    {
+      "q": "What are the different types of Power BI visuals and when to use each?",
+      "type": "tech",
+      "a": "Power BI offers various visual types, each suited for specific data scenarios:\n\nSTANDARD VISUALS:\n\nBAR & COLUMN CHARTS:\n• Bar: Compare categories (horizontal bars)\n• Column: Time series or category comparison\n• Stacked: Show parts of whole across categories\n• 100% Stacked: Show proportions across categories\n\nLINE & AREA CHARTS:\n• Line: Trends over time, continuous data\n• Area: Cumulative values over time\n• Stacked Area: Multiple series with cumulative effect\n\nPIE & DONUT CHARTS:\n• Pie: Parts of whole (use sparingly, <5 categories)\n• Donut: Same as pie but with center space for totals\n• Funnel: Process stages with drop-off rates\n\nSCATTER & BUBBLE CHARTS:\n• Scatter: Correlation between two variables\n• Bubble: Three variables (x, y, size)\n• Play Axis: Animation over time dimension\n\nTABLES & MATRICES:\n• Table: Detailed data with rows and columns\n• Matrix: Pivot table with drill-down capability\n• Multi-row Card: Multiple metrics in card format\n\nGAUGES & KPIs:\n• Gauge: Single metric with target/threshold\n• KPI: Key performance indicator with trend\n• Card: Single large number\n• Gauge: Speedometer-style visualization\n\nMAPS:\n• Map: Geographic data visualization\n• Filled Map: Color-coded regions\n• Shape Map: Custom geographic shapes\n• ArcGIS Maps: Advanced mapping with Esri integration\n\nSPECIALIZED VISUALS:\n• Waterfall: Cumulative effect of changes\n• Histogram: Distribution of single variable\n• Box Plot: Statistical distribution with outliers\n• Treemap: Hierarchical data with size encoding\n• Sankey: Flow between categories\n\nCUSTOM VISUALS:\n• Marketplace visuals for specific needs\n• R/Python visuals for advanced analytics\n• Custom visuals for unique requirements\n\nSELECTION CRITERIA:\n1. Data type and relationship\n2. Audience and use case\n3. Mobile vs desktop viewing\n4. Interactivity requirements\n5. Performance considerations"
+    },
+    {
+      "q": "How do you implement data governance in Power BI?",
+      "type": "tech",
+      "a": "Data governance in Power BI ensures data quality, security, and compliance across the organization:\n\nORGANIZATIONAL STRUCTURE:\n• Data Stewards: Subject matter experts for each domain\n• Data Owners: Business leaders responsible for data\n• Data Custodians: IT teams managing technical aspects\n• Data Users: End users consuming reports and dashboards\n\nTECHNICAL IMPLEMENTATION:\n\n1. WORKSPACE MANAGEMENT:\n• Create dedicated workspaces for different business units\n• Implement workspace roles (Admin, Member, Contributor, Viewer)\n• Use naming conventions for workspaces and content\n• Regular workspace audits and cleanup\n\n2. ROW-LEVEL SECURITY (RLS):\n• Define security roles based on business requirements\n• Implement dynamic security using DAX filters\n• Test security with different user accounts\n• Document security rules and exceptions\n\n3. DATA LINEAGE & DOCUMENTATION:\n• Document data sources and transformations\n• Use Power Query comments and descriptions\n• Create data dictionaries for business users\n• Implement change management processes\n\n4. QUALITY CONTROLS:\n• Data validation rules in Power Query\n• Automated refresh monitoring and alerting\n• Data quality metrics and dashboards\n• Regular data profiling and analysis\n\n5. ACCESS MANAGEMENT:\n• Use Azure AD groups for user management\n• Implement least privilege access principles\n• Regular access reviews and certifications\n• Monitor and audit user activities\n\n6. COMPLIANCE & PRIVACY:\n• Implement data classification (Public, Internal, Confidential)\n• Ensure GDPR and privacy compliance\n• Data retention and archival policies\n• Audit logging and reporting\n\nBEST PRACTICES:\n• Establish clear governance policies and procedures\n• Regular training for data stewards and users\n• Automated monitoring and alerting\n• Regular governance reviews and updates\n• Integration with enterprise data governance tools"
+    },
+    {
+      "q": "Describe a time you had to troubleshoot a complex Power BI performance issue.",
+      "type": "beh",
+      "a": "SITUATION: A critical executive dashboard was taking 45+ seconds to load, causing frustration and reduced usage. The dashboard contained sales data for the past 3 years with complex DAX calculations and multiple visuals.\n\nTASK: Identify and resolve the performance bottlenecks while maintaining all existing functionality and ensuring the solution would scale with growing data volumes.\n\nACTION:\n\n1. PERFORMANCE ANALYSIS:\n• Used Performance Analyzer to identify slow visuals\n• Analyzed DAX query plans using DAX Studio\n• Checked data model size and compression\n• Identified that a complex measure was being calculated 12 times per visual\n\n2. ROOT CAUSE IDENTIFICATION:\n• Found inefficient DAX measure with nested iterators\n• Discovered missing relationships causing cross-filtering issues\n• Identified unnecessary calculated columns\n• Found that query folding was broken in Power Query\n\n3. OPTIMIZATION IMPLEMENTATION:\n• Rewrote DAX measures using VAR to avoid repeated calculations\n• Added proper relationships and removed inactive ones\n• Converted calculated columns to measures where possible\n• Fixed Power Query steps to enable query folding\n• Implemented aggregations for large fact tables\n\n4. TESTING & VALIDATION:\n• Tested with sample data to verify improvements\n• Load tested with full dataset\n• Validated all calculations remained accurate\n• Documented changes and performance metrics\n\nRESULT:\n• Reduced dashboard load time from 45 seconds to 8 seconds\n• Improved user satisfaction and adoption\n• Established performance monitoring processes\n• Created reusable optimization patterns for other reports\n\nKEY LEARNINGS: Performance issues often have multiple causes, and systematic analysis using the right tools is essential for effective troubleshooting."
+    },
+    {
+      "q": "What are the best practices for Power BI report design and user experience?",
+      "type": "tech",
+      "a": "Effective Power BI report design focuses on user experience, clarity, and actionable insights:\n\nVISUAL DESIGN PRINCIPLES:\n\n1. LAYOUT & HIERARCHY:\n• Use the Z-pattern for natural reading flow\n• Place most important information in top-left\n• Group related visuals together\n• Use consistent spacing and alignment\n• Implement responsive design for different screen sizes\n\n2. COLOR & BRANDING:\n• Use a consistent color palette (max 5-6 colors)\n• Ensure color accessibility (colorblind-friendly)\n• Use color purposefully, not just for decoration\n• Implement brand guidelines consistently\n• Use neutral colors for backgrounds and text\n\n3. TYPOGRAPHY:\n• Choose readable fonts (Arial, Calibri, Segoe UI)\n• Use font sizes that work on mobile devices\n• Implement clear hierarchy with heading styles\n• Ensure sufficient contrast for readability\n• Limit font variations (2-3 max)\n\n4. INTERACTIVITY:\n• Enable cross-filtering between visuals\n• Use slicers for dynamic filtering\n• Implement drill-down capabilities\n• Add tooltips with additional context\n• Provide clear navigation and breadcrumbs\n\n5. DATA PRESENTATION:\n• Use appropriate chart types for data relationships\n• Include data labels and legends\n• Show context and comparisons\n• Highlight key insights and trends\n• Provide clear titles and descriptions\n\n6. MOBILE OPTIMIZATION:\n• Design for mobile-first experience\n• Use responsive visuals and layouts\n• Test on actual mobile devices\n• Optimize for touch interactions\n• Consider offline capabilities\n\n7. PERFORMANCE:\n• Limit visuals per page (<10 recommended)\n• Use efficient DAX measures\n• Implement lazy loading for large datasets\n• Optimize data model size\n• Test performance with realistic data volumes\n\n8. ACCESSIBILITY:\n• Use alt text for visuals\n• Ensure keyboard navigation\n• Provide high contrast options\n• Use descriptive titles and labels\n• Test with screen readers\n\nUSER EXPERIENCE BEST PRACTICES:\n• Start with user needs, not data availability\n• Provide clear navigation and orientation\n• Include help text and tooltips\n• Design for different user skill levels\n• Regular user testing and feedback collection"
+    },
+    {
+      "q": "How do you approach solving a problem you've never seen before?",
+      "type": "beh",
+      "a": "Break it into smaller parts and research each piece; Gather requirements, check documentation, search for analogous solutions; Prototype minimal viable solution, test, collect feedback, iterate; Ask domain experts early to validate assumptions; Reduce risk, learn as I go, build confidence gradually"
+    },
+    {
+      "q": "What's your process when requirements are vague or incomplete?",
+      "type": "beh",
+      "a": "Treat ambiguity as signal to ask better questions; Meet with stakeholders, ask clarifying questions (who will use this, what decisions they want to make); Propose assumptions with check boxes, validate; Build small prototype or sketch to surface gaps; Iterate with stakeholders to land on clearer specifications before full implementation"
+    },
+    {
+      "q": "How do you measure your own success on a project?",
+      "type": "beh",
+      "a": "Three axes: business impact (better decisions, cost savings, efficiency), technical quality (performance, maintainability, error rates), user satisfaction/adoption (stakeholders use it, positive feedback); If dashboard is flawless technically but no one uses it, consider it sub-optimal; Reflect (post mortem) to see what I'd do better next time"
+    },
+    {
+      "q": "Describe a time when you had to make a tradeoff between quality and speed. How did you decide?",
+      "type": "beh",
+      "a": "Proposed two-phase approach: deliver functional version with core metrics first, then optimize in version 2; Preserved stakeholder trust while delivering quality later; Always explain tradeoffs clearly and get alignment; Use feedback to guide which parts need tuning"
+    },
+    {
+      "q": "How do you handle feedback or criticism of your work?",
+      "type": "beh",
+      "a": "View feedback as a gift; Listen actively without defensiveness, ask clarifying questions; Thank them, reflect on whether changes needed; If valid, implement improvements; Follow up after changes to ensure satisfaction; Keep personal 'lessons learned' log so recurring feedback becomes improvements"
+    },
+    {
+      "q": "Tell me about a major failure in your career. What happened, and how did you recover?",
+      "type": "beh",
+      "a": "Built dashboard that went live without enough edge-case validation; Users discovered errors in totals under certain filters; Immediately owned up, stopped refreshes, traced and corrected logic, redeployed; Communicated transparently about fix and timeline; Instituted validation checklist and test harness for dashboards; Learned to plan for negative testing and build process around deployment"
+    },
+    {
+      "q": "When do you decide to refactor code / data models, even though 'it's working'?",
+      "type": "beh",
+      "a": "Consider refactoring when pain (maintaining, debugging, slow performance) outweighs risk of change; If recurring issues, duplicated logic, or adding features becomes harder due to complexity; Evaluate cost vs benefit, plan small incremental refactors; Write tests or backup versions, proceed carefully; Rather refactor early when manageable than let technical debt accumulate"
+    },
+    {
+      "q": "How do you stay motivated when working on repetitive or less exciting parts of a project?",
+      "type": "beh",
+      "a": "Remind myself of bigger picture - how these parts contribute to larger solution and business value; Try to automate repetitive tasks where possible (scripts, templates); Break up work into manageable chunks, mix in creative tasks; Reward progress (small breaks, milestones); Continual learning (reading, trying new techniques) helps keep energy up"
+    },
+    {
+      "q": "Describe a time you had to persuade someone about a technical decision.",
+      "type": "beh",
+      "a": "Prepared comparison: prototyped both options, demonstrated performance metrics, showed risks; Proposed leaner alternative that met most of their visual needs; Presented with data and empathy for their needs; They accepted compromise version; Key was combining technical evidence + understanding their needs"
+    },
+    {
+      "q": "How do you balance innovation / trying new tools with stability / reliability?",
+      "type": "beh",
+      "a": "Favor 'safe pilot first' mindset; For new tools/features, prototype in sandbox or lower environment; Validate for performance, compatibility, and risk; If stable, gradually roll into production with rollback plans; Never use bleeding-edge tools for mission-critical core until tested; Ensures we move forward but don't jeopardize reliability"
+    },
+    {
+      "q": "What do you want your coworkers / stakeholders to say about your work style?",
+      "type": "beh",
+      "a": "Dependable, clear in communication, strong problem-solver; Deliver on promises, respond quickly to questions, always document what I do; Proactively raise issues before they become problems; Someone they can trust to solve complex analytics problems without heavy oversight"
+    },
+    {
+      "q": "If we ask you to do something you don't agree with, how do you handle it?",
+      "type": "beh",
+      "a": "Believe in open dialogue; Ask clarifying questions to understand rationale and constraints; May propose alternate solutions and show tradeoffs; If decision still stands, commit fully (unless violates ethics/policy) and deliver best possible work; See dissent and challenge as healthy when done respectfully"
+    },
+    {
+      "q": "How do you ensure you don't burn out, especially in high-pressure or deadline-driven projects?",
+      "type": "beh",
+      "a": "Maintain structure: set clear work hours, take short breaks; Manage priorities so urgent tasks don't dominate constantly; Communicate if deadline is at risk; Have non-work interests to switch off; If sense early fatigue, flag bottlenecks or ask for help; Prefer being proactive about balance rather than reactive"
+    },
+    {
+      "q": "How do you onboard and adapt when joining a new team or environment?",
+      "type": "beh",
+      "a": "Learn existing processes, tools, and code/model standards; Review documentation and past retrospectives; Ask teammates for key lessons or pain points; Start with small contributions or bug fixes to understand codebase; Schedule short 'listening sessions' with stakeholders to understand needs and expectations; Helps integrate rapidly and avoid missteps"
+    },
+    {
+      "q": "What's your approach to mentoring or teaching others?",
+      "type": "beh",
+      "a": "Lead by example and scaffold learning; Walk through thought process, explain logic, let them try variations; Encourage questions and periodic check-ins; Prepare short documentation or 'how-to' guides; Assign progressively more responsibility, review code, provide feedback; Goal is to help them become independent"
+    },
+    {
+      "q": "How do you handle ambiguity in project scope, timeline, or resource constraints?",
+      "type": "beh",
+      "a": "Accept ambiguity as part of consulting/transformation work; Capture what is known, identify uncertainties, document assumptions; Break deliverables into minimal viable chunks with known risk; Communicate risks and assumptions to stakeholders for aligned expectations; As get clarity, adapt plans incrementally; Always maintain transparency and checkpoints with stakeholders"
+    },
+    {
+      "q": "Tell me about a time you overcame a setback or unexpected change in a project.",
+      "type": "beh",
+      "a": "Core data source changed schema mid-development, breaking many queries; Paused, assessed extent of change, communicated with data owners; Updated transformation logic, rebuilt affected visuals; Reprioritized tasks to salvage critical parts; Because had modular ETL, damage was limited; Still delivered on schedule with minimal disruption; Reinforced importance of modular design and flexibility"
+    },
+    {
+      "q": "What habits or routines do you use to keep your skills sharp in this field?",
+      "type": "beh",
+      "a": "Set aside regular time each week for learning: reading Microsoft Power BI blogs, exploring new features; Participate in community forums (Power BI Community, SQL forums); Do side projects (Dashboards, small datasets) to try new patterns; Review release notes of Power BI/Power Platform; Teach or write short tech posts - explaining helps internalize; Follow industry thought leaders and webinars"
+    },
+    {
+      "q": "If you had unlimited resources and no constraints, what BI / analytics project would you build / dream of building?",
+      "type": "beh",
+      "a": "Real-time, cross-organizational analytics platform; Ingest streaming data (IoT, user interaction, external APIs), combine with historic data; Predictive models, anomaly detection, self-service storytelling; Users ask natural-language questions, get visualizations, drill into causal drivers; Auto-optimize queries and dynamically adapt as data grows; Kind of architecture I'd love to work toward"
+    },
+    {
+      "q": "How do you handle a situation where your team or leader disagrees with your technical recommendation?",
+      "type": "beh",
+      "a": "Listen first - want to fully understand their perspective or constraints; Restate their view to confirm I understand; Present recommendation with data, tradeoffs, and alternatives; If they still disagree, accept decision (unless serious technical risk) and implement best possible version of their choice; Document design decision and track outcomes; If issues arise, ready to pivot or learn; Respect and collaboration are key"
+    },
+    {
+      "q": "What is your greatest weakness?",
+      "type": "beh",
+      "a": "One area I've historically been weak in is public speaking/presenting to large audiences; Early in career, got nervous during product demos or presenting analytics to big groups; To improve: joined Toastmasters, gave myself small challenges (lead internal meetings, then team reviews), record myself and solicit feedback; Over time confidence increased, now regularly present dashboard demos to cross-functional teams; Continuing to push into bigger presentation roles"
+    },
+    {
+      "q": "Which part of the job description do you feel least prepared for?",
+      "type": "beh",
+      "a": "One area with less formal experience: deep Power Platform/Power Apps custom development in complex enterprise settings; Used Power Apps and Automate in practical projects, but perhaps not full-scale app development across modules; To bridge: doing self-projects building mini Power Apps tied to BI reports, following Microsoft's advanced training modules; If given role, plan ramp-up period to pair with senior developers; See it as growth area, not blocker"
+    },
+    {
+      "q": "Tell me about something on your resume that looks weak / unexplained.",
+      "type": "beh",
+      "a": "Had relatively short stint at one consulting engagement (4 months); Project scope changed drastically after I started, no longer aligned with what originally signed up for; Client and I agreed better to wind down and move to project more aligned with core skills; Used as learning: now do more rigorous scoping conversation upfront, identify potential pivot risks, include checkpoint reviews; Taught me to protect both my time and project direction"
+    },
+    {
+      "q": "What technical skill do you feel you're weakest at?",
+      "type": "beh",
+      "a": "Advanced predictive modeling/data science (e.g. deploying ML models in production); Not core requirement of this role, but want to grow there; To address: taking online courses (scikit-learn, ML pipelines), applying models on small datasets in side projects, reading ML/data science books; Open to collaborating with data science teams; For this role, confident BI/ETL/analytics skills are strong, will supplement with learning where needed"
+    },
+    {
+      "q": "How do you handle the parts of the work you don't enjoy (maintenance, documentation, support)?",
+      "type": "beh",
+      "a": "Documentation and some maintenance tasks can feel tedious compared to building new features; But see them as integral components of sustainable systems; Integrate documentation into process (document as I build, not afterthought); For maintenance/support: automate where possible (scripts, alerts), batch small tasks, treat as opportunities to find recurring patterns to improve; Good documentation and maintenance actually reduce firefighting later; Stakeholders appreciate clarity and reliability"
+    },
+    {
+      "q": "Tell me about one of your favorite projects. What made it enjoyable?",
+      "type": "beh",
+      "a": "Cross-department reporting overhaul: unifying silos, designing standard data model, consolidating dashboards; What made it fun: challenge of harmonizing different definitions, optimizing performance, seeing real adoption; Also enjoyed mentoring others during rollout; Combination of technical complexity, stakeholder alignment, and teaching others made it rewarding"
+    },
+    {
+      "q": "Describe a time when you had to work under a lot of pressure / with tight deadlines.",
+      "type": "beh",
+      "a": "Had two overlapping dashboard deadlines; Met with stakeholders, negotiated scope, did minimum viable release first, then enhancements; Delivered critical parts first, communicated status frequently, completed rest in second wave; Used prioritization matrix to focus on highest impact items; Kept stakeholders informed throughout process; Delivered both projects successfully with stakeholder satisfaction"
+    },
+    {
+      "q": "Tell me about a time when you had minimal direction / ambiguous requirements.",
+      "type": "beh",
+      "a": "Early phase where stakeholders only gave broad goal: improve analytics; Asked clarifying questions, sketched prototypes, got feedback, iterated; Documented assumptions, built small proofs, gradually refined; Approach prevented rework and ensured alignment; Created structured process for handling ambiguity that I now use regularly"
+    },
+    {
+      "q": "Give me an example of when you had to push back on a stakeholder's request.",
+      "type": "beh",
+      "a": "Business user asked for custom visual that would severely impact performance; Prototyped version, showed load metrics, proposed leaner alternative; Explained tradeoffs and together chose compromise that met their intent without performance degradation; Key was presenting data-driven evidence while understanding their underlying need; They appreciated the transparency and technical expertise"
+    },
+    {
+      "q": "How do you stay motivated / avoid burnout over long projects?",
+      "type": "beh",
+      "a": "Break work into sprints, include variety, schedule breaks, rotate focus; Review progress weekly to see what's finished and what's left; If things stagnate, take short pause or shift momentarily to side task to re-energize; Set small milestones and celebrate progress; Maintain work-life balance with non-work interests; Communicate proactively if feeling overwhelmed"
+    },
+    {
+      "q": "Tell me about a time you had to learn a tool or technique mid-project.",
+      "type": "beh",
+      "a": "Midway through project, needed to integrate Python-based anomaly detection; Hadn't used it at scale before; Read docs, built small prototype, asked peers, integrated it; Result: alerting improved detection accuracy by ~20%; Approach: research, prototype, test, iterate; Showed learning agility and ability to adapt quickly to new requirements"
+    },
+    {
+      "q": "What's one decision you made that you regret? What would you do differently?",
+      "type": "beh",
+      "a": "Once rushed to deploy feature without full testing because of looming deadlines; Led to data mismatch in one dashboard visual; In hindsight, should have built in validation step; From that, developed checklist and test harness for future deployments; Learned importance of quality gates even under pressure; Now always include testing time in estimates"
+    },
+    {
+      "q": "Describe a time you had to get buy-in from multiple stakeholders with conflicting priorities.",
+      "type": "beh",
+      "a": "In redesign, Sales wanted detailed breakdowns while Finance wanted high-level summaries; Held alignment workshops, demonstrated prototype versions, asked their top metrics; Built layered dashboard - summary front with drill-ins; Everyone accepted compromise; Key was understanding each group's core needs and finding solution that addressed both; Maintained relationships throughout process"
+    },
+    {
+      "q": "How do you manage your time when you have many tasks / requests at once?",
+      "type": "beh",
+      "a": "Track tasks in list with estimates, categorize by impact vs urgency, use matrix (impact/urgency); Block time slots, leave buffer for interruptions, revisit priorities daily; If new urgent tasks come, re-evaluate what can be deferred and communicate with stakeholders; Use time-boxing for different types of work; Regular check-ins with stakeholders to manage expectations"
+    },
+    {
+      "q": "What's the most difficult technical problem you've solved?",
+      "type": "beh",
+      "a": "Performance bottleneck in DAX causing 30+ second load times; Diagnosed using Performance Analyzer, isolated problematic measures; Found issue: nested iterators and inefficient filter context; Solution: refactored using VAR variables, broke into smaller calculations, optimized filter logic; Result: reduced load time to under 3 seconds; Process: profile, isolate, test, iterate, validate"
+    },
+    {
+      "q": "Tell me about a time when you disagreed with your manager / lead.",
+      "type": "beh",
+      "a": "Decision to push dashboard change rapidly; Felt more validation was needed; Respectfully presented data risks, suggested safe release approach, offered to deliver partial roll-out for feedback; Manager agreed, phased release avoided errors; Key was presenting concerns constructively with alternative solutions; Maintained professional relationship and built trust through transparency"
+    },
+    {
+      "q": "What do you do when a project changes halfway through?",
+      "type": "beh",
+      "a": "Re-evaluate scope, identify new requirements, assess impact, communicate changes to timeline, re-prioritize; Propose change backlog: what must shift vs what can be deferred; Proceed iteratively, ensuring alignment; Document all changes and rationale; Keep stakeholders informed of impact; Use change as opportunity to improve process for future projects"
+    },
+    {
+      "q": "What is 'success' to you in a role like this?",
+      "type": "beh",
+      "a": "Delivering analytics that stakeholders trust and use; Minimal maintenance overhead, low error/failure rate, good performance; Growing the platform over time; High user adoption and positive feedback; Proactive identification of new opportunities; Building sustainable, scalable solutions; Contributing to business decision-making through data insights"
+    },
+    {
+      "q": "How do you get feedback on your work?",
+      "type": "beh",
+      "a": "Ask peers or stakeholders to review early drafts, collect feedback cycles; After deployment, solicit usage metrics and comments; Keep 'lessons learned' log and adjust process or standards next time; Regular check-ins with key users; Use analytics to track usage patterns; Create feedback loops throughout development process; Proactively seek input before finalizing solutions"
+    },
+    {
+      "q": "Describe a time you had to explain a complex technical concept to non-technical stakeholders.",
+      "type": "beh",
+      "a": "Had to explain DAX measure logic to executives; Created simplified analogy (filters as 'lenses' on data), visual walk-through, showed comparison before/after; Their comprehension improved, they trusted the logic; Provided one-page summary doc; Key was using analogies, visuals, and focusing on business impact rather than technical details; Built confidence in the solution through clear communication"
+    }
+  ]
+}
