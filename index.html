@@ -257,6 +257,28 @@
             font-weight: 500;
         }
 
+        .company-fit {
+            margin: 16px 0;
+            padding: 16px;
+            background: linear-gradient(135deg, #fff3cd 0%, #fef9e7 100%);
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+            font-style: italic;
+        }
+
+        .company-fit-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #856404;
+            margin-bottom: 6px;
+        }
+
+        .company-fit-text {
+            font-size: 0.9rem;
+            color: #6c5700;
+            line-height: 1.5;
+        }
+
         .answer {
             background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);
             padding: 24px;
@@ -526,6 +548,19 @@
                 padding: 2px 6px;
             }
 
+            .company-fit {
+                margin: 12px 0;
+                padding: 12px;
+            }
+
+            .company-fit-label {
+                font-size: 0.85rem;
+            }
+
+            .company-fit-text {
+                font-size: 0.85rem;
+            }
+
             .question {
                 font-size: 1.15rem;
                 padding: 20px;
@@ -600,6 +635,12 @@
                 <div class="keywords-container" id="keywords-container" style="display: none;">
                     <div class="keywords-label">Keywords:</div>
                     <div class="keywords" id="keywords"></div>
+                </div>
+                
+                <!-- Company Fit (subtle hint) -->
+                <div class="company-fit" id="company-fit" style="display: none;">
+                    <div class="company-fit-label">💡 Interview Tip:</div>
+                    <div class="company-fit-text" id="company-fit-text"></div>
                 </div>
                 
                 <!-- Action Buttons -->
@@ -807,6 +848,17 @@
                 keywordsContainer.style.display = 'block';
             } else {
                 keywordsContainer.style.display = 'none';
+            }
+            
+            // Update company fit
+            const companyFitContainer = document.getElementById('company-fit');
+            const companyFitText = document.getElementById('company-fit-text');
+            
+            if (card.company_fit && card.company_fit.trim()) {
+                companyFitText.textContent = card.company_fit;
+                companyFitContainer.style.display = 'block';
+            } else {
+                companyFitContainer.style.display = 'none';
             }
 
             // Update progress
