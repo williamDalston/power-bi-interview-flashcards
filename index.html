@@ -373,56 +373,44 @@
         // Question data loaded from external JSON file
         let cards = [];
         
-        // Load questions from JSON file or use embedded fallback
+        // Load questions from JSON file
         async function loadQuestions() {
+            console.log('🚀 Loading questions from JSON...');
             try {
                 const response = await fetch('questions.json');
+                console.log('📡 Response status:', response.status);
                 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 
                 const data = await response.json();
+                console.log('📦 JSON parsed successfully');
+                
+                if (!data.questions || !Array.isArray(data.questions)) {
+                    throw new Error('Invalid JSON structure: missing questions array');
+                }
+                
                 cards = data.questions;
-                console.log(`✅ Loaded ${cards.length} questions from questions.json`);
+                console.log(`✅ Successfully loaded ${cards.length} questions from questions.json`);
+                console.log('📋 First question:', cards[0]?.q?.substring(0, 50) + '...');
+                
                 displayCard(); // Display first card after loading
+                updateStats(); // Update the stats display
+                
             } catch (error) {
-                console.error('❌ Error loading questions from JSON, using embedded questions:', error);
-                // Use embedded questions as fallback
-                cards = embeddedQuestions;
-                console.log(`🔄 Using embedded fallback with ${cards.length} questions`);
-                displayCard();
+                console.error('❌ CRITICAL ERROR loading questions from JSON:', error);
+                console.error('This should not happen on GitHub Pages. Please check the JSON file.');
+                
+                // Show error to user
+                document.getElementById('flashcard-content').style.display = 'none';
+                document.getElementById('empty-state').style.display = 'block';
+                document.querySelector('#empty-state h3').textContent = '❌ Error Loading Questions';
+                document.querySelector('#empty-state p').textContent = 'Failed to load questions from JSON file. Please refresh the page or check the console for details.';
             }
         }
 
-        // Embedded questions as fallback (loaded from questions.json)
-        const embeddedQuestions = [
-          {
-            q: "Tell me about yourself / walk me through your background",
-            type: "beh",
-            a: "I'm a Power BI developer with 6+ years of experience in business intelligence and data analytics. I started my career with a bachelor's degree in economics, which gave me a strong foundation in data analysis and business understanding.\n\nOver the years, I've specialized in the Microsoft Power Platform ecosystem, particularly Power BI, Power Query, and DAX. I've led several major projects including:\n• Converting legacy Tableau dashboards to Power BI, improving performance by 30%\n• Building enterprise-scale data models serving 500+ users\n• Implementing automated ETL processes using Power Query and SQL\n• Creating self-service analytics solutions that reduced manual reporting by 60%\n\nI'm particularly drawn to this role because it combines my technical skills in Power BI with the opportunity to work on meaningful government transformation projects. I enjoy the challenge of turning complex data into actionable insights that drive real business decisions."
-          },
-          {
-            q: "Why do you want to work at AGR (or for this company)?",
-            type: "beh",
-            a: "I'm excited about AGR's mission of digital transformation in the public sector. What particularly draws me to AGR is your approach of being a transformation partner rather than just a technology vendor - you focus on solving real business problems, not just implementing technology for its own sake.\n\nI'm particularly interested in government and federal work because:\n• The structured requirements and compliance considerations push me to build robust, maintainable systems\n• The scale and impact of public sector projects means my work directly benefits citizens and government operations\n• The complexity of legacy systems and data integration challenges align perfectly with my Power BI and data modeling expertise\n\nThis role specifically matches my strengths - converting legacy dashboards, using Power Platform tools, and working full-stack. I believe I can contribute immediately while growing into more leadership responsibilities within these high-stakes, high-impact engagements."
-          },
-          {
-            q: "Describe a challenging Power BI / BI project you did. What was the problem, how you solved it, results?",
-            type: "beh",
-            a: "SITUATION: At my previous organization, different business units were using independent dashboards built in Excel and Tableau, resulting in inconsistent metrics, outdated data, and high manual effort in reconciling numbers. This created confusion during executive meetings when different departments presented conflicting data.\n\nTASK: I was given ownership to consolidate and migrate all departmental dashboards into a unified Power BI platform while ensuring data accuracy, performance, and stakeholder buy-in.\n\nACTION:\n• Conducted discovery sessions with each unit to understand KPIs, definitions, and data sources\n• Designed a canonical data model using star schema in SQL to unify the backend structure\n• Built ETL pipelines using Power Query with error handling and staging layers\n• Implemented parameter-driven filtering and optimized DAX measures using variables to reduce scan costs\n• Set up incremental refresh with monthly partitions to reduce load times\n• Rolled out dashboards gradually with feedback cycles and user training\n\nRESULT:\n• All units migrated to Power BI within 3 months\n• Refresh failures dropped by 60% and report load times improved by 30%\n• Stakeholders appreciated the consistency and self-service capabilities\n• Reduced manual reporting time by 40% across all departments"
-          },
-          {
-            q: "What is Power BI? Describe its main components.",
-            type: "tech",
-            a: "Power BI is Microsoft's comprehensive business analytics service for visualizing data and sharing insights across organizations. The main components include:\n\n• POWER BI DESKTOP: The authoring tool where you build reports locally. Features include:\n  - Connect to various data sources (SQL Server, Excel, APIs, etc.)\n  - Transform data using Power Query (M language)\n  - Build data models and create relationships\n  - Write DAX measures and calculated columns\n  - Design interactive visuals and reports\n\n• POWER BI SERVICE (PowerBI.com): The cloud platform for:\n  - Publishing and sharing reports and dashboards\n  - Scheduling data refreshes\n  - Managing workspaces and app distribution\n  - Setting up row-level security (RLS)\n  - Collaboration and commenting\n\n• POWER BI GATEWAY: Enables secure connection between on-premises data sources and Power BI Service, handling live and scheduled refreshes.\n\n• POWER BI DATAFLOWS: Reusable ETL pipelines in the service that standardize data preparation and enable data reuse across multiple reports.\n\n• DATASETS, REPORTS, DASHBOARDS: The core artifacts where datasets provide the data model, reports contain multi-page visuals, and dashboards pin key visuals for executive views."
-          },
-          {
-            q: "What's the difference between a measure and a calculated column?",
-            type: "tech",
-            a: "CALCULATED COLUMNS:\n• Computed row by row when the model is processed/refreshed\n• Values are stored physically in the model (increases model size)\n• Use row context - can reference other columns in the same row\n• Best for: concatenation, flags, lookups, row-level calculations\n• Example: FullName = [FirstName] & \" \" & [LastName]\n\nMEASURES:\n• Evaluated at query time when placed in visuals\n• Not stored - calculated dynamically based on filter context\n• Use filter context - respond to slicers, filters, and visual context\n• Best for: aggregations, KPIs, dynamic calculations\n• Example: Total Sales = SUM(Sales[Amount])\n\nKEY DIFFERENCES:\n• Performance: Measures are more efficient for aggregations\n• Storage: Calculated columns increase model size\n• Context: Columns use row context, measures use filter context\n• Flexibility: Measures adapt to different filter contexts automatically\n\nBEST PRACTICE: Use measures whenever possible, calculated columns only when you need row-level values that don't depend on filters."
-          }
-        ];
+        // No embedded questions - we rely entirely on the JSON file
 
         // App state
         let mastered = new Set();
