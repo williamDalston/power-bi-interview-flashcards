@@ -413,6 +413,8 @@
         // No embedded questions - we rely entirely on the JSON file
 
         // App state
+        let currentIndex = 0;
+        let currentFilter = "all";
         let mastered = new Set();
         let reviewLater = new Set();
         let bookmarked = new Set();
@@ -571,13 +573,21 @@
 
         // Navigate to previous card
         function previousCard() {
+            const filteredIndices = getFilteredIndices();
+            if (filteredIndices.length === 0) return;
+            
             currentIndex--;
+            if (currentIndex < 0) currentIndex = filteredIndices.length - 1;
             displayCard();
         }
 
         // Navigate to next card
         function nextCard() {
+            const filteredIndices = getFilteredIndices();
+            if (filteredIndices.length === 0) return;
+            
             currentIndex++;
+            if (currentIndex >= filteredIndices.length) currentIndex = 0;
             displayCard();
         }
 
@@ -591,6 +601,7 @@
             document.getElementById(`filter-${filter}`).classList.add('active');
             
             displayCard();
+            updateStats();
         }
 
         // Reset progress
@@ -610,9 +621,9 @@
         document.getElementById('btn-review').addEventListener('click', markReviewLater);
         document.getElementById('prev').addEventListener('click', previousCard);
         document.getElementById('next').addEventListener('click', nextCard);
-        document.getElementById('filter-all').addEventListener('click', () => setFilter('all'));
-        document.getElementById('filter-tech').addEventListener('click', () => setFilter('tech'));
-        document.getElementById('filter-beh').addEventListener('click', () => setFilter('beh'));
+        document.getElementById('filter-all').addEventListener('click', () => changeFilter('all'));
+        document.getElementById('filter-tech').addEventListener('click', () => changeFilter('tech'));
+        document.getElementById('filter-beh').addEventListener('click', () => changeFilter('beh'));
 
         // Keyboard shortcuts
         document.addEventListener('keydown', (e) => {
