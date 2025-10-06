@@ -345,42 +345,62 @@
             border-radius: 20px;
         }
 
-        /* Category Filter */
-        .category-filter {
-            margin: 16px 0;
-            text-align: center;
+        /* Advanced Filters */
+        .advanced-filters {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border-radius: 12px;
+            border: 1px solid #e9ecef;
         }
 
-        .category-filter label {
-            display: block;
-            margin-bottom: 8px;
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 150px;
+        }
+
+        .filter-group label {
             font-weight: 600;
             color: #495057;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
         }
 
-        .category-filter select {
-            padding: 8px 16px;
+        .filter-group select {
+            padding: 8px 12px;
             border: 2px solid #e9ecef;
             border-radius: 8px;
             background: white;
-            font-size: 1rem;
-            min-width: 200px;
+            font-size: 0.9rem;
+            min-width: 140px;
             transition: border-color 0.3s ease;
         }
 
-        .category-filter select:focus {
+        .filter-group select:focus {
             outline: none;
             border-color: #3498db;
+        }
+
+        .answer-container {
+            flex-grow: 1;
+            overflow-y: auto;
+            margin: 16px 0;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
         }
 
         .answer {
             font-size: 1.05rem;
             line-height: 1.7;
             color: #2c3e50;
-            flex-grow: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             text-align: left;
         }
 
@@ -656,10 +676,21 @@
                 font-size: 0.8rem;
             }
 
-            /* Category Filter Mobile */
-            .category-filter select {
-                min-width: 150px;
-                font-size: 0.9rem;
+            /* Advanced Filters Mobile */
+            .advanced-filters {
+                flex-direction: column;
+                gap: 16px;
+                padding: 16px;
+            }
+
+            .filter-group {
+                min-width: auto;
+                width: 100%;
+            }
+
+            .filter-group select {
+                width: 100%;
+                min-width: auto;
             }
 
             .question {
@@ -709,12 +740,33 @@
                 <button class="filter-btn" id="filter-review">🔄 Review Later</button>
             </div>
             
-            <!-- Category Filter Dropdown -->
-            <div class="category-filter">
-                <label for="category-select">Filter by Category:</label>
-                <select id="category-select">
-                    <option value="all">All Categories</option>
-                </select>
+            <!-- Advanced Filters -->
+            <div class="advanced-filters">
+                <div class="filter-group">
+                    <label for="category-select">Category:</label>
+                    <select id="category-select">
+                        <option value="all">All Categories</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="difficulty-select">Difficulty:</label>
+                    <select id="difficulty-select">
+                        <option value="all">All Levels</option>
+                        <option value="Beginner">Beginner</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Advanced">Advanced</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="type-select">Type:</label>
+                    <select id="type-select">
+                        <option value="all">All Types</option>
+                        <option value="tech">Technical</option>
+                        <option value="beh">Behavioral</option>
+                    </select>
+                </div>
             </div>
 
             <div class="stats">
@@ -743,18 +795,6 @@
                             <!-- Question Content -->
                             <div class="question" id="question"></div>
                             
-                            <!-- Keywords -->
-                            <div class="keywords-container" id="keywords-container" style="display: none;">
-                                <div class="keywords-label">Keywords:</div>
-                                <div class="keywords" id="keywords"></div>
-                            </div>
-                            
-                            <!-- Company Fit (subtle hint) -->
-                            <div class="company-fit" id="company-fit" style="display: none;">
-                                <div class="company-fit-label">💡 Interview Tip:</div>
-                                <div class="company-fit-text" id="company-fit-text"></div>
-                            </div>
-                            
                             <!-- Action Buttons -->
                             <div class="action-buttons">
                                 <button class="btn btn-primary" id="show-answer">Show Answer</button>
@@ -771,8 +811,22 @@
                                 </div>
                             </div>
                             
-                            <!-- Answer Content -->
-                            <div class="answer" id="answer"></div>
+                            <!-- Answer Content with Scrolling -->
+                            <div class="answer-container">
+                                <div class="answer" id="answer"></div>
+                            </div>
+                            
+                            <!-- Keywords -->
+                            <div class="keywords-container" id="keywords-container" style="display: none;">
+                                <div class="keywords-label">Keywords:</div>
+                                <div class="keywords" id="keywords"></div>
+                            </div>
+                            
+                            <!-- Company Fit (subtle hint) -->
+                            <div class="company-fit" id="company-fit" style="display: none;">
+                                <div class="company-fit-label">💡 Interview Tip:</div>
+                                <div class="company-fit-text" id="company-fit-text"></div>
+                            </div>
                             
                             <!-- Status Buttons -->
                             <div class="action-buttons">
@@ -828,10 +882,8 @@
                 // Populate category dropdown
                 populateCategoryDropdown();
                 
-                console.log('🎯 About to display first card...');
                 displayCard(); // Display first card after loading
                 updateStats(); // Update the stats display
-                console.log('✅ Initial display complete');
                 
             } catch (error) {
                 console.error('❌ CRITICAL ERROR loading questions from JSON:', error);
@@ -851,6 +903,8 @@
         let currentIndex = 0;
         let currentFilter = "all";
         let currentCategory = "all";
+        let currentDifficulty = "all";
+        let currentType = "all";
         let mastered = new Set();
         let reviewLater = new Set();
         let bookmarked = new Set();
@@ -917,17 +971,21 @@
                     }
                     
                     // Handle type filter
-                    if (currentFilter === "all") {
-                        // If no category filter, show all
-                        if (currentCategory === "all") return true;
-                        // If category filter, check category
-                        return card.category === currentCategory;
+                    let typeMatch = true;
+                    if (currentFilter !== "all") {
+                        typeMatch = card.type === currentFilter;
+                    }
+                    if (currentType !== "all") {
+                        typeMatch = card.type === currentType;
                     }
                     
-                    // Handle type filter with category
-                    const typeMatch = card.type === currentFilter;
+                    // Handle category filter
                     const categoryMatch = currentCategory === "all" || card.category === currentCategory;
-                    return typeMatch && categoryMatch;
+                    
+                    // Handle difficulty filter
+                    const difficultyMatch = currentDifficulty === "all" || card.difficulty === currentDifficulty;
+                    
+                    return typeMatch && categoryMatch && difficultyMatch;
                 })
                 .filter(({ index }) => !mastered.has(index))
                 .map(({ index }) => index);
@@ -961,9 +1019,7 @@
 
         // Display current card
         function displayCard() {
-            console.log('📄 Displaying card...');
             const filteredIndices = getFilteredIndices();
-            console.log('🔍 Filtered indices:', filteredIndices.length);
             
             if (filteredIndices.length === 0) {
                 document.getElementById('flashcard-content').style.display = 'none';
@@ -1026,29 +1082,16 @@
 
         // Show answer
         function flipCard() {
-            console.log('🎴 Flipping card...');
             const cardInner = document.getElementById('card-flip-inner');
             const showAnswerBtn = document.getElementById('show-answer');
             
-            if (!cardInner) {
-                console.error('❌ Card flip inner element not found!');
-                return;
-            }
-            
-            if (!showAnswerBtn) {
-                console.error('❌ Show answer button not found!');
-                return;
-            }
-            
             if (cardInner.classList.contains('flipped')) {
                 // Flip back to question
-                console.log('🔄 Flipping back to question');
                 cardInner.classList.remove('flipped');
                 showAnswerBtn.textContent = 'Show Answer';
                 showAnswerBtn.style.display = 'inline-block';
             } else {
                 // Flip to answer
-                console.log('🔄 Flipping to answer');
                 cardInner.classList.add('flipped');
                 showAnswerBtn.textContent = 'Show Question';
                 showAnswerBtn.style.display = 'none';
@@ -1136,19 +1179,30 @@
             updateStats();
         }
 
-        function populateCategoryDropdown() {
-            console.log('🔄 Populating category dropdown...');
-            const categorySelect = document.getElementById('category-select');
+        function changeDifficulty() {
+            const difficultySelect = document.getElementById('difficulty-select');
+            currentDifficulty = difficultySelect.value;
+            currentIndex = 0;
             
-            if (!categorySelect) {
-                console.error('❌ Category select element not found!');
-                return;
-            }
+            displayCard();
+            updateStats();
+        }
+
+        function changeType() {
+            const typeSelect = document.getElementById('type-select');
+            currentType = typeSelect.value;
+            currentIndex = 0;
+            
+            displayCard();
+            updateStats();
+        }
+
+        function populateCategoryDropdown() {
+            const categorySelect = document.getElementById('category-select');
             
             // Get unique categories from cards
             const categories = [...new Set(cards.map(card => card.category).filter(Boolean))];
             categories.sort();
-            console.log('📋 Found categories:', categories);
             
             // Clear existing options except "All Categories"
             categorySelect.innerHTML = '<option value="all">All Categories</option>';
@@ -1160,8 +1214,6 @@
                 option.textContent = category;
                 categorySelect.appendChild(option);
             });
-            
-            console.log('✅ Category dropdown populated with', categories.length, 'categories');
         }
 
         // Reset progress
@@ -1177,8 +1229,6 @@
 
         // Event listeners - wait for DOM to be ready
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🔗 Setting up event listeners...');
-            
             document.getElementById('show-answer').addEventListener('click', flipCard);
             document.getElementById('flip-back').addEventListener('click', flipCard);
             document.getElementById('btn-mastered').addEventListener('click', markMastered);
@@ -1190,8 +1240,8 @@
             document.getElementById('filter-beh').addEventListener('click', () => changeFilter('beh'));
             document.getElementById('filter-review').addEventListener('click', () => changeFilter('review'));
             document.getElementById('category-select').addEventListener('change', changeCategory);
-            
-            console.log('✅ Event listeners set up successfully');
+            document.getElementById('difficulty-select').addEventListener('change', changeDifficulty);
+            document.getElementById('type-select').addEventListener('change', changeType);
         });
 
         // Keyboard shortcuts
@@ -1232,7 +1282,6 @@
 
         // Initialize app
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🚀 Initializing app...');
             loadState();
             loadQuestions(); // Load questions from JSON file
         });
