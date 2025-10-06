@@ -45,7 +45,9 @@
   .grid{display:grid; gap:12px}
   .g2{grid-template-columns:repeat(2,minmax(0,1fr))}
   .g3{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .bar{display:flex; gap:8px; align-items:center; background:rgba(12, 24, 36, 0.8); backdrop-filter: blur(8px); border:1px solid #1c2736; padding:10px; border-radius:12px; position:sticky; top:0; z-index:9}
+  .bar{display:flex; gap:8px; align-items:center; background:rgba(12, 24, 36, 0.9); backdrop-filter: blur(8px); border:1px solid #1c2736; padding:10px; border-radius:12px; position:sticky; top:0; z-index:9; transition: all 0.3s ease;}
+  .bar.collapsed{transform: translateY(-100%); opacity: 0.7;}
+  .bar.expanded{transform: translateY(0); opacity: 1;}
   input[type=search]{flex:1 1 auto; background:#0a111d; border:1px solid #1e2a38; color:#cfe7ff; padding:10px 14px; border-radius:10px; outline:none; font-size:15px; transition: box-shadow 0.2s; placeholder-color: #6a7a8a;}
   input[type=search]:focus{box-shadow: 0 0 0 2px var(--accent);}
   input[type=search]::placeholder{color: #6a7a8a;}
@@ -58,6 +60,8 @@
   .list-tight li{margin:6px 0}
   .big{font-size:18px; line-height: 1.5;}
   .pin{position:fixed; right:16px; bottom:16px; padding:10px 12px; border-radius:12px; border:1px solid #26405f; background:#0f1a2a; color:#bfe1ff; text-decoration:none;}
+  .search-float{position:fixed; top:16px; right:16px; padding:10px 12px; border-radius:12px; border:1px solid var(--accent); background:var(--accent); color:white; text-decoration:none; z-index:10; display:none; transition: all 0.3s ease;}
+  .search-float:hover{background:var(--accent); opacity:0.9;}
   ::-webkit-scrollbar {width: 6px;}
   ::-webkit-scrollbar-track {background: transparent;}
   ::-webkit-scrollbar-thumb {background: #2a3a54; border-radius: 3px;}
@@ -110,8 +114,9 @@
 
   <!-- MAIN CONTENT -->
   <main class="panel pad" id="main">
-    <div class="bar">
+    <div class="bar expanded" id="searchBar">
       <input id="search" type="search" placeholder="🔍 Quick search — try 'Power BI', 'STAR', 'migration', 'data quality'">
+      <button id="toggleSearch" style="background: var(--accent); border: none; color: white; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 14px; transition: all 0.2s;" title="Minimize search bar">−</button>
     </div>
 
     <section id="open">
@@ -205,11 +210,16 @@
 </div>
 
 <a href="#nav" class="pin" title="Back to Top">▲ Top</a>
+<a href="#" class="search-float" id="searchFloat" title="Show search bar">🔍 Search</a>
 
 <script>
   const input = document.getElementById('search');
   const cards = Array.from(document.querySelectorAll('.card'));
   const sections = Array.from(document.querySelectorAll('section'));
+  const searchBar = document.getElementById('searchBar');
+  const toggleBtn = document.getElementById('toggleSearch');
+  const searchFloat = document.getElementById('searchFloat');
+  let isCollapsed = false;
 
   input.addEventListener('input', () => {
     const query = input.value.trim().toLowerCase();
@@ -243,6 +253,43 @@
         const visibleCards = section.querySelectorAll('.card[style*="display: block"]');
         section.style.display = visibleCards.length > 0 ? 'block' : 'none';
     });
+  });
+
+  // Toggle search bar visibility
+  function toggleSearchBar() {
+    isCollapsed = !isCollapsed;
+    if (isCollapsed) {
+      searchBar.classList.remove('expanded');
+      searchBar.classList.add('collapsed');
+      searchFloat.style.display = 'block';
+      toggleBtn.textContent = '+';
+      toggleBtn.title = 'Show search bar';
+    } else {
+      searchBar.classList.remove('collapsed');
+      searchBar.classList.add('expanded');
+      searchFloat.style.display = 'none';
+      toggleBtn.textContent = '−';
+      toggleBtn.title = 'Minimize search bar';
+      input.focus();
+    }
+  }
+
+  // Event listeners
+  toggleBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    toggleSearchBar();
+  });
+
+  searchFloat.addEventListener('click', (e) => {
+    e.preventDefault();
+    toggleSearchBar();
+  });
+
+  // Auto-expand search bar when typing
+  input.addEventListener('focus', () => {
+    if (isCollapsed) {
+      toggleSearchBar();
+    }
   });
 </script>
 </body>
