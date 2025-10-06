@@ -363,7 +363,6 @@
             <div id="empty-state" class="empty-state" style="display: none;">
                 <h3>🎉 All done!</h3>
                 <p>You've mastered all questions in this category. Try another category or reset your progress.</p>
-                <button class="btn btn-primary" id="reset-progress">Start Over</button>
             </div>
         </div>
     </div>
@@ -917,14 +916,26 @@
 
         // Get filtered and non-mastered card indices
         function getFilteredIndices() {
-            return cards
-                .map((card, index) => ({ card, index }))
-                .filter(({ card, index }) => {
-                    if (currentFilter === "all") return true;
-                    return card.type === currentFilter;
-                })
-                .filter(({ index }) => !mastered.has(index))
-                .map(({ index }) => index);
+            console.log('getFilteredIndices called');
+            console.log('currentFilter:', currentFilter);
+            console.log('mastered set:', Array.from(mastered));
+            
+            const allCards = cards.map((card, index) => ({ card, index }));
+            console.log('allCards length:', allCards.length);
+            
+            const filteredByType = allCards.filter(({ card, index }) => {
+                if (currentFilter === "all") return true;
+                return card.type === currentFilter;
+            });
+            console.log('filteredByType length:', filteredByType.length);
+            
+            const notMastered = filteredByType.filter(({ index }) => !mastered.has(index));
+            console.log('notMastered length:', notMastered.length);
+            
+            const result = notMastered.map(({ index }) => index);
+            console.log('final result:', result);
+            
+            return result;
         }
 
         // Update statistics
@@ -937,9 +948,15 @@
 
         // Display current card
         function displayCard() {
+            console.log('displayCard called');
             const filteredIndices = getFilteredIndices();
+            console.log('filteredIndices:', filteredIndices);
+            console.log('cards length:', cards.length);
+            console.log('currentFilter:', currentFilter);
+            console.log('mastered size:', mastered.size);
             
             if (filteredIndices.length === 0) {
+                console.log('No filtered indices, showing empty state');
                 document.getElementById('flashcard-content').style.display = 'none';
                 document.getElementById('empty-state').style.display = 'block';
                 return;
@@ -954,6 +971,7 @@
 
             const cardIndex = filteredIndices[currentIndex];
             const card = cards[cardIndex];
+            console.log('cardIndex:', cardIndex, 'card:', card);
 
             // Update UI elements
             document.getElementById('question').textContent = card.q;
@@ -1051,8 +1069,8 @@
 
         // Event listeners
         document.getElementById('show-answer').addEventListener('click', showAnswer);
-        document.getElementById('mark-mastered').addEventListener('click', markMastered);
-        document.getElementById('mark-review').addEventListener('click', markReviewLater);
+        document.getElementById('btn-mastered').addEventListener('click', markMastered);
+        document.getElementById('btn-review').addEventListener('click', markReviewLater);
         document.getElementById('prev').addEventListener('click', previousCard);
         document.getElementById('next').addEventListener('click', nextCard);
         document.getElementById('filter-all').addEventListener('click', () => setFilter('all'));
@@ -1097,7 +1115,26 @@
             }
         });
 
+        // Clear localStorage for debugging
+        function clearAllData() {
+            localStorage.removeItem('powerbi-flashcards-mastered');
+            localStorage.removeItem('powerbi-flashcards-review');
+            localStorage.removeItem('powerbi-flashcards-bookmarked');
+            localStorage.removeItem('powerbi-flashcards-notes');
+            localStorage.removeItem('powerbi-flashcards-streak');
+            localStorage.removeItem('powerbi-flashcards-last-study');
+            mastered.clear();
+            reviewLater.clear();
+            bookmarked.clear();
+            notes.clear();
+            studyStreak = 0;
+            lastStudyDate = '';
+            console.log('All data cleared');
+        }
+
         // Initialize app
+        console.log('Initializing app...');
+        clearAllData(); // Clear everything for debugging
         loadState();
         displayCard();
     </script>
