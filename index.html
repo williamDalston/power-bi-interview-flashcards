@@ -375,22 +375,28 @@
         
         // Load questions from JSON file or use embedded fallback
         async function loadQuestions() {
+            console.log('🚀 Starting to load questions...');
             try {
+                console.log('📡 Fetching questions.json...');
                 const response = await fetch('questions.json');
+                console.log('📡 Response status:', response.status);
                 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 
                 const data = await response.json();
+                console.log('📦 JSON parsed successfully');
                 cards = data.questions;
                 console.log(`✅ Loaded ${cards.length} questions from questions.json`);
+                console.log('📋 First question:', cards[0]?.q?.substring(0, 50) + '...');
                 displayCard(); // Display first card after loading
             } catch (error) {
                 console.error('❌ Error loading questions from JSON, using embedded questions:', error);
                 // Use embedded questions as fallback
                 cards = embeddedQuestions;
                 console.log(`🔄 Using embedded fallback with ${cards.length} questions`);
+                console.log('📋 First embedded question:', cards[0]?.q?.substring(0, 50) + '...');
                 displayCard();
             }
         }
@@ -502,14 +508,22 @@
 
         // Display current card
         function displayCard() {
+            console.log('🎯 displayCard called');
+            console.log('📊 Cards array length:', cards.length);
+            console.log('🔍 Current filter:', currentFilter);
+            console.log('✅ Mastered count:', mastered.size);
+            
             const filteredIndices = getFilteredIndices();
+            console.log('🔍 Filtered indices:', filteredIndices);
             
             if (filteredIndices.length === 0) {
+                console.log('❌ No filtered indices, showing empty state');
                 document.getElementById('flashcard-content').style.display = 'none';
                 document.getElementById('empty-state').style.display = 'block';
                 return;
             }
 
+            console.log('✅ Showing flashcard content');
             document.getElementById('flashcard-content').style.display = 'block';
             document.getElementById('empty-state').style.display = 'none';
 
@@ -519,6 +533,7 @@
 
             const cardIndex = filteredIndices[currentIndex];
             const card = cards[cardIndex];
+            console.log('📋 Displaying card:', cardIndex, card?.q?.substring(0, 50) + '...');
 
             // Update UI elements
             document.getElementById('question').textContent = card.q;
