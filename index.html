@@ -279,6 +279,100 @@
             line-height: 1.5;
         }
 
+        /* Card Flip Animation */
+        .card-flip-container {
+            perspective: 1000px;
+            margin-bottom: 20px;
+        }
+
+        .card-flip-inner {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .card-flip-inner.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-front {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border: 1px solid #e9ecef;
+        }
+
+        .card-back {
+            background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);
+            border: 1px solid #c3e6c3;
+            transform: rotateY(180deg);
+        }
+
+        .answer-header {
+            margin-bottom: 16px;
+        }
+
+        .answer-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .answer-label {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #27ae60;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            border-radius: 20px;
+        }
+
+        /* Category Filter */
+        .category-filter {
+            margin: 16px 0;
+            text-align: center;
+        }
+
+        .category-filter label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .category-filter select {
+            padding: 8px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            background: white;
+            font-size: 1rem;
+            min-width: 200px;
+            transition: border-color 0.3s ease;
+        }
+
+        .category-filter select:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
         .answer {
             background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);
             padding: 24px;
@@ -561,6 +655,32 @@
                 font-size: 0.85rem;
             }
 
+            /* Card Flip Mobile */
+            .card-flip-inner {
+                height: 350px;
+            }
+
+            .card-front, .card-back {
+                padding: 16px;
+            }
+
+            .answer-meta {
+                flex-direction: column;
+                gap: 8px;
+                align-items: flex-start;
+            }
+
+            .btn-sm {
+                padding: 4px 8px;
+                font-size: 0.8rem;
+            }
+
+            /* Category Filter Mobile */
+            .category-filter select {
+                min-width: 150px;
+                font-size: 0.9rem;
+            }
+
             .question {
                 font-size: 1.15rem;
                 padding: 20px;
@@ -608,6 +728,15 @@
                 <button class="filter-btn active" id="filter-all">All</button>
                 <button class="filter-btn" id="filter-tech">Technical</button>
                 <button class="filter-btn" id="filter-beh">Behavioral</button>
+                <button class="filter-btn" id="filter-review">🔄 Review Later</button>
+            </div>
+            
+            <!-- Category Filter Dropdown -->
+            <div class="category-filter">
+                <label for="category-select">Filter by Category:</label>
+                <select id="category-select">
+                    <option value="all">All Categories</option>
+                </select>
             </div>
 
             <div class="stats">
@@ -619,42 +748,61 @@
 
         <div class="flashcard-container">
             <div id="flashcard-content">
-                <!-- Question Header with ID, Category, Difficulty -->
-                <div class="question-header">
-                    <div class="question-meta">
-                        <span class="question-id" id="question-id">Q001</span>
-                        <span class="question-category" id="question-category">Career Narrative</span>
-                        <span class="question-difficulty" id="question-difficulty">Beginner</span>
+                <!-- Card Flip Container -->
+                <div class="card-flip-container">
+                    <div class="card-flip-inner" id="card-flip-inner">
+                        <!-- Front of Card (Question) -->
+                        <div class="card-front">
+                            <!-- Question Header with ID, Category, Difficulty -->
+                            <div class="question-header">
+                                <div class="question-meta">
+                                    <span class="question-id" id="question-id">Q001</span>
+                                    <span class="question-category" id="question-category">Career Narrative</span>
+                                    <span class="question-difficulty" id="question-difficulty">Beginner</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Question Content -->
+                            <div class="question" id="question"></div>
+                            
+                            <!-- Keywords -->
+                            <div class="keywords-container" id="keywords-container" style="display: none;">
+                                <div class="keywords-label">Keywords:</div>
+                                <div class="keywords" id="keywords"></div>
+                            </div>
+                            
+                            <!-- Company Fit (subtle hint) -->
+                            <div class="company-fit" id="company-fit" style="display: none;">
+                                <div class="company-fit-label">💡 Interview Tip:</div>
+                                <div class="company-fit-text" id="company-fit-text"></div>
+                            </div>
+                            
+                            <!-- Action Buttons -->
+                            <div class="action-buttons">
+                                <button class="btn btn-primary" id="show-answer">Show Answer</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Back of Card (Answer) -->
+                        <div class="card-back">
+                            <!-- Answer Header -->
+                            <div class="answer-header">
+                                <div class="answer-meta">
+                                    <span class="answer-label">Answer</span>
+                                    <button class="btn btn-secondary btn-sm" id="flip-back">← Back to Question</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Answer Content -->
+                            <div class="answer" id="answer"></div>
+                            
+                            <!-- Status Buttons -->
+                            <div class="action-buttons">
+                                <button class="btn btn-success" id="btn-mastered">✓ Got it!</button>
+                                <button class="btn btn-warning" id="btn-review">🔄 Review later</button>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                
-                <!-- Question Content -->
-                <div class="question" id="question"></div>
-                
-                <!-- Keywords -->
-                <div class="keywords-container" id="keywords-container" style="display: none;">
-                    <div class="keywords-label">Keywords:</div>
-                    <div class="keywords" id="keywords"></div>
-                </div>
-                
-                <!-- Company Fit (subtle hint) -->
-                <div class="company-fit" id="company-fit" style="display: none;">
-                    <div class="company-fit-label">💡 Interview Tip:</div>
-                    <div class="company-fit-text" id="company-fit-text"></div>
-                </div>
-                
-                <!-- Action Buttons -->
-                <div class="action-buttons">
-                    <button class="btn btn-primary" id="show-answer">Show Answer</button>
-                </div>
-                
-                <!-- Answer Content -->
-                <div class="answer" id="answer"></div>
-                
-                <!-- Status Buttons -->
-                <div class="action-buttons" id="status-buttons" style="display: none;">
-                    <button class="btn btn-success" id="btn-mastered">✓ Got it!</button>
-                    <button class="btn btn-warning" id="btn-review">🔄 Review later</button>
                 </div>
                 
                 <!-- Navigation -->
@@ -699,6 +847,9 @@
                 console.log(`✅ Successfully loaded ${cards.length} questions from questions.json`);
                 console.log('📋 First question:', cards[0]?.q?.substring(0, 50) + '...');
                 
+                // Populate category dropdown
+                populateCategoryDropdown();
+                
                 displayCard(); // Display first card after loading
                 updateStats(); // Update the stats display
                 
@@ -719,6 +870,7 @@
         // App state
         let currentIndex = 0;
         let currentFilter = "all";
+        let currentCategory = "all";
         let mastered = new Set();
         let reviewLater = new Set();
         let bookmarked = new Set();
@@ -779,8 +931,23 @@
             return cards
                 .map((card, index) => ({ card, index }))
                 .filter(({ card, index }) => {
-                    if (currentFilter === "all") return true;
-                    return card.type === currentFilter;
+                    // Handle review later filter
+                    if (currentFilter === "review") {
+                        return reviewLater.has(index);
+                    }
+                    
+                    // Handle type filter
+                    if (currentFilter === "all") {
+                        // If no category filter, show all
+                        if (currentCategory === "all") return true;
+                        // If category filter, check category
+                        return card.category === currentCategory;
+                    }
+                    
+                    // Handle type filter with category
+                    const typeMatch = card.type === currentFilter;
+                    const categoryMatch = currentCategory === "all" || card.category === currentCategory;
+                    return typeMatch && categoryMatch;
                 })
                 .filter(({ index }) => !mastered.has(index))
                 .map(({ index }) => index);
@@ -790,6 +957,7 @@
         function updateStats() {
             const total = cards.length;
             const masteredCount = mastered.size;
+            const reviewCount = reviewLater.size;
             const filteredIndices = getFilteredIndices();
             const categoryCount = filteredIndices.length;
             
@@ -797,8 +965,14 @@
             
             // Show category count when filtering
             const categoryCountElement = document.getElementById('category-count');
-            if (currentFilter !== "all") {
+            if (currentFilter === "review") {
+                categoryCountElement.textContent = `🔄 ${reviewCount} to review`;
+                categoryCountElement.style.display = 'inline';
+            } else if (currentFilter !== "all") {
                 categoryCountElement.textContent = `📊 ${categoryCount} in ${currentFilter === 'tech' ? 'Technical' : 'Behavioral'}`;
+                categoryCountElement.style.display = 'inline';
+            } else if (currentCategory !== "all") {
+                categoryCountElement.textContent = `📊 ${categoryCount} in ${currentCategory}`;
                 categoryCountElement.style.display = 'inline';
             } else {
                 categoryCountElement.style.display = 'none';
@@ -828,8 +1002,9 @@
             // Update UI elements
             document.getElementById('question').textContent = card.q;
             document.getElementById('answer').textContent = card.a;
-            document.getElementById('answer').classList.remove('show');
-            document.getElementById('status-buttons').style.display = 'none';
+            
+            // Reset card flip state
+            document.getElementById('card-flip-inner').classList.remove('flipped');
             document.getElementById('show-answer').style.display = 'inline-block';
             
             // Update question metadata
@@ -868,10 +1043,21 @@
         }
 
         // Show answer
-        function showAnswer() {
-            document.getElementById('answer').classList.add('show');
-            document.getElementById('status-buttons').style.display = 'flex';
-            document.getElementById('show-answer').style.display = 'none';
+        function flipCard() {
+            const cardInner = document.getElementById('card-flip-inner');
+            const showAnswerBtn = document.getElementById('show-answer');
+            
+            if (cardInner.classList.contains('flipped')) {
+                // Flip back to question
+                cardInner.classList.remove('flipped');
+                showAnswerBtn.textContent = 'Show Answer';
+                showAnswerBtn.style.display = 'inline-block';
+            } else {
+                // Flip to answer
+                cardInner.classList.add('flipped');
+                showAnswerBtn.textContent = 'Show Question';
+                showAnswerBtn.style.display = 'none';
+            }
         }
 
         // Show notification
@@ -946,6 +1132,34 @@
             updateStats();
         }
 
+        function changeCategory() {
+            const categorySelect = document.getElementById('category-select');
+            currentCategory = categorySelect.value;
+            currentIndex = 0;
+            
+            displayCard();
+            updateStats();
+        }
+
+        function populateCategoryDropdown() {
+            const categorySelect = document.getElementById('category-select');
+            
+            // Get unique categories from cards
+            const categories = [...new Set(cards.map(card => card.category).filter(Boolean))];
+            categories.sort();
+            
+            // Clear existing options except "All Categories"
+            categorySelect.innerHTML = '<option value="all">All Categories</option>';
+            
+            // Add category options
+            categories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category;
+                option.textContent = category;
+                categorySelect.appendChild(option);
+            });
+        }
+
         // Reset progress
         function resetProgress() {
             if (confirm('Are you sure you want to reset all progress? This will unmark all mastered questions.')) {
@@ -958,7 +1172,8 @@
         }
 
         // Event listeners
-        document.getElementById('show-answer').addEventListener('click', showAnswer);
+        document.getElementById('show-answer').addEventListener('click', flipCard);
+        document.getElementById('flip-back').addEventListener('click', flipCard);
         document.getElementById('btn-mastered').addEventListener('click', markMastered);
         document.getElementById('btn-review').addEventListener('click', markReviewLater);
         document.getElementById('prev').addEventListener('click', previousCard);
@@ -966,6 +1181,8 @@
         document.getElementById('filter-all').addEventListener('click', () => changeFilter('all'));
         document.getElementById('filter-tech').addEventListener('click', () => changeFilter('tech'));
         document.getElementById('filter-beh').addEventListener('click', () => changeFilter('beh'));
+        document.getElementById('filter-review').addEventListener('click', () => changeFilter('review'));
+        document.getElementById('category-select').addEventListener('change', changeCategory);
 
         // Keyboard shortcuts
         document.addEventListener('keydown', (e) => {
@@ -976,9 +1193,7 @@
                 case ' ':
                 case 'Enter':
                     e.preventDefault();
-                    if (document.getElementById('show-answer').style.display !== 'none') {
-                        showAnswer();
-                    }
+                    flipCard();
                     break;
                 case 'ArrowLeft':
                     e.preventDefault();
