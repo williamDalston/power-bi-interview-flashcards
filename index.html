@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AGR Power BI Interview — Will’s Cheat Sheet</title>
-<style>
+    <style>
   :root{
     --bg:#0b0f14; --card:#121824; --muted:#8aa0b3; --text:#e9f1f7;
     --accent:#51a7ff; --ok:#6ee7a6; --warn:#ffd166; --bad:#ff6b6b;
@@ -26,6 +26,15 @@
   .sticky{
     position:sticky; top:16px;
     height:calc(100vh - 32px); overflow-y:auto;
+    transition: all 0.3s ease;
+  }
+  .sticky.collapsed{
+    transform: translateX(-100%);
+    opacity: 0.7;
+  }
+  .sticky.expanded{
+                transform: translateX(0);
+                opacity: 1;
   }
   .pad{padding:16px 20px}
   h1{font-size:24px; margin:8px 0 4px; letter-spacing:.3px}
@@ -62,16 +71,21 @@
   .pin{position:fixed; right:16px; bottom:16px; padding:10px 12px; border-radius:12px; border:1px solid #26405f; background:#0f1a2a; color:#bfe1ff; text-decoration:none;}
   .search-float{position:fixed; top:16px; right:16px; padding:10px 12px; border-radius:12px; border:1px solid var(--accent); background:var(--accent); color:white; text-decoration:none; z-index:10; display:none; transition: all 0.3s ease;}
   .search-float:hover{background:var(--accent); opacity:0.9;}
+  .nav-float{position:fixed; top:16px; left:16px; padding:10px 12px; border-radius:12px; border:1px solid var(--ok); background:var(--ok); color:white; text-decoration:none; z-index:10; display:none; transition: all 0.3s ease;}
+  .nav-float:hover{background:var(--ok); opacity:0.9;}
   ::-webkit-scrollbar {width: 6px;}
   ::-webkit-scrollbar-track {background: transparent;}
   ::-webkit-scrollbar-thumb {background: #2a3a54; border-radius: 3px;}
-</style>
+    </style>
 </head>
 <body>
 <div class="wrap">
   <!-- LEFT NAV -->
-  <aside class="panel sticky pad" id="nav">
-    <h1>AGR Power BI — Will</h1>
+  <aside class="panel sticky expanded pad" id="nav">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+      <h1 style="margin: 0;">AGR Power BI — Will</h1>
+      <button id="toggleNav" style="background: var(--accent); border: none; color: white; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 12px;" title="Hide navigation">−</button>
+        </div>
     <p class="muted small">Interview with Brian Jennings, Director of Talent Acquisition (Non-technical leader).</p>
     
     <div class="divider"></div>
@@ -81,7 +95,7 @@
         <span class="chip">Talent Acq. Exec</span>
         <span class="chip">Non-Technical Leader</span>
         <span class="chip">Defense/Gov Sector</span>
-    </div>
+            </div>
      <p class="muted small" style="margin-top: 12px;"><strong>Strategy:</strong> Frame value in business terms. Connect on the "data-driven" philosophy. Emphasize reliability, process, and security.</p>
     <div class="divider"></div>
 
@@ -93,7 +107,7 @@
       <a href="#qa" class="chip">Likely Q&A</a>
       <a href="#ask" class="chip ok">Questions for Brian</a>
       <a href="#close" class="chip">Closing</a>
-    </div>
+            </div>
 
     <h2>Proof Point Metrics</h2>
     <ul class="list-tight small">
@@ -117,18 +131,18 @@
     <div class="bar expanded" id="searchBar">
       <input id="search" type="search" placeholder="🔍 Quick search — try 'Power BI', 'STAR', 'migration', 'data quality'">
       <button id="toggleSearch" style="background: var(--accent); border: none; color: white; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 14px; transition: all 0.2s;" title="Minimize search bar">−</button>
-    </div>
+            </div>
 
     <section id="open">
       <h2>Openers (Your Core Pitch)</h2>
       <div class="card">
         <h3>Tell me about yourself...</h3>
         <p class="big">"I specialize in modernizing data systems. My background is in Business Economics, so I always start with the business problem first. I use Power BI and SQL to transform legacy systems—like Excel or Tableau—into automated, reliable BI solutions. At one organization, this work reduced their reporting cycle from two weeks down to a single day. I focus on building systems that are not just visually clear, but also fast, secure, and easy to maintain."</p>
-      </div>
+            </div>
       <div class="card">
         <h3>Why AGR? / Why this role?</h3>
         <p class="big">"I was drawn to AGR's role as a transformation partner for the public sector. I saw on your profile, Brian, that you have a data-driven mindset, and that's the core of my approach. This role seems to be a perfect fit, as it combines my deep experience in Power BI, data modeling, and legacy system conversion with the opportunity to work on high-impact government projects where reliability and security are paramount."</p>
-      </div>
+        </div>
     </section>
 
     <section id="fit">
@@ -143,7 +157,7 @@
               <li><strong class="ok">✓</strong> ETL Concepts & Power Query</li>
               <li><strong class="ok">✓</strong> Customer Service & Stakeholder Comms</li>
             </ul>
-          </div>
+                </div>
           <div class="card">
             <h3>My Experience</h3>
             <ul class="list-tight">
@@ -153,8 +167,8 @@
               <li>Automate flows for alerts/approvals</li>
               <li>End-user training & documentation</li>
             </ul>
-          </div>
-        </div>
+                </div>
+                </div>
       </section>
 
     <section id="examples">
@@ -163,20 +177,20 @@
         <div class="card">
           <h3>Challenge: Slow, Manual Reporting</h3>
           <p><strong>(S)</strong> A non-profit used Excel for donor reports, taking 2 weeks quarterly. <strong>(T)</strong> My task was to automate this. <strong>(A)</strong> I migrated them to Power BI, built a clean data model, and used Power Query for ETL. <strong>(R)</strong> We cut reporting time to 1 day and helped them secure a 20% funding increase.</p>
-        </div>
+                    </div>
         <div class="card">
             <h3>Challenge: Data Quality & Errors</h3>
             <p><strong>(S)</strong> A company had inconsistent data across 5 major databases. <strong>(T)</strong> I was tasked with leading a data governance initiative. <strong>(A)</strong> I cataloged over 2,000 data elements and built automated data quality checks using SQL and Python. <strong>(R)</strong> This reduced audit preparation time by 40% and ensured compliance.</p>
-        </div>
+                    </div>
         <div class="card">
           <h3>Challenge: Inefficient Operations</h3>
           <p><strong>(S)</strong> At Waste Management, QA was a manual Excel-based process. <strong>(T)</strong> The goal was to automate it. <strong>(A)</strong> I re-engineered the tools into Python scripts and created an anomaly detection system. <strong>(R)</strong> This saved the team 15 hours of manual validation per week and improved route efficiency by 10%.</p>
-        </div>
+                    </div>
         <div class="card">
             <h3>Challenge: Low User Adoption</h3>
             <p><strong>(S)</strong> A K-8 school had data but teachers weren't using it. <strong>(T)</strong> I needed to build tools they would actually use. <strong>(A)</strong> I held workshops and built simple, KPI-focused dashboards with clear drill-downs, providing training sessions. <strong>(R)</strong> The new dashboards were adopted team-wide and became central to a $500k grant application.</p>
-        </div>
-      </div>
+                    </div>
+                    </div>
     </section>
 
     <section id="qa">
@@ -186,7 +200,7 @@
         <p><span class="q">How would you handle a Tableau to Power BI migration?</span> "My process is to first focus on the data model. I'd re-engineer the backend into a clean star schema for performance. Then, I work with stakeholders to not just replicate, but improve the reports, aligning on business logic and KPIs. The goal is always a faster, more reliable, and more governable solution."</p>
         <p><span class="q">How do you ensure data quality?</span> "It's a multi-step process. I start with profiling in Power Query, then build automated validation tests with SQL/Python in the ETL pipeline, and finally, I often create a 'data health' page within the Power BI report itself so users are aware of any potential issues."</p>
         <p><span class="q">Clearance?</span> "I'm a U.S. citizen and I understand this role requires Public Trust eligibility, which I'm fully prepared for. My experience with FERPA-compliant data has given me a strong respect for security and documentation protocols."</p>
-      </div>
+                    </div>
     </section>
 
     <section id="ask">
@@ -197,29 +211,34 @@
           <li>"Your profile highlights a data-driven mindset. How does AGR use data internally to measure the success of its client transformation projects?"</li>
           <li>"Given your experience in the defense sector, what's the biggest challenge you see in implementing modern data solutions for government clients, and how does this role help solve it?"</li>
         </ul>
-      </div>
+                </div>
     </section>
 
     <section id="close">
       <h2>Closing Line</h2>
       <div class="card">
         <p class="big">"Thank you, Brian. This conversation has confirmed my interest. The role aligns perfectly with my experience in building secure, reliable BI solutions from the ground up. I'm confident I have the technical skills and the business-focused mindset to deliver value for AGR and your clients."</p>
-      </div>
+            </div>
     </section>
   </main>
-</div>
+    </div>
 
 <a href="#nav" class="pin" title="Back to Top">▲ Top</a>
 <a href="#" class="search-float" id="searchFloat" title="Show search bar">🔍 Search</a>
+<a href="#" class="nav-float" id="navFloat" title="Show navigation">📋 Nav</a>
 
-<script>
+    <script>
   const input = document.getElementById('search');
   const cards = Array.from(document.querySelectorAll('.card'));
   const sections = Array.from(document.querySelectorAll('section'));
   const searchBar = document.getElementById('searchBar');
   const toggleBtn = document.getElementById('toggleSearch');
   const searchFloat = document.getElementById('searchFloat');
+  const nav = document.getElementById('nav');
+  const toggleNavBtn = document.getElementById('toggleNav');
+  const navFloat = document.getElementById('navFloat');
   let isCollapsed = false;
+  let isNavCollapsed = false;
 
   input.addEventListener('input', () => {
     const query = input.value.trim().toLowerCase();
@@ -231,8 +250,8 @@
             c.style.display = 'block';
             c.classList.remove('hit');
         });
-        return;
-    }
+                return;
+            }
 
     // Otherwise, filter
     let visibleCount = 0;
@@ -271,17 +290,17 @@
       toggleBtn.textContent = '−';
       toggleBtn.title = 'Minimize search bar';
       input.focus();
-    }
-  }
+            }
+        }
 
-  // Event listeners
+        // Event listeners
   toggleBtn.addEventListener('click', (e) => {
     e.preventDefault();
     toggleSearchBar();
   });
 
   searchFloat.addEventListener('click', (e) => {
-    e.preventDefault();
+                    e.preventDefault();
     toggleSearchBar();
   });
 
@@ -291,6 +310,49 @@
       toggleSearchBar();
     }
   });
-</script>
+
+  // Toggle navigation visibility
+  function toggleNav() {
+    isNavCollapsed = !isNavCollapsed;
+    if (isNavCollapsed) {
+      nav.classList.remove('expanded');
+      nav.classList.add('collapsed');
+      navFloat.style.display = 'block';
+      toggleNavBtn.textContent = '+';
+      toggleNavBtn.title = 'Show navigation';
+    } else {
+      nav.classList.remove('collapsed');
+      nav.classList.add('expanded');
+      navFloat.style.display = 'none';
+      toggleNavBtn.textContent = '−';
+      toggleNavBtn.title = 'Hide navigation';
+    }
+  }
+
+  // Navigation toggle event listeners
+  toggleNavBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    toggleNav();
+  });
+
+  navFloat.addEventListener('click', (e) => {
+    e.preventDefault();
+    toggleNav();
+  });
+
+  // Fix anchor links - smooth scrolling
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+    </script>
 </body>
 </html>
