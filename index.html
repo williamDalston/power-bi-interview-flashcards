@@ -373,7 +373,7 @@
         // Question data loaded from external JSON file
         let cards = [];
         
-        // Load questions from JSON file
+        // Load questions from JSON file or use embedded fallback
         async function loadQuestions() {
             try {
                 const response = await fetch('questions.json');
@@ -382,25 +382,39 @@
                 console.log(`Loaded ${cards.length} questions from questions.json`);
                 displayCard(); // Display first card after loading
             } catch (error) {
-                console.error('Error loading questions:', error);
-                // Fallback to a few sample questions if JSON fails to load
-                cards = [
-                    {
-                        q: "What is Power BI?",
-                        type: "tech",
-                        a: "Power BI is Microsoft's business analytics service for visualizing data and sharing insights."
-                    },
-                    {
-                        q: "Tell me about yourself",
-                        type: "beh", 
-                        a: "I'm a Power BI developer with experience in data analytics and business intelligence."
-                    }
-                ];
+                console.error('Error loading questions from JSON, using embedded questions:', error);
+                // Use embedded questions as fallback
+                cards = embeddedQuestions;
                 displayCard();
             }
         }
+
+        // Embedded questions as fallback (loaded from questions.json)
+        const embeddedQuestions = [
+          {
+            q: "Tell me about yourself / walk me through your background",
+            type: "beh",
+            a: "I'm a Power BI developer with 6+ years of experience in business intelligence and data analytics. I started my career with a bachelor's degree in economics, which gave me a strong foundation in data analysis and business understanding.\n\nOver the years, I've specialized in the Microsoft Power Platform ecosystem, particularly Power BI, Power Query, and DAX. I've led several major projects including:\n• Converting legacy Tableau dashboards to Power BI, improving performance by 30%\n• Building enterprise-scale data models serving 500+ users\n• Implementing automated ETL processes using Power Query and SQL\n• Creating self-service analytics solutions that reduced manual reporting by 60%\n\nI'm particularly drawn to this role because it combines my technical skills in Power BI with the opportunity to work on meaningful government transformation projects. I enjoy the challenge of turning complex data into actionable insights that drive real business decisions."
+          },
+          {
+            q: "Why do you want to work at AGR (or for this company)?",
+            type: "beh",
+            a: "I'm excited about AGR's mission of digital transformation in the public sector. What particularly draws me to AGR is your approach of being a transformation partner rather than just a technology vendor - you focus on solving real business problems, not just implementing technology for its own sake.\n\nI'm particularly interested in government and federal work because:\n• The structured requirements and compliance considerations push me to build robust, maintainable systems\n• The scale and impact of public sector projects means my work directly benefits citizens and government operations\n• The complexity of legacy systems and data integration challenges align perfectly with my Power BI and data modeling expertise\n\nThis role specifically matches my strengths - converting legacy dashboards, using Power Platform tools, and working full-stack. I believe I can contribute immediately while growing into more leadership responsibilities within these high-stakes, high-impact engagements."
+          },
+          {
+            q: "What is Power BI?",
+            type: "tech",
+            a: "Power BI is Microsoft's business analytics service for visualizing data and sharing insights."
+          },
+          {
+            q: "Tell me about yourself",
+            type: "beh", 
+            a: "I'm a Power BI developer with experience in data analytics and business intelligence."
+          }
+        ];
+
+        // App state
         let reviewLater = new Set();
-        let bookmarked = new Set();
         let notes = new Map();
         let studyMode = "practice";
         let difficulty = "all";
