@@ -6876,6 +6876,263 @@
       ],
       "company_fit": "Fundamental for ensuring data quality and integrity.",
       "a": "Constraints are rules that enforce data integrity. The main types are: NOT NULL ensures a column can't be empty (like requiring a roll number for every student). UNIQUE ensures no duplicates (like email addresses—each must be distinct). PRIMARY KEY combines NOT NULL and UNIQUE (like roll number—unique identifier for each student). FOREIGN KEY links tables together (like using roll number to connect student table to course table). CHECK enforces conditions (like ensuring voting age > 18). DEFAULT provides automatic values when none specified (like setting country to 'India' if not provided). For example: CREATE TABLE students (roll_number INT PRIMARY KEY, email VARCHAR(100) UNIQUE, age INT CHECK (age >= 18), country VARCHAR(50) DEFAULT 'India'). Constraints prevent bad data from entering your database and maintain relationships between tables."
+    },
+    {
+      "id": "Q490",
+      "q": "Your Power BI report is taking too long to load. How will you optimize it?",
+      "type": "tech",
+      "category": "Power BI - Performance",
+      "difficulty": "Intermediate",
+      "keywords": [
+        "performance optimization",
+        "slow loading",
+        "query optimization",
+        "DAX optimization",
+        "visuals",
+        "aggregations"
+      ],
+      "company_fit": "Critical performance optimization skills.",
+      "a": "I'd take a multi-pronged approach: First, reduce query dependencies by doing transformations at the source instead of in Power BI—push all possible data prep to SQL or the source system. Second, optimize DAX usage by using variables, avoiding iterators where possible, and simplifying complex measures. Third, reduce the number of visuals on each page—keep only what's essential. Fourth, use pre-aggregated data at the source level rather than aggregating in Power BI. Fifth, avoid Direct Query when possible and use Import mode for better performance. Finally, disable Auto Date/Time to prevent unnecessary hidden date tables from being created. I'd use Performance Analyzer to identify specific bottlenecks and address them systematically."
+    },
+    {
+      "id": "Q491",
+      "q": "How can you reduce the memory usage of a Power BI report?",
+      "type": "tech",
+      "category": "Power BI - Performance",
+      "difficulty": "Intermediate",
+      "keywords": [
+        "memory optimization",
+        "file size",
+        "columns",
+        "star schema",
+        "cardinality"
+      ],
+      "company_fit": "Understanding of model optimization.",
+      "a": "To reduce memory usage, I'd start by removing unnecessary columns—only keep what's actually used in visuals or calculations. Use a star schema design instead of snowflake to reduce relationship complexity. Optimize data types and cardinality—use integers instead of strings where possible, and avoid high-cardinality text columns. Remove duplicate data and consolidate tables where appropriate. Use aggregations for large fact tables. Avoid calculated columns if measures can do the same job since columns are stored in memory. Finally, split date columns into separate date and time if you don't need both together. These techniques can significantly reduce the model size and improve performance."
+    },
+    {
+      "id": "Q492",
+      "q": "What are best practices for optimizing Direct Query?",
+      "type": "tech",
+      "category": "Power BI - Performance",
+      "difficulty": "Advanced",
+      "keywords": [
+        "Direct Query",
+        "indexed views",
+        "complex joins",
+        "query folding",
+        "performance"
+      ],
+      "company_fit": "Advanced Direct Query optimization knowledge.",
+      "a": "For Direct Query optimization, use indexed views at the source database to pre-aggregate and pre-join data. Avoid complex joins in Power BI—do them in SQL views instead. Limit the number of visuals per page since each visual triggers a query. Use query reduction settings to minimize how many queries are sent. Ensure indexes exist on columns used in joins and WHERE clauses. Avoid SELECT * and only pull needed columns. Use query folding wherever possible—check that your transformations push down to the source. Implement row-level security at the database level rather than in Power BI. Finally, consider composite models to mix Import mode for slowly-changing dimensions with Direct Query for real-time facts."
+    },
+    {
+      "id": "Q493",
+      "q": "Why might a report be slow in Power BI Service but fast in Desktop?",
+      "type": "tech",
+      "category": "Power BI - Platform",
+      "difficulty": "Intermediate",
+      "keywords": [
+        "Power BI Service",
+        "Desktop",
+        "performance difference",
+        "memory",
+        "refresh delays"
+      ],
+      "company_fit": "Understanding of Service vs Desktop differences.",
+      "a": "Several factors can cause this: The Power BI Service may have limited memory allocation compared to your local machine, causing slower query execution. There might be refresh delays if the data gateway is overloaded or slow. Network latency between the Service and data sources can impact performance. Inefficient queries that worked fine with small datasets in Desktop may struggle with full production data in the Service. The Service might be using a different query execution path or caching strategy. Also, check if there are concurrent users accessing the report in Service, which doesn't happen in Desktop. To diagnose, use Performance Analyzer in both environments, check gateway performance metrics, and verify the dataset is fully refreshed in Service."
+    },
+    {
+      "id": "Q494",
+      "q": "How do you handle performance issues with large datasets?",
+      "type": "tech",
+      "category": "Power BI - Performance",
+      "difficulty": "Advanced",
+      "keywords": [
+        "large datasets",
+        "partitioning",
+        "aggregations",
+        "filtering",
+        "incremental refresh"
+      ],
+      "company_fit": "Enterprise-scale performance optimization.",
+      "a": "For large datasets, I'd implement several strategies: Use data partitioning and incremental refresh to load only new or changed data rather than full refreshes. Create aggregation tables at different grain levels so queries hit smaller, pre-summarized tables. Filter data at the source—don't bring in historical data that won't be used. Use composite models to keep large fact tables in Direct Query while importing smaller dimension tables. Implement columnar compression by optimizing data types. Remove unnecessary columns early in the ETL process. Use proper indexes at the source. Consider archiving old data to separate datasets if real-time access isn't needed. Finally, educate users to avoid SELECT * type scenarios and always apply reasonable filters."
+    },
+    {
+      "id": "Q495",
+      "q": "What steps do you take before publishing a report to ensure performance isn't impacted?",
+      "type": "tech",
+      "category": "Power BI - Quality",
+      "difficulty": "Intermediate",
+      "keywords": [
+        "pre-publishing",
+        "testing",
+        "Performance Analyzer",
+        "query optimization",
+        "validation"
+      ],
+      "company_fit": "Quality assurance and best practices.",
+      "a": "Before publishing, I'd run through a checklist: First, test in a Power BI Service dev workspace with production-sized data, not just Desktop with samples. Enable and analyze Performance Analyzer to identify slow visuals and queries. Optimize any DAX measures that take over 1-2 seconds. Review all queries in Query Editor to ensure they fold properly. Check model size and aim for under 1GB if possible. Test with multiple users to simulate concurrent load. Verify all data sources have proper credentials and gateway connections configured. Check refresh times and set appropriate schedules. Validate all calculations with stakeholders using sample data. Document any known limitations. Finally, create a rollback plan in case issues arise post-publication."
+    },
+    {
+      "id": "Q496",
+      "q": "What is the difference between ALL and REMOVEFILTERS in DAX?",
+      "type": "tech",
+      "category": "Power BI - DAX",
+      "difficulty": "Advanced",
+      "keywords": [
+        "ALL",
+        "REMOVEFILTERS",
+        "filter context",
+        "row context",
+        "CALCULATE"
+      ],
+      "company_fit": "Deep DAX knowledge and nuance understanding.",
+      "a": "This is a subtle but important distinction. ALL removes filters from a column or table, but crucially, when used inside CALCULATE, it keeps the row context alive. REMOVEFILTERS, on the other hand, ensures a complete reset of filters without preserving any context—it's a more aggressive filter removal. For example, if you have ALL(Product[Category]) inside CALCULATE, it removes category filters but maintains other contexts like row iteration. REMOVEFILTERS(Product[Category]) completely removes those filters with no context preservation. In most scenarios, REMOVEFILTERS is clearer and more explicit about intent, which makes DAX code more maintainable. Use ALL when you also need its table-returning capabilities, and REMOVEFILTERS when you simply want to clear filters."
+    },
+    {
+      "id": "Q497",
+      "q": "What is the difference between ALLSELECTED and ALL?",
+      "type": "tech",
+      "category": "Power BI - DAX",
+      "difficulty": "Advanced",
+      "keywords": [
+        "ALLSELECTED",
+        "ALL",
+        "visual filters",
+        "user selections",
+        "context"
+      ],
+      "company_fit": "Advanced filter context understanding.",
+      "a": "ALL completely ignores all filters, returning the entire table or column regardless of what users have selected or what's filtered in the report. ALLSELECTED, however, respects the filters that users have applied through slicers or visual-level filters—it only removes filters from within the current visual while keeping external context. For example, if a user filters to 'USA' using a slicer, ALL would show data for all countries, but ALLSELECTED would only show USA data. This makes ALLSELECTED perfect for percentage-of-filtered-total calculations where you want to respect user selections but ignore the specific filter context of the current visual or row. Use ALL for grand totals across everything, and ALLSELECTED for totals within the user's selected scope."
+    },
+    {
+      "id": "Q498",
+      "q": "How does context transition work in CALCULATE?",
+      "type": "tech",
+      "category": "Power BI - DAX",
+      "difficulty": "Advanced",
+      "keywords": [
+        "context transition",
+        "CALCULATE",
+        "row context",
+        "filter context",
+        "evaluation context"
+      ],
+      "company_fit": "Fundamental understanding of DAX evaluation.",
+      "a": "Context transition is when CALCULATE converts row context into filter context. This happens automatically when CALCULATE is evaluated within a row context (like inside an iterator function). For example, in SUMX(Table, CALCULATE([Total Sales])), as SUMX iterates row by row, CALCULATE transforms each row's context into filters. If the current row has Product='Bike' and Year=2023, CALCULATE applies those as filters before evaluating [Total Sales]. This is powerful but can cause performance issues if overused in iterators since it creates many filter contexts. Understanding this is crucial because it affects how measures behave in calculated columns versus visuals. Without CALCULATE, measures in calculated columns wouldn't filter properly. It's why you can reference measures in calculated columns—CALCULATE creates the necessary filter context."
+    },
+    {
+      "id": "Q499",
+      "q": "What happens when you join two tables with a many-to-many relationship in Power BI?",
+      "type": "tech",
+      "category": "Power BI - Modeling",
+      "difficulty": "Advanced",
+      "keywords": [
+        "many-to-many",
+        "relationships",
+        "ambiguity",
+        "bridge table",
+        "modeling issues"
+      ],
+      "company_fit": "Data modeling problem-solving skills.",
+      "a": "Many-to-many relationships can cause ambiguity issues because there's no clear one-to-one or one-to-many path for filter propagation—results can be unpredictable and often inflated. Power BI allows many-to-many relationships, but they should be used carefully. The relationship can create unexpected duplicates or incorrect aggregations if not properly designed. The best solution is to use a bridge table that breaks the many-to-many into two one-to-many relationships. Alternatively, use unique keys or create a proper fact table that normalizes the relationship. If you must use many-to-many natively in Power BI, ensure you fully understand how filters will propagate, test thoroughly with different filter combinations, and document the relationship clearly for future maintainers. Sometimes the issue indicates a data model design problem that should be fixed upstream."
+    },
+    {
+      "id": "Q500",
+      "q": "Why should you avoid bidirectional filtering in Power BI?",
+      "type": "tech",
+      "category": "Power BI - Modeling",
+      "difficulty": "Intermediate",
+      "keywords": [
+        "bidirectional filtering",
+        "cross-filtering",
+        "circular dependencies",
+        "performance",
+        "ambiguity"
+      ],
+      "company_fit": "Understanding of relationship best practices.",
+      "a": "Bidirectional filtering should be avoided because it can create circular dependencies where filters propagate in loops, causing ambiguity about which filter takes precedence. It significantly impacts performance since the engine needs to evaluate relationships in both directions. It makes the data model harder to understand and maintain—filter flow becomes unpredictable. You might get incorrect results if you're not careful about which filters are applied in which order. However, there are valid use cases like many-to-many relationships through bridge tables or specific analytical scenarios. When you must use it, keep it limited to specific relationships, document why it's needed, and thoroughly test all filter combinations. Generally, a well-designed star schema with single-direction relationships from dimensions to facts is cleaner and more performant."
+    },
+    {
+      "id": "Q501",
+      "q": "When would you use a bridge table versus composite models in Power BI?",
+      "type": "tech",
+      "category": "Power BI - Modeling",
+      "difficulty": "Advanced",
+      "keywords": [
+        "bridge table",
+        "composite models",
+        "many-to-many",
+        "mixed data sources",
+        "architecture"
+      ],
+      "company_fit": "Advanced modeling architecture decisions.",
+      "a": "Use a bridge table when you have many-to-many relationships and need to properly model them without ambiguity—like students and courses where one student takes multiple courses and one course has multiple students. The bridge table (enrollment) converts this into two one-to-many relationships. Use composite models when you have mixed data source requirements—for example, you want slowly-changing dimensions from SQL in Import mode for speed, but need real-time facts via Direct Query from a data warehouse. Composite models let you combine Import, Direct Query, and Direct Lake modes in one model. Bridge tables solve relationship complexity; composite models solve data source and freshness complexity. You might even use both: a composite model that includes a bridge table for a many-to-many relationship in one of its import tables."
+    },
+    {
+      "id": "Q502",
+      "q": "Your report works fine with sample data but fails in production. What do you do?",
+      "type": "tech",
+      "category": "Power BI - Quality",
+      "difficulty": "Intermediate",
+      "keywords": [
+        "debugging",
+        "production issues",
+        "schema differences",
+        "gateway",
+        "troubleshooting"
+      ],
+      "company_fit": "Real-world troubleshooting skills.",
+      "a": "First, I'd check if the schema matches between development and production—column names, data types, and table structures often differ. Second, verify gateway issues—check connectivity, credentials, and that the gateway service is running properly. Third, review deployment settings and permissions—the service account might not have access to production data sources. Fourth, check for data quality issues unique to production like NULLs, unexpected values, or row counts that break assumptions. Fifth, verify the refresh history in Service to see specific error messages. Sixth, compare connection strings and ensure they point to production not dev. I'd use DAX Studio to test queries directly against the production dataset. Finally, check if there are network, firewall, or VPN requirements for production that weren't needed for dev."
+    },
+    {
+      "id": "Q503",
+      "q": "How do you troubleshoot a blank visual in Power BI?",
+      "type": "tech",
+      "category": "Power BI - Quality",
+      "difficulty": "Beginner",
+      "keywords": [
+        "blank visual",
+        "troubleshooting",
+        "filters",
+        "relationships",
+        "measures"
+      ],
+      "company_fit": "Basic troubleshooting capability.",
+      "a": "I'd systematically check several things: First, look at filters—check visual-level, page-level, and report-level filters that might be excluding all data. Second, verify relationships between tables are correct and active. Third, check if the measure calculation is returning BLANK or NULL—test it in a card visual to isolate the issue. Fourth, ensure the visual has the right fields in the right wells—sometimes dragging to wrong locations causes blanks. Fifth, check for row-level security that might be filtering out all data. Sixth, verify the data source actually has data for the current filter context. Use the Performance Analyzer to see if the visual is even executing a query. Sometimes it's as simple as filters being too restrictive or a relationship being inactive when it should be active."
+    },
+    {
+      "id": "Q504",
+      "q": "What do you do if a DAX measure returns incorrect results?",
+      "type": "tech",
+      "category": "Power BI - DAX",
+      "difficulty": "Intermediate",
+      "keywords": [
+        "DAX debugging",
+        "DAX Studio",
+        "incorrect results",
+        "measure testing",
+        "troubleshooting"
+      ],
+      "company_fit": "DAX debugging and problem-solving.",
+      "a": "I'd use DAX Studio to debug step by step. First, break the complex measure into smaller parts using variables and test each variable independently. Add intermediate calculations as separate measures to see where the logic breaks. Check the filter context using SELECTEDVALUE or ISFILTERED to understand what filters are being applied. Verify the relationships and cross-filter directions between tables involved. Test with simplified filter contexts—start with a single row of data and build up complexity. Use the Performance Analyzer in Power BI Desktop to see the actual query being generated. Compare the results with a known-good calculation in Excel or SQL. Check for common issues like using wrong aggregation functions, context transition problems, or circular dependencies. Document each test case to build a clear picture of where the calculation diverges from expectations."
+    },
+    {
+      "id": "Q505",
+      "q": "A business user says the report is incorrect but you're sure it's correct. How do you handle it?",
+      "type": "beh",
+      "category": "Stakeholders",
+      "difficulty": "Intermediate",
+      "keywords": [
+        "stakeholder management",
+        "conflict resolution",
+        "data validation",
+        "communication",
+        "business alignment"
+      ],
+      "company_fit": "Professional communication and problem-solving.",
+      "a": "Even if I'm confident the report is correct, I wouldn't argue—I'd investigate collaboratively. First, I'd ask for specific examples: 'Can you show me which numbers look wrong and what you're expecting instead?' This helps identify if it's a calculation issue or a misunderstanding of what's being measured. Second, I'd verify the data source matches their expectations—sometimes the source data itself differs from what they assume. Third, I'd walk through the calculation logic with concrete examples, showing exactly how we're arriving at each number. Fourth, I'd check if there are differences in how they're filtering or slicing the data versus how the report is set up. Often, the 'incorrect' result is actually correct but measuring something slightly different than what they expected. I'd stay curious and professional, focusing on understanding their perspective rather than defending my work. This approach builds trust and usually reveals either a fixable issue or a communication gap we can bridge together."
     }
   ]
 }
