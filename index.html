@@ -724,27 +724,83 @@
                 font-size: 0.85rem;
             }
 
-            /* Card Flip Mobile */
+            /* Mobile: Simpler UX - no card flip, just expand/collapse */
+            .card-flip-container {
+                perspective: none;
+            }
+            
             .card-flip-inner {
-                height: 500px;
-                min-height: 500px;
+                height: auto;
+                min-height: auto;
+                transform: none !important;
             }
 
             .card-front, .card-back {
+                position: relative;
+                backface-visibility: visible;
+                transform: none !important;
                 padding: 16px;
+                box-shadow: none;
+                border-radius: 0;
+            }
+            
+            .card-front {
+                border: none;
+                background: transparent;
+                padding: 0;
+            }
+            
+            .card-back {
+                border: none;
+                background: transparent;
+                padding: 0;
+                margin-top: 20px;
+            }
+            
+            .card-back.hidden-mobile {
+                display: none;
+            }
+            
+            /* Hide flip-back button on mobile */
+            #flip-back {
+                display: none !important;
+            }
+            
+            .answer-meta {
+                display: none;
+            }
+            
+            .answer-header {
+                margin-bottom: 8px;
+            }
+            
+            .answer-label {
+                font-size: 1.1rem;
+                margin-bottom: 12px;
+                display: block;
             }
 
             .answer-container {
-                min-height: 220px;
-                max-height: 280px;
-                overflow-y: auto;
+                min-height: auto;
+                max-height: none;
+                overflow-y: visible;
                 -webkit-overflow-scrolling: touch;
+                background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);
+                border: 1px solid #c3e6c3;
+                border-radius: 12px;
+                padding: 16px;
+                margin: 0;
             }
 
-            .answer-meta {
-                flex-direction: column;
-                gap: 8px;
-                align-items: flex-start;
+            /* Keywords and company fit on mobile */
+            .keywords-container {
+                margin: 16px 0 !important;
+                padding: 12px !important;
+            }
+            
+            .company-fit {
+                margin: 16px 0 !important;
+                padding: 12px !important;
             }
 
             .btn-sm {
@@ -1151,8 +1207,21 @@
             document.getElementById('answer').textContent = card.a;
             
             // Reset card flip state
-            document.getElementById('card-flip-inner').classList.remove('flipped');
-            document.getElementById('show-answer').style.display = 'inline-block';
+            const cardInner = document.getElementById('card-flip-inner');
+            const cardBack = document.querySelector('.card-back');
+            const showAnswerBtn = document.getElementById('show-answer');
+            const isMobile = window.innerWidth <= 768;
+            
+            cardInner.classList.remove('flipped');
+            showAnswerBtn.style.display = 'inline-block';
+            showAnswerBtn.textContent = 'Show Answer';
+            
+            // On mobile, hide answer by default
+            if (isMobile) {
+                cardBack.classList.add('hidden-mobile');
+            } else {
+                cardBack.classList.remove('hidden-mobile');
+            }
             
             // Update question metadata
             document.getElementById('question-id').textContent = card.id || `Q${cardIndex + 1}`;
@@ -1192,18 +1261,40 @@
         // Show answer
         function flipCard() {
             const cardInner = document.getElementById('card-flip-inner');
+            const cardBack = document.querySelector('.card-back');
             const showAnswerBtn = document.getElementById('show-answer');
+            const isMobile = window.innerWidth <= 768;
             
-            if (cardInner.classList.contains('flipped')) {
-                // Flip back to question
-                cardInner.classList.remove('flipped');
-                showAnswerBtn.textContent = 'Show Answer';
-                showAnswerBtn.style.display = 'inline-block';
+            if (isMobile) {
+                // Mobile: Simple show/hide
+                if (cardBack.classList.contains('hidden-mobile')) {
+                    // Show answer
+                    cardBack.classList.remove('hidden-mobile');
+                    showAnswerBtn.textContent = 'Hide Answer';
+                    // Scroll to answer smoothly
+                    setTimeout(() => {
+                        cardBack.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }, 100);
+                } else {
+                    // Hide answer
+                    cardBack.classList.add('hidden-mobile');
+                    showAnswerBtn.textContent = 'Show Answer';
+                    // Scroll back to question
+                    document.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
             } else {
-                // Flip to answer
-                cardInner.classList.add('flipped');
-                showAnswerBtn.textContent = 'Show Question';
-                showAnswerBtn.style.display = 'none';
+                // Desktop: 3D flip animation
+                if (cardInner.classList.contains('flipped')) {
+                    // Flip back to question
+                    cardInner.classList.remove('flipped');
+                    showAnswerBtn.textContent = 'Show Answer';
+                    showAnswerBtn.style.display = 'inline-block';
+                } else {
+                    // Flip to answer
+                    cardInner.classList.add('flipped');
+                    showAnswerBtn.textContent = 'Show Question';
+                    showAnswerBtn.style.display = 'none';
+                }
             }
         }
 
@@ -1425,6 +1516,28 @@
                 touchEndY = e.changedTouches[0].screenY;
                 handleSwipe();
             }, { passive: true });
+        });
+
+        // Handle window resize for mobile/desktop switching
+        let resizeTimer;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function() {
+                const isMobile = window.innerWidth <= 768;
+                const cardBack = document.querySelector('.card-back');
+                const cardInner = document.getElementById('card-flip-inner');
+                
+                if (cardBack && cardInner) {
+                    // Reset to proper state for current viewport
+                    if (isMobile) {
+                        cardBack.classList.add('hidden-mobile');
+                        cardInner.classList.remove('flipped');
+                    } else {
+                        cardBack.classList.remove('hidden-mobile');
+                    }
+                    document.getElementById('show-answer').textContent = 'Show Answer';
+                }
+            }, 250);
         });
 
         // Initialize app
