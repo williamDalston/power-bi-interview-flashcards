@@ -6251,6 +6251,235 @@
       ],
       "company_fit": "Tests enthusiasm for variety and client service.",
       "a": "I like variety and challenge. Consulting exposes me to new systems, industries, and people constantly. It pushes me to stay sharp and adaptable, and I enjoy knowing each project tangibly improves how organizations operate."
+    },
+    {
+      "id": "Q451",
+      "q": "What is a primary key in SQL?",
+      "type": "tech",
+      "category": "SQL Fundamentals",
+      "difficulty": "Beginner",
+      "keywords": [
+        "primary key",
+        "unique",
+        "non-nullable",
+        "identifier"
+      ],
+      "company_fit": "Essential database knowledge for any data role.",
+      "a": "A primary key is a unique, non-nullable identifier for each record in a table. It has three key characteristics: it can't be duplicated among entries in a table, it cannot be blank or null, and each table can only have one primary key. The primary key can be either a single column or a combination of columns."
+    },
+    {
+      "id": "Q452",
+      "q": "What is a JOIN in SQL and what are the main types?",
+      "type": "tech",
+      "category": "SQL Fundamentals",
+      "difficulty": "Beginner",
+      "keywords": [
+        "JOIN",
+        "INNER JOIN",
+        "LEFT JOIN",
+        "RIGHT JOIN",
+        "OUTER JOIN"
+      ],
+      "company_fit": "Core SQL skill for combining data from multiple sources.",
+      "a": "A JOIN is a function in SQL that allows you to combine two different tables based on a set of logic and columns that you define. The four main types are: INNER JOIN retrieves records that have matching values in both tables; FULL OUTER JOIN retrieves all records where there is a match in either table, with nulls where there's no match; LEFT JOIN retrieves all records from the left table and matched records from the right table; RIGHT JOIN is the opposite, retrieving all records from the right table and matched records from the left."
+    },
+    {
+      "id": "Q453",
+      "q": "What's the difference between SQL and MySQL?",
+      "type": "tech",
+      "category": "SQL Fundamentals",
+      "difficulty": "Beginner",
+      "keywords": [
+        "SQL",
+        "MySQL",
+        "RDBMS",
+        "language"
+      ],
+      "company_fit": "Shows understanding of database tools vs. languages.",
+      "a": "SQL is a coding language used to interact with relational databases. It's an abstraction—just the syntax and structure of the language itself. MySQL, on the other hand, is a software—a relational database management system (RDBMS) that implements those databases. MySQL provides a graphical interface to update schemas, define data types, manage user permissions, and perform other administrative tasks. SQL is what you write; MySQL is what runs it."
+    },
+    {
+      "id": "Q454",
+      "q": "What's the difference between WHERE and HAVING clauses in SQL?",
+      "type": "tech",
+      "category": "SQL Fundamentals",
+      "difficulty": "Intermediate",
+      "keywords": [
+        "WHERE",
+        "HAVING",
+        "GROUP BY",
+        "filtering"
+      ],
+      "company_fit": "Demonstrates understanding of aggregation and filtering.",
+      "a": "WHERE filters data at the row level before any aggregation happens—it checks each individual row to see if it meets the condition. HAVING filters data after aggregation—it works with GROUP BY statements to filter the grouped results. For example, WHERE population > 10000000 filters individual countries, while HAVING SUM(population) > 100000000 would filter continents based on their total aggregated population. Use WHERE for row-level filtering and HAVING for filtering aggregated groups."
+    },
+    {
+      "id": "Q455",
+      "q": "Explain INNER JOIN vs. LEFT JOIN with a practical example.",
+      "type": "tech",
+      "category": "SQL Fundamentals",
+      "difficulty": "Beginner",
+      "keywords": [
+        "INNER JOIN",
+        "LEFT JOIN",
+        "matching",
+        "nulls"
+      ],
+      "company_fit": "Tests practical understanding of join behavior.",
+      "a": "With an INNER JOIN, you only get rows where both tables have matching values. If you join a customers table to an orders table, you'll only see customers who have placed orders. With a LEFT JOIN, you get all rows from the left table regardless of whether there's a match in the right table. So you'd see all customers, including those who haven't placed orders yet—they'd just have null values in the order columns. LEFT JOIN is useful when you want to preserve all records from your primary table."
+    },
+    {
+      "id": "Q456",
+      "q": "When would you use a subquery instead of a JOIN?",
+      "type": "tech",
+      "category": "SQL Advanced",
+      "difficulty": "Advanced",
+      "keywords": [
+        "subquery",
+        "nested query",
+        "JOIN",
+        "performance"
+      ],
+      "company_fit": "Shows advanced SQL problem-solving skills.",
+      "a": "I use subqueries when I need to filter based on aggregated data from another table, or when the logic is clearer as a nested query. For example, if I want to find all actors who worked with a specific person, I might use a subquery to first get the list of movie IDs that person appeared in, then use that list in an IN clause. Subqueries are also useful when you need to perform calculations in stages. However, if performance is critical, I'd evaluate whether a JOIN would be more efficient, since subqueries can sometimes be slower depending on the database optimizer."
+    },
+    {
+      "id": "Q457",
+      "q": "What's the purpose of GROUP BY in SQL?",
+      "type": "tech",
+      "category": "SQL Fundamentals",
+      "difficulty": "Beginner",
+      "keywords": [
+        "GROUP BY",
+        "aggregation",
+        "SUM",
+        "COUNT"
+      ],
+      "company_fit": "Essential for reporting and aggregation tasks.",
+      "a": "GROUP BY collapses rows with the same values in specified columns into summary rows, allowing you to perform aggregate functions like COUNT, SUM, AVG, MIN, or MAX on each group. For example, if you have a sales table and GROUP BY customer_id, you can get the total sales per customer. It essentially transforms detailed transactional data into summarized reporting data. Any column in the SELECT statement that isn't part of an aggregate function must be included in the GROUP BY clause."
+    },
+    {
+      "id": "Q458",
+      "q": "How would you find duplicate records in a SQL table?",
+      "type": "tech",
+      "category": "SQL Practical",
+      "difficulty": "Intermediate",
+      "keywords": [
+        "duplicates",
+        "GROUP BY",
+        "HAVING",
+        "COUNT"
+      ],
+      "company_fit": "Common data quality task in any analytics role.",
+      "a": "I'd use GROUP BY with a HAVING clause to identify duplicates. For example: SELECT email, COUNT(*) as count FROM users GROUP BY email HAVING COUNT(*) > 1. This groups records by the column you're checking for duplicates, then filters to only show groups with more than one record. You can extend this to multiple columns if you're checking for duplicates across a combination of fields. If you need to see all the duplicate rows with their full details, you could use this query as a subquery or join it back to the original table."
+    },
+    {
+      "id": "Q459",
+      "q": "What's the difference between DELETE and TRUNCATE?",
+      "type": "tech",
+      "category": "SQL Fundamentals",
+      "difficulty": "Intermediate",
+      "keywords": [
+        "DELETE",
+        "TRUNCATE",
+        "transaction",
+        "rollback"
+      ],
+      "company_fit": "Important for data management and safety.",
+      "a": "DELETE removes rows one by one and logs each deletion, so it can be rolled back within a transaction and triggers fire for each row. TRUNCATE removes all rows in one operation by deallocating the data pages, making it much faster for large tables. However, TRUNCATE can't be rolled back in most databases, doesn't fire triggers, and resets auto-increment counters. DELETE can use a WHERE clause to remove specific rows; TRUNCATE removes everything. I use DELETE when I need precision and recoverability, TRUNCATE when I need to quickly clear an entire table and I'm certain about it."
+    },
+    {
+      "id": "Q460",
+      "q": "Explain what a foreign key is and why it's important.",
+      "type": "tech",
+      "category": "SQL Fundamentals",
+      "difficulty": "Beginner",
+      "keywords": [
+        "foreign key",
+        "referential integrity",
+        "relationship",
+        "constraint"
+      ],
+      "company_fit": "Shows understanding of relational database design.",
+      "a": "A foreign key is a column or set of columns in one table that references the primary key in another table. It establishes a link between the two tables and enforces referential integrity—meaning you can't insert a value in the foreign key column unless it exists as a primary key in the referenced table. For example, an order table might have a customer_id foreign key that references the customer table's primary key. This prevents orphaned records and ensures data consistency. Foreign keys are essential for maintaining data quality and defining relationships in a relational database."
+    },
+    {
+      "id": "Q461",
+      "q": "What are aggregate functions in SQL? Name the common ones.",
+      "type": "tech",
+      "category": "SQL Fundamentals",
+      "difficulty": "Beginner",
+      "keywords": [
+        "aggregate functions",
+        "COUNT",
+        "SUM",
+        "AVG",
+        "MIN",
+        "MAX"
+      ],
+      "company_fit": "Basic SQL knowledge for reporting and analysis.",
+      "a": "Aggregate functions perform calculations on a set of rows and return a single value. The most common ones are COUNT (counts rows), SUM (adds up values), AVG (calculates average), MIN (finds minimum value), and MAX (finds maximum value). They're typically used with GROUP BY to calculate statistics for each group, like total sales per region or average order value per customer. These functions ignore NULL values except for COUNT(*), which counts all rows including those with NULLs."
+    },
+    {
+      "id": "Q462",
+      "q": "What's the difference between UNION and UNION ALL?",
+      "type": "tech",
+      "category": "SQL Fundamentals",
+      "difficulty": "Intermediate",
+      "keywords": [
+        "UNION",
+        "UNION ALL",
+        "duplicates",
+        "combine"
+      ],
+      "company_fit": "Useful for combining data from multiple sources.",
+      "a": "UNION combines the results of two or more SELECT statements and automatically removes duplicate rows, while UNION ALL combines results and keeps all duplicates. UNION ALL is faster because it doesn't have to perform the deduplication step. I use UNION when I need a distinct set of results from multiple queries, like combining customer lists from different regions where the same customer might appear in both. I use UNION ALL when I know there are no duplicates or when I want to keep them, like combining transaction logs from different time periods."
+    },
+    {
+      "id": "Q463",
+      "q": "How would you get the second highest salary from an employees table?",
+      "type": "tech",
+      "category": "SQL Practical",
+      "difficulty": "Intermediate",
+      "keywords": [
+        "ranking",
+        "ORDER BY",
+        "LIMIT",
+        "OFFSET",
+        "subquery"
+      ],
+      "company_fit": "Classic interview question testing SQL problem-solving.",
+      "a": "There are several approaches. One simple way is using ORDER BY with LIMIT and OFFSET: SELECT DISTINCT salary FROM employees ORDER BY salary DESC LIMIT 1 OFFSET 1. Another approach uses a subquery: SELECT MAX(salary) FROM employees WHERE salary < (SELECT MAX(salary) FROM employees). In SQL Server or databases with window functions, I'd use DENSE_RANK() to handle ties properly: SELECT salary FROM (SELECT salary, DENSE_RANK() OVER (ORDER BY salary DESC) as rank FROM employees) WHERE rank = 2. The best approach depends on how you want to handle ties and which database you're using."
+    },
+    {
+      "id": "Q464",
+      "q": "What's the purpose of indexes in SQL and when should you use them?",
+      "type": "tech",
+      "category": "SQL Performance",
+      "difficulty": "Advanced",
+      "keywords": [
+        "indexes",
+        "performance",
+        "query optimization",
+        "trade-offs"
+      ],
+      "company_fit": "Shows understanding of performance optimization.",
+      "a": "Indexes are data structures that improve query performance by allowing the database to find rows faster without scanning the entire table—similar to an index in a book. I create indexes on columns that are frequently used in WHERE clauses, JOIN conditions, or ORDER BY statements. However, indexes have trade-offs: they speed up reads but slow down writes (INSERT, UPDATE, DELETE) because the index needs to be maintained. They also consume storage space. I typically index primary keys, foreign keys, and columns used in frequent queries, but avoid over-indexing. For high-cardinality columns that are searched often, indexes provide the most benefit."
+    },
+    {
+      "id": "Q465",
+      "q": "Explain the concept of NULL in SQL and how to handle it.",
+      "type": "tech",
+      "category": "SQL Fundamentals",
+      "difficulty": "Beginner",
+      "keywords": [
+        "NULL",
+        "IS NULL",
+        "COALESCE",
+        "missing data"
+      ],
+      "company_fit": "Critical for accurate data analysis and reporting.",
+      "a": "NULL represents the absence of a value—it's not zero, not an empty string, it's unknown or undefined. NULLs behave differently in SQL: any comparison with NULL (=, <, >) returns UNKNOWN, not true or false. To check for NULL, you must use IS NULL or IS NOT NULL. Aggregate functions like SUM and AVG ignore NULLs. To handle NULLs, I use COALESCE to provide default values: COALESCE(phone_number, 'N/A'), or ISNULL/NULLIF depending on the database. Understanding NULL behavior is crucial because ignoring it can lead to incorrect query results, especially in JOINs and WHERE clauses."
     }
   ]
 }
