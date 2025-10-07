@@ -6480,6 +6480,264 @@
       ],
       "company_fit": "Critical for accurate data analysis and reporting.",
       "a": "NULL represents the absence of a value—it's not zero, not an empty string, it's unknown or undefined. NULLs behave differently in SQL: any comparison with NULL (=, <, >) returns UNKNOWN, not true or false. To check for NULL, you must use IS NULL or IS NOT NULL. Aggregate functions like SUM and AVG ignore NULLs. To handle NULLs, I use COALESCE to provide default values: COALESCE(phone_number, 'N/A'), or ISNULL/NULLIF depending on the database. Understanding NULL behavior is crucial because ignoring it can lead to incorrect query results, especially in JOINs and WHERE clauses."
+    },
+    {
+      "id": "Q466",
+      "q": "What's the difference between DDL and DML commands?",
+      "type": "tech",
+      "category": "SQL Fundamentals",
+      "difficulty": "Beginner",
+      "keywords": [
+        "DDL",
+        "DML",
+        "CREATE",
+        "ALTER",
+        "DROP",
+        "INSERT",
+        "UPDATE",
+        "DELETE",
+        "rollback"
+      ],
+      "company_fit": "Core SQL knowledge about command types.",
+      "a": "DDL stands for Data Definition Language and deals with changing the structure of tables—commands like CREATE, ALTER, and DROP. DML stands for Data Manipulation Language and deals with manipulating the data itself—commands like INSERT, UPDATE, and DELETE. The most important difference is that DML commands can be rolled back if you need to undo changes, whereas DDL commands cannot be rolled back. When you DROP or TRUNCATE a table, it's gone permanently. This distinction is critical for data safety and recovery."
+    },
+    {
+      "id": "Q467",
+      "q": "What is COALESCE and when would you use it?",
+      "type": "tech",
+      "category": "SQL Fundamentals",
+      "difficulty": "Intermediate",
+      "keywords": [
+        "COALESCE",
+        "NULL",
+        "default value",
+        "JOINs"
+      ],
+      "company_fit": "Practical function for handling missing data.",
+      "a": "COALESCE is a function that replaces NULL values with a default value you specify. For example, COALESCE(sales_amount, 0) would replace any NULL sales with zero. This is especially useful when joining tables—if a customer hasn't made a purchase, the order amount will be NULL, but you can replace it with 0 for cleaner reporting. It's also critical for calculations: you can't calculate an average if you have NULLs, but if you replace them with zeros using COALESCE, the calculation works. It takes the first non-NULL value from a list of arguments."
+    },
+    {
+      "id": "Q468",
+      "q": "What is a composite key?",
+      "type": "tech",
+      "category": "SQL Fundamentals",
+      "difficulty": "Intermediate",
+      "keywords": [
+        "composite key",
+        "primary key",
+        "multiple columns",
+        "unique identifier"
+      ],
+      "company_fit": "Understanding of complex primary key scenarios.",
+      "a": "A composite key is a primary key that consists of two or more columns combined together to uniquely identify each row. For example, in an enrollment table, neither student_id nor course_id alone might be unique (since one student takes multiple courses and one course has multiple students), but the combination of student_id and course_id together forms a unique identifier for each enrollment. This is still considered one primary key for the table, just made up of multiple columns. It's commonly used in many-to-many relationship junction tables."
+    },
+    {
+      "id": "Q469",
+      "q": "How many JOINs do you need to combine N tables?",
+      "type": "tech",
+      "category": "SQL Fundamentals",
+      "difficulty": "Beginner",
+      "keywords": [
+        "JOIN",
+        "multiple tables",
+        "n-1 formula"
+      ],
+      "company_fit": "Tests understanding of join mechanics.",
+      "a": "You need N minus 1 joins to combine N tables. For example, to join 3 tables, you need 2 joins. To join 8 tables, you need 7 joins. The formula is always N-1. This is because each JOIN operation connects one table to the existing result set—the first table doesn't need a join, and each subsequent table needs one join to connect to what you've already built. It's a straightforward but important concept that shows you understand how joins chain together."
+    },
+    {
+      "id": "Q470",
+      "q": "What is a CROSS JOIN and when would you use it?",
+      "type": "tech",
+      "category": "SQL Advanced",
+      "difficulty": "Advanced",
+      "keywords": [
+        "CROSS JOIN",
+        "Cartesian product",
+        "combinations",
+        "use cases"
+      ],
+      "company_fit": "Understanding of specialized join types.",
+      "a": "A CROSS JOIN produces the Cartesian product of two tables—every row from the first table is combined with every row from the second table. If table A has 3 rows and table B has 4 rows, the result will have 12 rows. A practical example: if you have a table of t-shirt sizes (Small, Medium, Large) and a table of colors (Red, Blue, Green), a CROSS JOIN would give you all possible combinations—9 unique t-shirt options. Use cases include generating test data, creating all possible combinations for scenarios, or building dimension tables. However, be cautious—cross joins can create massive result sets very quickly."
+    },
+    {
+      "id": "Q471",
+      "q": "What is a self JOIN and when would you use it?",
+      "type": "tech",
+      "category": "SQL Advanced",
+      "difficulty": "Advanced",
+      "keywords": [
+        "self JOIN",
+        "same table",
+        "hierarchical data",
+        "employee-manager"
+      ],
+      "company_fit": "Shows ability to handle complex relationships.",
+      "a": "A self JOIN is when you join a table to itself, typically using table aliases to treat it as two separate tables. The classic example is an employee table where each employee has a manager_id that references another employee_id in the same table. To get each employee's name along with their manager's name, you'd self-join: SELECT e.name as employee, m.name as manager FROM employees e LEFT JOIN employees m ON e.manager_id = m.employee_id. Self joins are perfect for hierarchical data, finding duplicates, or comparing rows within the same table. You need to use different aliases to distinguish between the two 'copies' of the table."
+    },
+    {
+      "id": "Q472",
+      "q": "What is the order of execution in a SQL query?",
+      "type": "tech",
+      "category": "SQL Advanced",
+      "difficulty": "Advanced",
+      "keywords": [
+        "execution order",
+        "FROM",
+        "WHERE",
+        "GROUP BY",
+        "HAVING",
+        "SELECT",
+        "ORDER BY",
+        "LIMIT"
+      ],
+      "company_fit": "Deep understanding of how SQL processes queries.",
+      "a": "The order of execution is: FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY → LIMIT. It's not the order you write it, but the order SQL processes it. First, FROM identifies the tables. Then WHERE filters individual rows. GROUP BY groups the filtered rows. HAVING filters the grouped results. SELECT determines which columns to return. ORDER BY sorts the results. Finally, LIMIT restricts how many rows to return. This is why you can't reference a column alias from SELECT in your WHERE clause—WHERE executes before SELECT. Understanding this helps you write more efficient queries and troubleshoot errors."
+    },
+    {
+      "id": "Q473",
+      "q": "What are window functions in SQL?",
+      "type": "tech",
+      "category": "SQL Advanced",
+      "difficulty": "Advanced",
+      "keywords": [
+        "window functions",
+        "analytical functions",
+        "ROW_NUMBER",
+        "RANK",
+        "DENSE_RANK",
+        "LEAD",
+        "LAG",
+        "OVER",
+        "PARTITION BY"
+      ],
+      "company_fit": "Advanced SQL skill for complex analytics.",
+      "a": "Window functions perform calculations across a set of rows related to the current row, without collapsing the result set like GROUP BY does. Common window functions include ROW_NUMBER (assigns unique sequential numbers), RANK (assigns ranks with gaps for ties), DENSE_RANK (assigns ranks without gaps), LEAD (accesses subsequent rows), and LAG (accesses previous rows). They use the OVER clause with optional PARTITION BY to define the window. For example, RANK() OVER (PARTITION BY department ORDER BY salary DESC) ranks employees by salary within each department. Window functions are powerful for running totals, moving averages, and ranking scenarios where you need to keep all rows visible."
+    },
+    {
+      "id": "Q474",
+      "q": "What's the difference between RANK and DENSE_RANK?",
+      "type": "tech",
+      "category": "SQL Advanced",
+      "difficulty": "Advanced",
+      "keywords": [
+        "RANK",
+        "DENSE_RANK",
+        "window functions",
+        "ties",
+        "gaps"
+      ],
+      "company_fit": "Shows understanding of ranking behavior.",
+      "a": "Both functions assign ranks, but they handle ties differently. RANK skips numbers after ties—if two people score 98 and get rank 2, the next rank will be 4 (skipping 3). DENSE_RANK never skips numbers—after two people at rank 2, the next rank will be 3. Example: scores 99, 98, 98, 97 would get RANK values 1, 2, 2, 4 but DENSE_RANK values 1, 2, 2, 3. Use DENSE_RANK when you want consecutive rank numbers regardless of ties, like ranking top 5 products where you always want exactly 5 ranks. Use RANK when you want to show the true position, reflecting that if two people tie for second place, no one gets third place."
+    },
+    {
+      "id": "Q475",
+      "q": "What is a VIEW and how is it different from a table?",
+      "type": "tech",
+      "category": "SQL Fundamentals",
+      "difficulty": "Intermediate",
+      "keywords": [
+        "VIEW",
+        "virtual table",
+        "query storage",
+        "no data storage"
+      ],
+      "company_fit": "Understanding of database objects and optimization.",
+      "a": "A VIEW is a virtual table that stores a query, not data. When you query a view, it executes the underlying SQL and returns results dynamically. A table physically stores data on disk. Views are useful for several reasons: they simplify complex queries by encapsulating joins and logic, provide a security layer by exposing only certain columns, and save storage space since they don't duplicate data. However, views can be slower than tables for complex queries since they execute every time. You create a view like: CREATE VIEW customer_orders AS SELECT c.name, o.total FROM customers c JOIN orders o ON c.id = o.customer_id. Then you can simply SELECT * FROM customer_orders."
+    },
+    {
+      "id": "Q476",
+      "q": "What is a CTE (Common Table Expression)?",
+      "type": "tech",
+      "category": "SQL Advanced",
+      "difficulty": "Advanced",
+      "keywords": [
+        "CTE",
+        "WITH clause",
+        "temporary result set",
+        "readability"
+      ],
+      "company_fit": "Advanced technique for cleaner, more maintainable queries.",
+      "a": "A CTE is a temporary named result set that exists only for the duration of a query. You define it using the WITH clause: WITH sales_summary AS (SELECT customer_id, SUM(amount) as total FROM orders GROUP BY customer_id) SELECT * FROM sales_summary WHERE total > 1000. CTEs make complex queries more readable by breaking them into logical steps. Unlike temporary tables, CTEs don't require explicit creation or cleanup—they're automatically disposed after the query. You can chain multiple CTEs together and even create recursive CTEs for hierarchical data. They're perfect for simplifying nested subqueries and making your code more maintainable."
+    },
+    {
+      "id": "Q477",
+      "q": "What's the difference between SQL and PL/SQL?",
+      "type": "tech",
+      "category": "SQL Fundamentals",
+      "difficulty": "Intermediate",
+      "keywords": [
+        "SQL",
+        "PL/SQL",
+        "procedural",
+        "programming language",
+        "stored procedures"
+      ],
+      "company_fit": "Understanding of database programming capabilities.",
+      "a": "SQL is a declarative language for querying and manipulating data—you write commands line by line to tell the database what you want. PL/SQL (Procedural Language/SQL) extends SQL with programming constructs like variables, loops (FOR, WHILE), conditional statements (IF-THEN-ELSE), and exception handling. With PL/SQL, you can write stored procedures, functions, and triggers that execute as blocks of code rather than individual statements. This is useful for complex business logic that needs to run on the database server. SQL is for data operations; PL/SQL is for programming logic. For example, you'd use SQL to query data but PL/SQL to write a procedure that processes millions of records with complex conditional logic."
+    },
+    {
+      "id": "Q478",
+      "q": "How would you find the third highest salary in a table?",
+      "type": "tech",
+      "category": "SQL Practical",
+      "difficulty": "Intermediate",
+      "keywords": [
+        "Nth highest",
+        "RANK",
+        "DENSE_RANK",
+        "subquery",
+        "ORDER BY"
+      ],
+      "company_fit": "Classic interview problem testing analytical skills.",
+      "a": "I'd use DENSE_RANK to handle ties properly: SELECT salary FROM (SELECT salary, DENSE_RANK() OVER (ORDER BY salary DESC) as rank FROM employees) WHERE rank = 3. This assigns ranks without gaps and filters to the third rank. Another approach uses LIMIT with OFFSET: SELECT DISTINCT salary FROM employees ORDER BY salary DESC LIMIT 1 OFFSET 2. Or with a correlated subquery: SELECT MIN(salary) FROM employees WHERE salary IN (SELECT DISTINCT TOP 3 salary FROM employees ORDER BY salary DESC). The window function approach is cleanest and most maintainable. For the Nth highest, just change the rank filter or offset value."
+    },
+    {
+      "id": "Q479",
+      "q": "How do you remove duplicate records from a table?",
+      "type": "tech",
+      "category": "SQL Practical",
+      "difficulty": "Intermediate",
+      "keywords": [
+        "duplicates",
+        "DELETE",
+        "ROW_NUMBER",
+        "GROUP BY",
+        "HAVING"
+      ],
+      "company_fit": "Common data cleaning task in analytics.",
+      "a": "First, identify duplicates using GROUP BY: SELECT email, COUNT(*) FROM users GROUP BY email HAVING COUNT(*) > 1. To remove them, use ROW_NUMBER with a CTE: WITH cte AS (SELECT *, ROW_NUMBER() OVER (PARTITION BY email ORDER BY id) as rn FROM users) DELETE FROM cte WHERE rn > 1. This keeps the first occurrence and deletes the rest. Another approach: DELETE FROM users WHERE id NOT IN (SELECT MIN(id) FROM users GROUP BY email). The ROW_NUMBER method is more flexible because you can choose which duplicate to keep by changing the ORDER BY. Always backup data before deleting duplicates, and consider why duplicates exist in the first place—you might need better constraints."
+    },
+    {
+      "id": "Q480",
+      "q": "How would you get every alternate row from a table?",
+      "type": "tech",
+      "category": "SQL Practical",
+      "difficulty": "Intermediate",
+      "keywords": [
+        "alternate rows",
+        "even/odd",
+        "modulus",
+        "ROW_NUMBER"
+      ],
+      "company_fit": "Tests understanding of modulus and row numbering.",
+      "a": "Use ROW_NUMBER with modulus to filter even or odd rows: SELECT * FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY id) as row_num FROM table_name) WHERE row_num % 2 = 0 for even rows, or WHERE row_num % 2 = 1 for odd rows. The modulus operator (%) returns the remainder of division—dividing by 2 gives you 0 for even numbers and 1 for odd numbers. This is useful for sampling data, creating test datasets, or analyzing patterns. You can also modify this to get every third row (% 3 = 0), every fourth row, etc. Just make sure you have a clear ordering column to make the 'alternate' selection meaningful."
+    },
+    {
+      "id": "Q481",
+      "q": "How would you find records from the last 30 days or last 6 months?",
+      "type": "tech",
+      "category": "SQL Practical",
+      "difficulty": "Beginner",
+      "keywords": [
+        "date filtering",
+        "date functions",
+        "CURRENT_DATE",
+        "DATE_SUB",
+        "INTERVAL"
+      ],
+      "company_fit": "Common requirement for time-based reporting.",
+      "a": "For the last 30 days: SELECT * FROM orders WHERE order_date >= CURRENT_DATE - INTERVAL 30 DAY or WHERE order_date >= DATE_SUB(CURRENT_DATE, INTERVAL 30 DAY). For the last 6 months, use INTERVAL 6 MONTH. You can also use date arithmetic: WHERE order_date >= DATEADD(day, -30, GETDATE()) in SQL Server. For more specific filtering, use EXTRACT or DATE_PART: WHERE EXTRACT(MONTH FROM order_date) = EXTRACT(MONTH FROM CURRENT_DATE) for the current month. Always be aware of time zones and whether your date columns include time components—you might need to use DATE() function to strip time for accurate comparisons."
     }
   ]
 }
