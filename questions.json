@@ -6738,6 +6738,144 @@
       ],
       "company_fit": "Common requirement for time-based reporting.",
       "a": "For the last 30 days: SELECT * FROM orders WHERE order_date >= CURRENT_DATE - INTERVAL 30 DAY or WHERE order_date >= DATE_SUB(CURRENT_DATE, INTERVAL 30 DAY). For the last 6 months, use INTERVAL 6 MONTH. You can also use date arithmetic: WHERE order_date >= DATEADD(day, -30, GETDATE()) in SQL Server. For more specific filtering, use EXTRACT or DATE_PART: WHERE EXTRACT(MONTH FROM order_date) = EXTRACT(MONTH FROM CURRENT_DATE) for the current month. Always be aware of time zones and whether your date columns include time components—you might need to use DATE() function to strip time for accurate comparisons."
+    },
+    {
+      "id": "Q482",
+      "q": "What's the difference between DBMS and RDBMS?",
+      "type": "tech",
+      "category": "SQL Fundamentals",
+      "difficulty": "Beginner",
+      "keywords": [
+        "DBMS",
+        "RDBMS",
+        "database management",
+        "relational",
+        "tables",
+        "relationships"
+      ],
+      "company_fit": "Foundational understanding of database systems.",
+      "a": "DBMS (Database Management System) is a basic way to store data in individual files with no connections between them—like storing student information in separate files for each attribute. RDBMS (Relational Database Management System) stores data in interconnected tables with relationships between them, like MySQL or SQL Server. The key differences: RDBMS allows faster data retrieval through relationships, reduces redundancy by storing data once, supports multiple users with high security, and is optimized for larger datasets. RDBMS uses structured tables with rows and columns that can be joined, while DBMS uses flat file storage. Think of DBMS as separate filing cabinets and RDBMS as an organized database where everything is linked together."
+    },
+    {
+      "id": "Q483",
+      "q": "What's the difference between DELETE, DROP, and TRUNCATE?",
+      "type": "tech",
+      "category": "SQL Fundamentals",
+      "difficulty": "Intermediate",
+      "keywords": [
+        "DELETE",
+        "DROP",
+        "TRUNCATE",
+        "data removal",
+        "rollback",
+        "structure"
+      ],
+      "company_fit": "Critical for understanding data management safety.",
+      "a": "Think of it like a bookshelf: DELETE removes specific books based on conditions (like all red-covered books) and can be rolled back—it's selective and reversible. You use WHERE clauses to specify what to delete. TRUNCATE quickly empties the entire shelf, removing all books but leaving the shelf intact—it's fast, removes all rows, but cannot be rolled back and doesn't allow WHERE clauses. DROP removes the entire shelf and all its books permanently—the table structure is gone and cannot be recovered. Use DELETE when you need precision and recoverability, TRUNCATE when you need to quickly clear all data from a table you'll reuse, and DROP only when you're certain you'll never need the table again."
+    },
+    {
+      "id": "Q484",
+      "q": "What's the difference between GROUP BY and ORDER BY?",
+      "type": "tech",
+      "category": "SQL Fundamentals",
+      "difficulty": "Beginner",
+      "keywords": [
+        "GROUP BY",
+        "ORDER BY",
+        "aggregation",
+        "sorting",
+        "summarization"
+      ],
+      "company_fit": "Essential for data analysis and reporting.",
+      "a": "GROUP BY groups rows into summary buckets for aggregation—like grouping all employees by department to calculate average salary per department. It's used with aggregate functions (SUM, AVG, COUNT) to get summarized data. ORDER BY simply sorts the results in ascending or descending order—like sorting employees by salary from highest to lowest. For example: SELECT department, AVG(salary) FROM employees GROUP BY department ORDER BY AVG(salary) DESC. Here, GROUP BY creates summary rows for each department, and ORDER BY sorts those summaries by average salary. GROUP BY changes the structure of your results (fewer rows, summarized), while ORDER BY just rearranges the display order of existing rows."
+    },
+    {
+      "id": "Q485",
+      "q": "What is a clustered index and how does it differ from a regular index?",
+      "type": "tech",
+      "category": "SQL Performance",
+      "difficulty": "Advanced",
+      "keywords": [
+        "clustered index",
+        "index",
+        "primary key",
+        "data organization",
+        "performance"
+      ],
+      "company_fit": "Advanced performance optimization knowledge.",
+      "a": "A clustered index physically organizes the actual data rows in the table in sorted order—like organizing papers themselves by employee ID from smallest to largest. The data is stored in the order of the clustered index. A table can have only ONE clustered index because the data can only be physically sorted one way. When searching for employee ID 1120, the database uses the clustered index to skip entire sections that don't match and jumps directly to the range containing that ID. A non-clustered index, in contrast, is like a separate reference guide that points to where data is located, but doesn't reorganize the data itself. Clustered indexes are typically created on primary keys and provide the fastest access for range queries and sorting operations."
+    },
+    {
+      "id": "Q486",
+      "q": "What is database normalization and what are the normal forms?",
+      "type": "tech",
+      "category": "Database Design",
+      "difficulty": "Advanced",
+      "keywords": [
+        "normalization",
+        "1NF",
+        "2NF",
+        "3NF",
+        "BCNF",
+        "redundancy",
+        "data integrity"
+      ],
+      "company_fit": "Essential for proper database design and architecture.",
+      "a": "Normalization organizes data efficiently to minimize redundancy and prevent insertion, deletion, and update anomalies. The normal forms are progressive levels: 1NF (First Normal Form) requires each cell to contain a single value and each column to have a unique name—no multiple hobbies in one cell. 2NF requires 1NF plus all non-key attributes must depend on the entire primary key—teacher name should depend on class, not student ID. 3NF requires 2NF plus no transitive dependencies—non-key attributes shouldn't depend on other non-key attributes. BCNF (Boyce-Codd) is stricter—every determinant must be a candidate key. For example, instead of storing teacher name in the student table (which violates 3NF), create a separate class-teacher table. Normalization reduces data duplication, improves data integrity, and makes updates easier."
+    },
+    {
+      "id": "Q487",
+      "q": "What are SQL triggers and when would you use them?",
+      "type": "tech",
+      "category": "SQL Advanced",
+      "difficulty": "Advanced",
+      "keywords": [
+        "triggers",
+        "automatic actions",
+        "INSERT",
+        "UPDATE",
+        "DELETE",
+        "events",
+        "BEFORE",
+        "AFTER"
+      ],
+      "company_fit": "Shows understanding of advanced database automation.",
+      "a": "Triggers are automatic actions that run when specific events (INSERT, UPDATE, DELETE) occur in a table. They're like reflexes—set them up once and they respond automatically. For example, in a library system, when a book is borrowed (INSERT into borrowed_books), a trigger can automatically decrease the available count in the books table: CREATE TRIGGER update_book_stock AFTER INSERT ON borrowed_books FOR EACH ROW BEGIN UPDATE books SET available_count = available_count - 1 WHERE book_id = NEW.book_id; END. Triggers run BEFORE or AFTER the event. Use cases include: maintaining audit logs, enforcing complex business rules, updating related tables automatically, validating data before insertion, and maintaining running totals. However, use them carefully—they can make debugging harder and impact performance if overused."
+    },
+    {
+      "id": "Q488",
+      "q": "How do you convert a string to a date format in SQL?",
+      "type": "tech",
+      "category": "SQL Practical",
+      "difficulty": "Beginner",
+      "keywords": [
+        "STR_TO_DATE",
+        "date conversion",
+        "date format",
+        "CAST",
+        "CONVERT"
+      ],
+      "company_fit": "Common data transformation task.",
+      "a": "Use STR_TO_DATE in MySQL or CAST/CONVERT in other databases. For example, to convert '27-10-2024' to a date: SELECT STR_TO_DATE('27-10-2024', '%d-%m-%Y') which reads the string using the format: %d for day, %m for month, %Y for year (4-digit). In SQL Server, use CONVERT(DATE, '27-10-2024', 105) or CAST('2024-10-27' AS DATE) for ISO format. In Oracle, use TO_DATE('27-10-2024', 'DD-MM-YYYY'). Always specify the format to match your input string pattern. Common format codes: %Y (4-digit year), %y (2-digit year), %m (month), %d (day), %H (hour), %i (minute), %s (second). This is essential when importing data from CSV files or external systems where dates come as strings."
+    },
+    {
+      "id": "Q489",
+      "q": "What are the main types of constraints in SQL?",
+      "type": "tech",
+      "category": "SQL Fundamentals",
+      "difficulty": "Beginner",
+      "keywords": [
+        "constraints",
+        "NOT NULL",
+        "UNIQUE",
+        "PRIMARY KEY",
+        "FOREIGN KEY",
+        "CHECK",
+        "DEFAULT",
+        "data integrity"
+      ],
+      "company_fit": "Fundamental for ensuring data quality and integrity.",
+      "a": "Constraints are rules that enforce data integrity. The main types are: NOT NULL ensures a column can't be empty (like requiring a roll number for every student). UNIQUE ensures no duplicates (like email addresses—each must be distinct). PRIMARY KEY combines NOT NULL and UNIQUE (like roll number—unique identifier for each student). FOREIGN KEY links tables together (like using roll number to connect student table to course table). CHECK enforces conditions (like ensuring voting age > 18). DEFAULT provides automatic values when none specified (like setting country to 'India' if not provided). For example: CREATE TABLE students (roll_number INT PRIMARY KEY, email VARCHAR(100) UNIQUE, age INT CHECK (age >= 18), country VARCHAR(50) DEFAULT 'India'). Constraints prevent bad data from entering your database and maintain relationships between tables."
     }
   ]
 }
