@@ -7133,6 +7133,318 @@
       ],
       "company_fit": "Professional communication and problem-solving.",
       "a": "Even if I'm confident the report is correct, I wouldn't argue—I'd investigate collaboratively. First, I'd ask for specific examples: 'Can you show me which numbers look wrong and what you're expecting instead?' This helps identify if it's a calculation issue or a misunderstanding of what's being measured. Second, I'd verify the data source matches their expectations—sometimes the source data itself differs from what they assume. Third, I'd walk through the calculation logic with concrete examples, showing exactly how we're arriving at each number. Fourth, I'd check if there are differences in how they're filtering or slicing the data versus how the report is set up. Often, the 'incorrect' result is actually correct but measuring something slightly different than what they expected. I'd stay curious and professional, focusing on understanding their perspective rather than defending my work. This approach builds trust and usually reveals either a fixable issue or a communication gap we can bridge together."
+    },
+    {
+      "id": "Q506",
+      "q": "What is the difference between Import Mode and Direct Query Mode in Power BI?",
+      "type": "tech",
+      "category": "Power BI - Platform",
+      "difficulty": "Beginner",
+      "keywords": [
+        "Import Mode",
+        "Direct Query",
+        "data storage",
+        "performance",
+        "real-time data"
+      ],
+      "company_fit": "Understanding of data connectivity options.",
+      "a": "Import Mode brings a complete copy of the data into Power BI and stores it in the application's cache. This gives you full control—you can do all transformations, write any DAX functions, and performance is fast since data is local. The disadvantage is large datasets may not fit in memory or may take a long time to refresh. Direct Query Mode doesn't store data in Power BI—instead, it queries the source directly every time you interact with a visual. The advantage is you can connect to massive datasets and get near real-time data. The disadvantages are some DAX and time intelligence functions don't work, performance depends on the source database speed, and each visual interaction triggers a new query. Use Import for better performance and full functionality; use Direct Query when you need real-time data or datasets are too large to import."
+    },
+    {
+      "id": "Q507",
+      "q": "What is the difference between a Fact table and a Dimension table?",
+      "type": "tech",
+      "category": "Power BI - Modeling",
+      "difficulty": "Beginner",
+      "keywords": [
+        "fact table",
+        "dimension table",
+        "star schema",
+        "business data",
+        "lookup table"
+      ],
+      "company_fit": "Essential data modeling knowledge.",
+      "a": "Fact tables contain the actual business data and transactions—like sales amounts, quantities, or measurements. They're typically large and grow over time with each transaction. Dimension tables are lookup tables that provide context—like customer names, product categories, dates, or geographic information. They're relatively small and change less frequently. For example, in a sales model, the fact table would have order_id, customer_id, product_id, sale_amount, and quantity. Dimension tables would be Customers (with customer_id, name, address), Products (with product_id, name, category), and Date (with date_key, month, quarter, year). Fact tables connect to dimension tables through foreign key relationships. In a star schema, dimension tables directly connect to the central fact table. This structure enables efficient filtering and aggregation—dimensions filter the facts."
+    },
+    {
+      "id": "Q508",
+      "q": "What is the difference between Append and Merge in Power Query?",
+      "type": "tech",
+      "category": "Power BI - ETL",
+      "difficulty": "Beginner",
+      "keywords": [
+        "Append",
+        "Merge",
+        "UNION",
+        "JOIN",
+        "combine queries"
+      ],
+      "company_fit": "Basic Power Query operation knowledge.",
+      "a": "Merge is like a SQL JOIN—it combines two tables horizontally by matching rows based on a common column. For example, merging a Customers table with an Orders table on customer_id would add order information as new columns to each customer row. Append is like a SQL UNION—it combines tables vertically by stacking rows on top of each other. For example, appending Q1 sales data with Q2 sales data would create one table with all sales records from both quarters. Use Merge when you want to add columns from one table to another based on a relationship. Use Append when you have the same structure of data from different time periods or sources and want to combine them into one continuous table. Append requires the same column structure; Merge requires a common key column."
+    },
+    {
+      "id": "Q509",
+      "q": "What is the difference between Filters and Slicers in Power BI?",
+      "type": "tech",
+      "category": "Power BI - Design",
+      "difficulty": "Beginner",
+      "keywords": [
+        "filters",
+        "slicers",
+        "user interaction",
+        "visual-level",
+        "page-level",
+        "report-level"
+      ],
+      "company_fit": "Understanding of user experience and filtering.",
+      "a": "Filters are behind-the-scenes controls that only developers see and configure in Power BI Desktop. There are three levels: visual-level filters (affect one visual), page-level filters (affect all visuals on a page), and report-level filters (affect all pages). Users can't see or change these filters when viewing the report. Slicers, on the other hand, are visible, interactive controls displayed on the report canvas that users can manipulate. They're user-friendly and make filtering transparent. Slicers can also be synced across multiple pages using Sync Slicers, and you can even control which specific pages they affect. Additionally, you can use Edit Interactions to prevent slicers from affecting certain visuals. Use filters for developer-controlled, hidden filtering logic. Use slicers when you want users to interactively explore data and see what filters are applied."
+    },
+    {
+      "id": "Q510",
+      "q": "What are Bookmarks and how do you make reports dynamic in Power BI?",
+      "type": "tech",
+      "category": "Power BI - Design",
+      "difficulty": "Intermediate",
+      "keywords": [
+        "bookmarks",
+        "buttons",
+        "actions",
+        "dynamic reports",
+        "interactivity"
+      ],
+      "company_fit": "Advanced report design and user experience.",
+      "a": "Bookmarks capture the current state of a page—which visuals are visible, what filters are applied, and the selection state. You can use them to create dynamic, interactive reports by showing and hiding different sets of visuals. Combined with Buttons and Actions, bookmarks enable scenarios like: switching between different chart types, creating custom navigation menus, building tab-like interfaces, showing/hiding detailed information, and creating guided story-telling experiences. For example, you could have a 'Summary View' bookmark and a 'Detailed View' bookmark, with buttons that toggle between them. To make reports dynamic: create bookmarks for different states, add buttons to the report canvas, assign bookmark actions to those buttons, and optionally use the Selection pane to show/hide visuals. This trio—Bookmarks, Buttons, and Actions—transforms static reports into interactive, user-driven experiences."
+    },
+    {
+      "id": "Q511",
+      "q": "What is the difference between SUM and SUMX in DAX?",
+      "type": "tech",
+      "category": "Power BI - DAX",
+      "difficulty": "Intermediate",
+      "keywords": [
+        "SUM",
+        "SUMX",
+        "iterator",
+        "row context",
+        "aggregation",
+        "expression"
+      ],
+      "company_fit": "Core DAX understanding for calculations.",
+      "a": "SUM is a simple aggregation function that adds up values in an existing column—you need the column to already exist in your table. For example, SUM(Sales[Amount]) totals the Amount column. It works at an aggregated level. SUMX is an iterator function that evaluates an expression row by row, even if the column doesn't exist. For example, SUMX(Sales, Sales[Quantity] * Sales[Price]) multiplies quantity by price for each row, then sums the results. SUMX operates in row context—it processes each row individually before aggregating. Use SUM when you have a pre-calculated column to sum. Use SUMX when you need to calculate something row by row first, then aggregate it, or when you're working with expressions rather than existing columns. SUMX is more flexible but typically slower than SUM, so only use it when necessary."
+    },
+    {
+      "id": "Q512",
+      "q": "What is the SUMMARIZE function in DAX and when would you use it?",
+      "type": "tech",
+      "category": "Power BI - DAX",
+      "difficulty": "Advanced",
+      "keywords": [
+        "SUMMARIZE",
+        "table function",
+        "GROUP BY",
+        "aggregation",
+        "virtual table"
+      ],
+      "company_fit": "Advanced DAX table manipulation.",
+      "a": "SUMMARIZE is a table-level function that creates a new virtual table with grouped and aggregated data—similar to GROUP BY in SQL. It's useful when you need to create a summarized table that can be reused across multiple measures or visuals. For example, SUMMARIZE(Sales, Customer[Country], Product[Category], 'Total Sales', SUM(Sales[Amount])) would create a table grouped by country and category with totals. However, SUMMARIZE is often overused. In many cases, SUMMARIZECOLUMNS is preferred for better performance and clearer syntax. Use SUMMARIZE when you need a grouped dataset as an intermediate step in complex calculations, or when building virtual tables for further manipulation. But for simple aggregations, regular measures with proper filter context are usually cleaner. It's powerful but should be used thoughtfully since it can impact performance if applied to very large tables."
+    },
+    {
+      "id": "Q513",
+      "q": "What is the difference between ALL and ALLEXCEPT in DAX?",
+      "type": "tech",
+      "category": "Power BI - DAX",
+      "difficulty": "Advanced",
+      "keywords": [
+        "ALL",
+        "ALLEXCEPT",
+        "filter removal",
+        "exception columns",
+        "grand totals"
+      ],
+      "company_fit": "Advanced filter manipulation in DAX.",
+      "a": "ALL removes all filters from a table or specific columns, useful for calculating grand totals regardless of current filter context. For example, CALCULATE([Total Sales], ALL(Product)) would show total sales across all products even if a product filter is applied. ALLEXCEPT removes filters from all columns EXCEPT the ones you specify—it's the inverse. For example, CALCULATE([Total Sales], ALLEXCEPT(Sales, Customer[Country])) removes all filters except country, so you get totals for the selected country but ignoring all other filters like product or date. Use ALL when you want to ignore specific filters or all filters. Use ALLEXCEPT when it's easier to specify what to keep rather than what to remove—especially useful when you have many filter contexts and want to preserve just one or two. ALLEXCEPT can make DAX more readable when you're keeping more filters than you're removing."
+    },
+    {
+      "id": "Q514",
+      "q": "Why is a Date Master table important in Power BI?",
+      "type": "tech",
+      "category": "Power BI - Modeling",
+      "difficulty": "Intermediate",
+      "keywords": [
+        "date table",
+        "date master",
+        "time intelligence",
+        "calendar",
+        "date hierarchy"
+      ],
+      "company_fit": "Essential for time-based analysis.",
+      "a": "A Date Master table (also called a Date dimension or Calendar table) is crucial for time intelligence functions to work correctly. It provides a continuous, unbroken sequence of dates that serves as the reference for calculations like year-over-year, month-over-month, or year-to-date. Without it, Power BI's time intelligence functions may not work properly, especially if your fact table has date gaps. The Date Master should include useful columns like Month, Quarter, Year, Fiscal Year, Day of Week, and flags for weekends or holidays. You mark it as a date table so Power BI recognizes it. For example, when calculating 'Last Year Same Period,' Power BI uses the Date Master to know exactly which dates correspond to the same period last year. Create one using CALENDAR or CALENDARAUTO functions, ensure it covers all dates in your fact tables, and establish a relationship between the Date Master and your fact table's date column. This becomes the single source of truth for all time-based calculations."
+    },
+    {
+      "id": "Q515",
+      "q": "What is SAMEPERIODLASTYEAR and when would you use it?",
+      "type": "tech",
+      "category": "Power BI - DAX",
+      "difficulty": "Intermediate",
+      "keywords": [
+        "SAMEPERIODLASTYEAR",
+        "time intelligence",
+        "year-over-year",
+        "comparison",
+        "date table"
+      ],
+      "company_fit": "Time intelligence for business analysis.",
+      "a": "SAMEPERIODLASTYEAR is a time intelligence function that returns dates from the same period one year ago. For example, if you're looking at January 2024, it returns January 2023. You'd use it for year-over-year comparisons: CALCULATE([Total Sales], SAMEPERIODLASTYEAR(DateTable[Date])). This is more meaningful than comparing January to December because seasonal patterns matter—December sales are high due to holidays, so comparing January to December wouldn't be fair. Comparing January 2024 to January 2023 gives you a true year-over-year growth picture. It requires a proper Date Master table marked as a date table to work correctly. Common use cases include: sales growth analysis, seasonal trend comparisons, and KPIs showing year-over-year performance. You can also combine it with other functions to calculate percentage growth: ([This Year Sales] - [Last Year Sales]) / [Last Year Sales]."
+    },
+    {
+      "id": "Q516",
+      "q": "What is the difference between Power BI Pro and Premium licenses?",
+      "type": "tech",
+      "category": "Power BI - Platform",
+      "difficulty": "Intermediate",
+      "keywords": [
+        "Pro license",
+        "Premium",
+        "licensing",
+        "features",
+        "capacity",
+        "sharing"
+      ],
+      "company_fit": "Understanding of licensing and enterprise features.",
+      "a": "Power BI Pro is the standard user license that allows you to publish reports to the Service, share content with other Pro users, and collaborate in workspaces. It has a 1GB dataset size limit and limited refresh schedules (8 per day for shared datasets). Power BI Premium provides capacity-based licensing with advanced features: unlimited dataset sizes, more frequent refreshes, paginated reports, deployment pipelines, dataflows, XMLA endpoint access, and the ability to share reports with free users (if they access through an app in Premium capacity). Premium also provides dedicated cloud resources for better performance. In most organizations, only a few team members or leads have Premium access for administrative tasks like scheduling refreshes and creating dataflows. Pro is sufficient for report development and viewing. Premium is needed for enterprise-scale deployments, large models, and advanced governance features."
+    },
+    {
+      "id": "Q517",
+      "q": "What is the difference between My Workspace and Workspaces in Power BI Service?",
+      "type": "tech",
+      "category": "Power BI - Platform",
+      "difficulty": "Beginner",
+      "keywords": [
+        "My Workspace",
+        "Workspace",
+        "collaboration",
+        "personal",
+        "sharing"
+      ],
+      "company_fit": "Understanding of Service organization and collaboration.",
+      "a": "My Workspace is your personal, private workspace in Power BI Service—like your rough notebook for practice and experimentation. Only you can access it, and it's perfect for testing and personal projects. You can't add other members to My Workspace. Workspaces (formerly called App Workspaces) are collaborative spaces where teams work together on projects. Multiple people can access the same workspace, publish reports, and collaborate. For each project, you typically create one or more dedicated workspaces where all team members can contribute. Workspaces have role-based access control (Admin, Member, Contributor, Viewer) and support features like deployment pipelines, dataflows, and apps for distribution. Think of My Workspace as your personal draft area and Workspaces as shared team project folders. Best practice: develop in My Workspace, then publish to team Workspaces for collaboration and production deployment."
+    },
+    {
+      "id": "Q518",
+      "q": "What are the different workspace roles in Power BI Service?",
+      "type": "tech",
+      "category": "Power BI - Platform",
+      "difficulty": "Intermediate",
+      "keywords": [
+        "workspace roles",
+        "Admin",
+        "Member",
+        "Contributor",
+        "Viewer",
+        "permissions",
+        "access control"
+      ],
+      "company_fit": "Understanding of governance and access management.",
+      "a": "There are four workspace roles with different permission levels: Admin has the highest access—can do everything including adding/removing users, deleting the workspace, and managing all content. Member has almost equal access to Admin and can add other Members and Contributors (but not Admins), publish content, create apps, and manage workspace settings. Contributor can publish and update content in the workspace, but cannot add other users or change workspace settings—they contribute reports but don't manage access. Viewer has the lowest access—can only view content in the workspace, cannot publish, edit, or add users. They're essentially read-only consumers. The hierarchy is Admin > Member > Contributor > Viewer. In practice, team leads get Admin or Member roles, developers get Contributor, and business users get Viewer. This role-based access control ensures proper governance while enabling collaboration."
+    },
+    {
+      "id": "Q519",
+      "q": "What is Row-Level Security (RLS)? Explain static vs dynamic RLS.",
+      "type": "tech",
+      "category": "Power BI - Security",
+      "difficulty": "Advanced",
+      "keywords": [
+        "Row-Level Security",
+        "RLS",
+        "static RLS",
+        "dynamic RLS",
+        "USERPRINCIPALNAME",
+        "data security"
+      ],
+      "company_fit": "Critical security and governance capability.",
+      "a": "Row-Level Security restricts which rows of data users can see based on their identity. If you're from India, you only see India data; if you're from USA, you only see USA data. There are two approaches: Static RLS requires manually creating roles in Desktop (like 'India Role' with filter Country='India'), then assigning users to those roles in the Service. Every time you add a new user or region, you need to update and republish. Dynamic RLS uses DAX functions like USERPRINCIPALNAME() to automatically filter data based on who's logged in. You create an entitlement table mapping users to their allowed data: for user john@company.com, show Country='USA'. Then create one role with a filter like Country[Name] = LOOKUPVALUE(Entitlements[Country], Entitlements[Email], USERPRINCIPALNAME()). This way, adding new users only requires updating the entitlement table—no republishing. Dynamic RLS is more scalable and maintainable for enterprise scenarios with many users and frequently changing access requirements."
+    },
+    {
+      "id": "Q520",
+      "q": "What is the difference between a Report and a Dashboard in Power BI?",
+      "type": "tech",
+      "category": "Power BI - Platform",
+      "difficulty": "Beginner",
+      "keywords": [
+        "report",
+        "dashboard",
+        "tiles",
+        "interactivity",
+        "multiple sources"
+      ],
+      "company_fit": "Understanding of Power BI Service artifacts.",
+      "a": "A Report is an interactive, multi-page Power BI file (.pbix) created in Desktop and published to Service. It can have multiple pages, full interactivity with filters and slicers, drill-through capabilities, and comes from a single dataset. Users can explore data dynamically. A Dashboard is a single-page canvas in the Service that displays tiles pinned from one or more reports or datasets. Dashboards are snapshots—they're less interactive than reports but provide a consolidated view. You can pin visuals from different reports and even different data sources onto one dashboard. Best practice: create 3-4 detailed reports for different areas (sales, finance, operations), then pin the key KPIs and visuals from all of them onto a single executive dashboard. Reports are for exploration and analysis; dashboards are for at-a-glance monitoring. Dashboards can also have real-time tiles and Q&A features that reports don't offer."
+    },
+    {
+      "id": "Q521",
+      "q": "What is a Gateway in Power BI? Explain Personal vs Standard Gateway.",
+      "type": "tech",
+      "category": "Power BI - Platform",
+      "difficulty": "Intermediate",
+      "keywords": [
+        "gateway",
+        "on-premises",
+        "data connectivity",
+        "personal gateway",
+        "standard gateway",
+        "refresh"
+      ],
+      "company_fit": "Understanding of enterprise data connectivity.",
+      "a": "A Gateway is the bridge that connects Power BI Service to on-premises data sources or sources not directly accessible from the cloud. It enables scheduled refresh for reports using on-prem data. Personal Gateway is for individual use—only you can use it, it runs on your local machine, and it's good for development and testing. It only supports Import mode and scheduled refresh for your personal reports. Standard Gateway (formerly On-Premises Data Gateway) is the enterprise-grade option where multiple team members can manage it, it runs on a dedicated server, supports both Import and Direct Query modes, and can be configured as a cluster for high availability. Standard Gateway is the preferred choice for production environments because it's more reliable, supports multiple data sources and users, and doesn't depend on an individual's machine being online. Configure it once and the entire team can leverage it for data refreshes."
+    },
+    {
+      "id": "Q522",
+      "q": "What are Dataflows in Power BI Service?",
+      "type": "tech",
+      "category": "Power BI - Platform",
+      "difficulty": "Advanced",
+      "keywords": [
+        "dataflows",
+        "Power Query",
+        "ETL",
+        "Service",
+        "reusability",
+        "data preparation"
+      ],
+      "company_fit": "Advanced data preparation and reusability.",
+      "a": "Dataflows are Power Query in the cloud—they let you perform data transformations directly in Power BI Service instead of in Desktop. Think of them as reusable ETL processes. You can connect to data sources, apply transformations (just like in Power Query Editor), and store the cleaned data in Azure Data Lake. Other reports and datasets can then connect to these dataflows as their source, promoting reusability. For example, if five different reports all need cleaned customer data, you create one dataflow that transforms the raw customer data, and all five reports connect to that dataflow instead of each doing the same transformations. Benefits include: centralized data preparation, reduced redundancy, easier maintenance (change transformation once, affects all consumers), and the ability to separate data prep from reporting. Dataflows require Premium capacity or Premium Per User licensing. They're essential for enterprise scenarios where multiple teams need access to consistent, transformed data."
+    },
+    {
+      "id": "Q523",
+      "q": "What types of data sources have you connected to in Power BI?",
+      "type": "tech",
+      "category": "Power BI - Platform",
+      "difficulty": "Beginner",
+      "keywords": [
+        "data sources",
+        "connectors",
+        "SQL Server",
+        "Excel",
+        "APIs",
+        "cloud services"
+      ],
+      "company_fit": "Practical experience with diverse data sources.",
+      "a": "I've worked with several types of data sources. From databases, I've connected to SQL Server, Oracle, and MySQL for enterprise transactional data. For cloud sources, I've used Azure SQL Database, SharePoint lists, and REST APIs. For file-based sources, I've worked with Excel workbooks, CSV files, JSON files, and XML files. I've also connected to folder sources where multiple files are combined automatically. For web data, I've used web scraping and OData feeds. Each source has its nuances—SQL databases support query folding and Direct Query, while Excel requires Import mode. For large file-based sources, I use folder connectors to automatically combine files. When working with APIs, I often need to handle authentication and pagination. Power BI supports 100+ connectors, but in practice, most projects use 3-5 primary sources that are combined and modeled together."
+    },
+    {
+      "id": "Q524",
+      "q": "How do you use Edit Interactions in Power BI?",
+      "type": "tech",
+      "category": "Power BI - Design",
+      "difficulty": "Beginner",
+      "keywords": [
+        "Edit Interactions",
+        "cross-filtering",
+        "visual interactions",
+        "filter blocking"
+      ],
+      "company_fit": "Control over user experience and filtering behavior.",
+      "a": "Edit Interactions allows you to control how visuals affect each other when users click on them. By default, clicking on a bar chart filters other visuals on the page, but sometimes you want to prevent this. For example, you might have a KPI card showing total sales that should always show the grand total regardless of what's selected elsewhere. You'd select the chart, click Edit Interactions, then set the KPI card to 'None' so it won't be filtered. You can set interactions to Filter (apply filters), Highlight (highlight relevant data but show all), or None (no interaction). This is useful for creating intentional user experiences—like having a summary section that never changes and a details section that responds to selections. It also prevents confusion when certain visuals shouldn't logically filter others. Use it to block slicers from affecting specific visuals or to prevent circular filtering scenarios."
     }
   ]
 }
