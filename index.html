@@ -658,11 +658,19 @@
 
             /* Card Flip Mobile */
             .card-flip-inner {
-                height: 350px;
+                height: 500px;
+                min-height: 500px;
             }
 
             .card-front, .card-back {
                 padding: 16px;
+            }
+
+            .answer-container {
+                min-height: 220px;
+                max-height: 280px;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
             }
 
             .answer-meta {
@@ -701,7 +709,8 @@
             }
 
             .answer {
-                font-size: 1rem;
+                font-size: 1.05rem;
+                line-height: 1.8;
             }
 
             .action-buttons {
