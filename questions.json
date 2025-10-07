@@ -50,7 +50,7 @@
       "id": "Q004",
       "q": "What is Power BI? Describe its main components.",
       "type": "tech",
-      "a": "Desktop for modeling and report authoring; Service for publishing, sharing, refresh, RLS, and governance; Gateways to securely reach on-prem sources; Dataflows for reusable ETL; and the core artifacts\u2014datasets, reports, and dashboards for consumption.",
+      "a": "Power BI has several key components: Desktop is where you build models and author reports. The Service is your cloud platform for publishing, sharing, scheduled refresh, Row-Level Security, and governance. Gateways securely connect to on-premises data sources. Dataflows provide reusable ETL logic. And then you have the core artifacts people interact with\u2014datasets, reports, and dashboards for consumption.",
       "category": "Platform",
       "difficulty": "Beginner",
       "keywords": [
@@ -66,7 +66,7 @@
       "id": "Q005",
       "q": "What's the difference between a measure and a calculated column?",
       "type": "tech",
-      "a": "Columns are computed at refresh and stored; they use row context and add model size. Measures compute on the fly using filter context\u2014great for KPIs and dynamic calcs. I default to measures unless I truly need a persisted row-level value.",
+      "a": "Calculated columns are computed at refresh time and stored in the model, so they increase model size. They work with row context, evaluating each row individually. Measures, on the other hand, compute on the fly using filter context\u2014which makes them perfect for KPIs and dynamic calculations. I typically default to measures unless I genuinely need a persisted row-level value.",
       "category": "DAX",
       "difficulty": "Beginner",
       "keywords": [
@@ -81,7 +81,7 @@
       "id": "Q006",
       "q": "How do you manage relationships in data models\u2014cardinality and direction?",
       "type": "tech",
-      "a": "Prefer one-to-many with a clear dimension \u2192 fact flow. Keep filter direction single unless a real need exists. For M2M, use a proper bridge and keep bi-directional to the smallest safe scope. Activate inactive relationships only in measures with USERELATIONSHIP.",
+      "a": "I prefer one-to-many relationships with a clear flow from dimension to fact table. I keep the filter direction single unless there's a real business need for bi-directional filtering. For many-to-many scenarios, I use a proper bridge table and keep any bi-directional relationships scoped to the smallest safe area. And for inactive relationships, I only activate them explicitly in measures using USERELATIONSHIP.",
       "category": "Modeling",
       "difficulty": "Intermediate",
       "keywords": [
@@ -111,7 +111,7 @@
       "id": "Q009",
       "q": "What is a Slowly Changing Dimension and how do you handle it?",
       "type": "tech",
-      "a": "Type 1 overwrites, Type 2 keeps history with effective dates and a current flag, Type 3 stores a limited prior value. I default to Type 2 for auditability and use surrogate keys and date ranges to keep facts history-accurate.",
+      "a": "There are three main types: Type 1 simply overwrites the old value. Type 2 keeps full history with effective dates and a current flag. Type 3 stores just one previous value in an additional column. I typically default to Type 2 for auditability, and I use surrogate keys along with date ranges to keep fact tables history-accurate.",
       "category": "ETL",
       "difficulty": "Intermediate",
       "keywords": [
@@ -126,7 +126,7 @@
       "id": "Q010",
       "q": "How would you design a sales dashboard for leadership?",
       "type": "tech",
-      "a": "Top row KPIs (revenue, growth, margin), trend lines with YoY, segmentation (region/customer), and a clear path to drill into drivers. Minimal slicers, neutral palette, and a call-out for exceptions. Mobile view includes only KPIs and the primary trend.",
+      "a": "I'd start with top-row KPIs showing revenue, growth, and margin. Below that, trend lines with year-over-year comparisons and segmentation by region or customer. The key is providing a clear path to drill into what's driving those numbers. I'd keep slicers minimal, use a neutral color palette, and add a call-out section for exceptions. For the mobile view, I'd include only the essential KPIs and the primary trend to keep it focused.",
       "category": "Design",
       "difficulty": "Intermediate",
       "keywords": [
@@ -170,7 +170,7 @@
       "id": "Q013",
       "q": "What is incremental refresh? How do you implement it?",
       "type": "tech",
-      "a": "You partition by date and only refresh hot data. Define RangeStart/RangeEnd, set policy in Desktop, publish to Service, and ensure folding so filters push down. It cuts runtime, cost, and gateway load.",
+      "a": "Incremental refresh lets you partition data by date and only refresh the recent, 'hot' data instead of everything. You define parameters called RangeStart and RangeEnd, configure the policy in Desktop, then publish to the Service. The key is ensuring query folding works so the filters push down to the source. This approach significantly cuts runtime, reduces cost, and lowers gateway load.",
       "category": "Performance",
       "difficulty": "Intermediate",
       "keywords": [
@@ -199,7 +199,7 @@
       "id": "Q015",
       "q": "What is query folding and why should I care?",
       "type": "tech",
-      "a": "Folding pushes transformations back to the source so you scan less and run faster. I check the \u201cview native query,\u201d keep foldable steps early, and avoid actions that break folding before filters join the party.",
+      "a": "Query folding pushes your transformations back to the data source, so you scan less data and run faster. I always check 'View Native Query' to verify folding is happening. The trick is to keep foldable steps early in your query and avoid actions that break folding before your filters are applied\u2014that way the source database does the heavy lifting.",
       "category": "ETL",
       "difficulty": "Intermediate",
       "keywords": [
@@ -273,7 +273,7 @@
       "id": "Q020",
       "q": "How do you handle large datasets?",
       "type": "tech",
-      "a": "Use aggregations, composite models, incremental refresh, and careful encoding. Keep visuals lean per page and get slicers off high-cardinality columns. When needed, switch to DirectQuery for narrow paths.",
+      "a": "I use a combination of techniques: aggregations to pre-summarize data, composite models to mix import and DirectQuery, incremental refresh for historical data, and careful column encoding to optimize memory. I keep visuals lean on each page and avoid putting slicers on high-cardinality columns. When these techniques aren't enough, I'll switch specific tables to DirectQuery for narrow, targeted paths.",
       "category": "Performance",
       "difficulty": "Advanced",
       "keywords": [
@@ -316,7 +316,7 @@
       "id": "Q023",
       "q": "Components of a Power BI enterprise architecture?",
       "type": "tech",
-      "a": "Source systems \u2192 ETL/Dataflows \u2192 semantic dataset(s) with RLS \u2192 governed workspaces \u2192 apps for distribution \u2192 pipelines for Dev/Test/Prod. Gateways connect on-prem and sensitivity labels travel with data.",
+      "a": "A solid Power BI enterprise architecture flows like this: source systems feed into ETL processes or Dataflows, which populate semantic datasets with Row-Level Security built in. These datasets live in governed workspaces and are distributed through apps to end users. Deployment pipelines manage the Dev/Test/Prod lifecycle. Gateways handle on-premises connectivity, and sensitivity labels travel with the data throughout the entire chain.",
       "category": "Architecture",
       "difficulty": "Advanced",
       "keywords": [
@@ -331,7 +331,7 @@
       "id": "Q024",
       "q": "How do you handle many-to-many relationships?",
       "type": "tech",
-      "a": "Prefer a bridge table and TREATAS when necessary. Keep bi-directional relationships scoped and documented. I test totals under common slicer combos before release.",
+      "a": "I prefer using a bridge table to properly model the many-to-many relationship, and I'll use TREATAS when I need virtual relationships. When bi-directional filtering is necessary, I keep it tightly scoped and well-documented. Before releasing, I always test that totals add up correctly under the most common slicer combinations users will encounter.",
       "category": "Modeling",
       "difficulty": "Advanced",
       "keywords": [
@@ -390,7 +390,7 @@
       "id": "Q028",
       "q": "Azure Analysis Services vs. Power BI datasets?",
       "type": "tech",
-      "a": "Same tabular engine roots; PBI datasets integrate tightly with the Service, pipelines, and security labels. AAS can be right for specific enterprise patterns, but most new builds lean PBI for velocity and cost.",
+      "a": "They share the same tabular engine roots, but Power BI datasets integrate more tightly with the Service, deployment pipelines, and security labels. Azure Analysis Services can be the right choice for specific enterprise patterns or when you need more control. But for most new builds, I'd lean toward Power BI datasets for the velocity and cost advantages they offer.",
       "category": "Platform",
       "difficulty": "Advanced",
       "keywords": [
@@ -603,7 +603,7 @@
       "id": "Q043",
       "q": "Design an enterprise-grade Power BI environment for ~1,000 users with security layers.",
       "type": "tech",
-      "a": "Shared semantic datasets, thin reports, Dev/Test/Prod workspaces with pipelines, AAD group-based access, dynamic RLS for row filtering, sensitivity labels, and capacity monitoring. Gateways for on-prem, dataflows for shared prep.",
+      "a": "I'd build it around shared semantic datasets with thin reports on top. Set up separate Dev/Test/Prod workspaces connected by deployment pipelines. Use Azure AD groups for access control, implement dynamic Row-Level Security for data filtering, apply sensitivity labels for compliance, and monitor capacity health. Add gateways for on-premises connections and dataflows for shared data preparation logic.",
       "category": "Architecture",
       "difficulty": "Advanced",
       "keywords": [
@@ -758,7 +758,7 @@
       "id": "Q054",
       "q": "Gateway reliability tips?",
       "type": "tech",
-      "a": "Use a gateway cluster, stagger heavy refreshes, watch CPU/memory and query duration, and keep drivers consistent across nodes. Alert on failures with context.",
+      "a": "I recommend using a gateway cluster for redundancy. Stagger heavy refreshes to avoid overwhelming the gateway. Monitor CPU, memory, and query duration closely, and keep drivers consistent across all cluster nodes. Set up alerts for failures that include enough context to troubleshoot quickly.",
       "category": "Platform",
       "difficulty": "Advanced",
       "keywords": [
@@ -800,7 +800,7 @@
       "id": "Q057",
       "q": "How do you prevent measure sprawl?",
       "type": "tech",
-      "a": "Use measure groups (display folders), consistent naming, and base measures that complex ones build on. Document with a quick \u2018measure dictionary\u2019 page.",
+      "a": "I use display folders to organize measures into logical groups, follow consistent naming conventions, and create base measures that more complex measures build upon. I also document everything with a quick 'measure dictionary' page that explains what each measure does and how to use it.",
       "category": "Governance",
       "difficulty": "Intermediate",
       "keywords": [
@@ -942,7 +942,7 @@
       "id": "Q068",
       "q": "How do you introduce self-service safely?",
       "type": "tech",
-      "a": "Curated shared datasets + templates + a light certification program. Analysts build confidently without forking truth.",
+      "a": "I provide curated shared datasets, report templates, and a lightweight certification program. This way analysts can build reports confidently without creating their own versions of truth. It enables self-service while maintaining governance and consistency.",
       "category": "Governance",
       "difficulty": "Advanced",
       "keywords": [
@@ -998,7 +998,7 @@
       "id": "Q072",
       "q": "How do you reduce model size?",
       "type": "tech",
-      "a": "Remove unused columns, use whole-number/boolean encodings, split high-cardinality text, and push heavy calcs upstream. Small models are fast models.",
+      "a": "I start by removing any unused columns from the model. Then I use efficient encodings like integers instead of text, and booleans where appropriate. For high-cardinality text columns, I'll split them or normalize them. I also push heavy calculations upstream to the source when possible. The principle is simple: smaller models are faster models.",
       "category": "Performance",
       "difficulty": "Intermediate",
       "keywords": [
@@ -1208,7 +1208,7 @@
       "id": "Q087",
       "q": "How would you use deployment pipelines well?",
       "type": "tech",
-      "a": "Treat Dev as collaborative, Test as stable with UAT scripts, and Prod as locked. Automate promotion with checks for RLS, parameters, and refresh settings.",
+      "a": "I treat Development as the collaborative space where we experiment. Test should be stable with user acceptance testing scripts in place. Production is locked down tight. I automate the promotion process between environments with validation checks for Row-Level Security, parameters, and refresh settings to catch issues before they reach production.",
       "category": "Platform",
       "difficulty": "Intermediate",
       "keywords": [
@@ -1222,7 +1222,7 @@
       "id": "Q088",
       "q": "Handling time intelligence across fiscal calendars?",
       "type": "tech",
-      "a": "A robust date table with fiscal columns and inactive relationships for special scenarios. Use USERELATIONSHIP in measures to flip context when needed.",
+      "a": "I create a robust date table that includes both calendar and fiscal columns. For scenarios where you need multiple date relationships, I use inactive relationships and activate them explicitly in measures with USERELATIONSHIP. This keeps the model clean while supporting both fiscal and calendar time intelligence calculations.",
       "category": "DAX",
       "difficulty": "Advanced",
       "keywords": [
@@ -1278,7 +1278,7 @@
       "id": "Q092",
       "q": "What\u2019s your personal performance checklist?",
       "type": "tech",
-      "a": "Model size, visual count, DAX iterators, folding status, refresh strategy, gateway health, and aggregations. I run Performance Analyzer before release.",
+      "a": "I check several key areas: model size, number of visuals per page, use of DAX iterators, query folding status, refresh strategy, gateway health, and whether aggregations are being used effectively. Before any release, I run Performance Analyzer to identify bottlenecks and validate that everything performs well under realistic loads.",
       "category": "Performance",
       "difficulty": "Intermediate",
       "keywords": [
@@ -1418,7 +1418,7 @@
       "id": "Q102",
       "q": "System design: disaster recovery for BI.",
       "type": "tech",
-      "a": "Source backups, scripted dataset re-deploys, reproducible dataflows, and documented RLS rules. We test a small DR drill quarterly.",
+      "a": "I'd establish source data backups, maintain scripts for dataset re-deployment, ensure dataflows are reproducible, and keep Row-Level Security rules well-documented. The key is testing\u2014I recommend running a small disaster recovery drill quarterly to verify everything actually works when you need it.",
       "category": "Architecture",
       "difficulty": "Advanced",
       "keywords": [
@@ -1474,7 +1474,7 @@
       "id": "Q106",
       "q": "When would you use calculation groups?",
       "type": "tech",
-      "a": "To standardize time intelligence or formatting across many measures\u2014one place, many reuses. I keep them small and well-documented.",
+      "a": "Calculation groups are perfect for standardizing time intelligence or formatting across many measures\u2014you define the logic once and reuse it everywhere. I use them when I need consistent year-over-year, month-over-month, or other time calculations across dozens of measures. I keep them small, focused, and very well-documented since they can be complex for other developers to understand.",
       "category": "DAX",
       "difficulty": "Advanced",
       "keywords": [
@@ -1585,7 +1585,7 @@
       "id": "Q114",
       "q": "How do you keep slicers from killing performance?",
       "type": "tech",
-      "a": "Use slicers on low-cardinality dims, replace with buttons/bookmarks for common views, and pre-aggregate when possible. Less interactive chrome, more answers.",
+      "a": "I use slicers only on low-cardinality dimensions like region or category. For common filter combinations, I'll replace slicers with buttons or bookmarks instead. When possible, I pre-aggregate data at the grain users actually need. The goal is less interactive chrome and more direct answers.",
       "category": "Performance",
       "difficulty": "Intermediate",
       "keywords": [
